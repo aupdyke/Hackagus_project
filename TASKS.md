@@ -34,8 +34,8 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 |---|---|---|---|---|---|
 | - [x] | ⭐ [B-01](tasks/B-01.md) | Staff data hooks + money/cost/risk components | L1 | 45m | — |
 | - [x] | ⭐ [B-02](tasks/B-02.md) | Trips list + 7-step stepper | L1 | 60m | B-01 |
-| - [ ] | ⭐ [B-03](tasks/B-03.md) | Step 1 Request: form mode | L1 | 75m | B-02 |
-| - [ ] | ⭐ [B-04](tasks/B-04.md) | Step 1 Request: free text → parse → human review | L1 | 75m | B-03 |
+| - [x] | ⭐ [B-03](tasks/B-03.md) | Step 1 Request: form mode | L1 | 75m | B-02 |
+| - [x] | ⭐ [B-04](tasks/B-04.md) | Step 1 Request: free text → parse → human review | L1 | 75m | B-03 |
 | - [ ] | ⭐ [B-05](tasks/B-05.md) | Step 2 Packages: side-by-side cards | L1 | 75m | B-02 |
 | - [ ] | ⭐ [B-06](tasks/B-06.md) | AI recommendation badge + tradeoffs | L1 | 45m | B-05 |
 | - [ ] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
