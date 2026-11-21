@@ -58,8 +58,8 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [ ] | ⭐ [C-04](tasks/C-04.md) | 🔀 **CHECKPOINT 1**: L1 end to end on a phone | L1 | 60m | A-01…A-06, B-01…B-07, C-01…C-03 |
 | - [x] | ⭐ [C-05](tasks/C-05.md) | My Trip screen | EXT | 90m | C-01 (A-13) |
 | - [x] | ⭐ [C-06](tasks/C-06.md) | Assistant chat + citation chips | EXT | 75m | C-05 (A-14) |
-| - [ ] | ⭐ [C-07](tasks/C-07.md) | Inbox (before → after) | EXT | 45m | C-01 (A-13) |
-| - [ ] | [C-08](tasks/C-08.md) | Polling + badge + local notifications | EXT | 60m | C-07 |
+| - [x] | ⭐ [C-07](tasks/C-07.md) | Inbox (before → after) | EXT | 45m | C-01 (A-13) |
+| - [x] | [C-08](tasks/C-08.md) | Polling + badge + local notifications | EXT | 60m | C-07 |
 | - [ ] | [C-09](tasks/C-09.md) | Roommate requests (≤2, deadline) | EXT | 60m | C-01 (A-10) |
 | - [x] | ⭐ [C-10](tasks/C-10.md) | Athlete packet PDF + share link | EXT | 45m | C-05, A-11 |
 | - [ ] | ⭐ [C-11](tasks/C-11.md) | 🔀 **CHECKPOINT 2**: L2 complete + TestFlight #2 | L2 | 60m | C-04, A-07, A-08, B-08, B-09 |
