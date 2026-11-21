@@ -16,6 +16,7 @@ export default function StaffTabs() {
       <Tabs.Screen name="trips" options={{ title: 'Trips', headerShown: false, tabBarIcon: tabIcon('bus') }} />
       <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarIcon: tabIcon('options') }} />
       <Tabs.Screen name="ai" options={{ title: 'AI', tabBarIcon: tabIcon('sparkles') }} />
+      <Tabs.Screen name="savings" options={{ href: null, title: 'Get back under budget' }} />
     </Tabs>
   );
 }
