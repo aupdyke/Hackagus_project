@@ -64,8 +64,8 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [C-10](tasks/C-10.md) | Athlete packet PDF + share link | EXT | 45m | C-05, A-11 |
 | - [ ] | ⭐ [C-11](tasks/C-11.md) | 🔀 **CHECKPOINT 2**: L2 complete + TestFlight #2 | L2 | 60m | C-04, A-07, A-08, B-08, B-09 |
 | - [x] | [C-12](tasks/C-12.md) | Polish & accessibility | EXT | 60m | C-05…C-10 |
-| - [ ] | ⭐ [C-13](tasks/C-13.md) | Final README | EXT | 45m | most features |
-| - [ ] | ⭐ [C-14](tasks/C-14.md) | docs/DEMO.md + rehearsal kit | EXT | 45m | critical path |
+| - [x] | ⭐ [C-13](tasks/C-13.md) | Final README | EXT | 45m | most features |
+| - [x] | ⭐ [C-14](tasks/C-14.md) | docs/DEMO.md + rehearsal kit | EXT | 45m | critical path |
 | - [ ] | ⭐ [C-15](tasks/C-15.md) | 🔀 **CHECKPOINT 3**: merged, accuracy run, rehearsed, submitted | EXT | 60–90m | everything |
 
 ## Start here (right now)
