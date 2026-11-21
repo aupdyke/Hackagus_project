@@ -3,7 +3,7 @@ import { loadDataPack, planningData } from '../testing/loadData';
 import { Recommendation, type TravelPackage, type TripRequest } from '../domain';
 import * as fx from '../fixtures';
 import { factGuard } from './factGuard';
-import { memoFacts, rankPackages, recommendFacts, templateRecommendation } from './facts';
+import { memoFacts, rankPackages, recommendFacts, savingsFacts, templateRecommendation } from './facts';
 import { buildPackages } from './packages';
 import { formatDayTime } from './time';
 
@@ -126,5 +126,18 @@ describe('memoFacts', () => {
     const f = facts as { kickoff: string; itinerary: { time: string; what: string }[] };
     const memo = [`Kickoff ${f.kickoff}.`, ...f.itinerary.map((i) => `- ${i.time}: ${i.what}`)].join('\n');
     expect(factGuard(memo, allowed).issues).toEqual([]);
+  });
+});
+
+describe('savingsFacts', () => {
+  it('facts carry budget, projected, over_by and candidates; allowed covers every money value and id', () => {
+    const c = fx.FIXTURE_SAVINGS.candidates;
+    const { facts, allowed } = savingsFacts(c, { budget: 168000, projected: 176240.78 }, { 'TRIP-G12': 'Buffalo', 'TRIP-G10': 'Ohio' });
+    expect(facts).toMatchObject({ budget: 168000, projected: 176240.78, over_by: 8240.78 });
+    expect((facts as { candidates: { id: string; trip: string }[] }).candidates[0]).toMatchObject({ id: 'SAV-1', trip: 'Buffalo' });
+    expect(allowed.money).toEqual(expect.arrayContaining([168000, 176240.78, 8240.78, ...c.map((x) => x.savings)]));
+    expect(allowed.ids).toEqual(c.map((x) => x.candidate_id));
+    expect(factGuard('SAV-1 saves about $9,850 and closes most of the $8,241 gap.', allowed).passed).toBe(true);
+    expect(factGuard('SAV-4 saves $1.', allowed).passed).toBe(false);
   });
 });

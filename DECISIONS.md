@@ -269,3 +269,20 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   sorted by trip, then kind.
 - **`applySavings`:** one switch_package per trip (the largest). Other savings are additive, an approximation (stacking 5
   fewer players on a switch saves a bit less than listed). Unknown ids throw.
+
+## D-29 AI savings selection and apply (A-16)
+- **`savingsFacts` signature:** it takes `(candidates, { budget, projected }, opponents)` instead of
+  `(candidates, overBy)`, because the FACTS need the budget and projected values. A Track A-internal change.
+- **One package change per trip:** `switch_package` and `cheaper_hotel` both change which package a trip uses, so at most
+  one of them per trip is kept (the larger saving, since candidates are sorted). `reduce_travelers` stacks with either.
+  The same rule drives the AI-pick check and the greedy template.
+- **Explanation replaced when ids are dropped:** if code drops any of the AI's ids (unknown, or a second package change
+  for a trip), the AI's explanation is replaced with the code template (`replaced: true`). The prose described a
+  different selection than the one applied. A clean answer is used as-is.
+- **Unusable AI picks:** no valid ids after checking → greedy template selection (`source: 'template'`, `replaced: true`).
+  The retry also happens when the fact guard fails, and the retry's selection is used if it has valid ids.
+- **Template explanation:** written by code with code numbers (savings, projection, budget) and the candidate
+  descriptions. It also says when the selection is still over budget.
+- **Apply:** recomputes candidates *now* (stale ids → 400, nothing changes). Per trip it applies reduce_travelers, then
+  cheaper_hotel, then switch_package, keeping the current tier selected after each rebuild. Changed approved trips go
+  back to draft, and their recommendation is cleared.

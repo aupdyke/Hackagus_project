@@ -2,9 +2,8 @@
  * Compact FACTS builders for prompts + matching AllowedFacts for the fact guard — task A-05 (recommend), A-08 (memo),
  * A-16 (savings). Keep these small: counts and per-option numbers only, never the roster.
  */
-import type { Game, Hotel, Recommendation, SavingsCandidate, TravelPackage, TripRequest } from '../domain';
+import type { Game, Hotel, Recommendation, SavingsCandidate, SeasonRollup, TravelPackage, TripRequest } from '../domain';
 import { emptyFacts, factsFromPackages, factsFromText, mergeFacts, type AllowedFacts } from './factGuard';
-import { NotImplementedError } from '../errors';
 import { formatUSD, round2 } from './money';
 import { formatDayTime } from './time';
 
@@ -160,8 +159,22 @@ export function memoFacts(game: Game, _req: TripRequest, pkg: TravelPackage): { 
   return { facts, allowed: mergeFacts(factsFromPackages([pkg]), extra, factsFromText(pkg.risk_flags.map((f) => f.message).join('\n'))) };
 }
 
-// ---------- A-16 (not yet implemented) ----------
+// ---------- A-16 savings ----------
 
-export function savingsFacts(_candidates: SavingsCandidate[], _overBy: number): { facts: unknown; allowed: AllowedFacts } {
-  throw new NotImplementedError('A-16');
+/**
+ * Compact FACTS for the savings pick + allowed facts (every money value and candidate id). The prompt forbids dollar
+ * amounts anyway; allowing these keeps an honest "SAV-1 saves the most" style explanation from being flagged.
+ */
+export function savingsFacts(candidates: SavingsCandidate[], season: Pick<SeasonRollup, 'budget' | 'projected'>, opponents: Record<string, string> = {}): { facts: unknown; allowed: AllowedFacts } {
+  const over_by = round2(season.projected - season.budget);
+  const facts = {
+    budget: season.budget,
+    projected: season.projected,
+    over_by,
+    candidates: candidates.map((c) => ({ id: c.candidate_id, trip: opponents[c.trip_id] ?? c.trip_id, kind: c.kind, description: c.description, savings: c.savings })),
+  };
+  const allowed = emptyFacts();
+  allowed.money = [season.budget, season.projected, over_by, ...candidates.map((c) => c.savings)];
+  allowed.ids = candidates.map((c) => c.candidate_id);
+  return { facts, allowed: mergeFacts(allowed) };
 }
