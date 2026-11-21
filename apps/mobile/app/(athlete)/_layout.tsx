@@ -1,5 +1,6 @@
 import { tabIcon } from '../../components/TabIcon';
 import { Tabs } from 'expo-router';
+import { SwitchRoleButton } from '../../components/athlete/SwitchRoleButton';
 import { colors } from '../../lib/theme';
 
 // TODO(C-08): inbox badge (tabBarBadge) from unread notification count, polling every 45s + on foreground.
@@ -9,6 +10,8 @@ export default function AthleteTabs() {
       screenOptions={{
         headerStyle: { backgroundColor: colors.brown },
         headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '700' },
+        headerRight: () => <SwitchRoleButton />,
         tabBarActiveTintColor: colors.orange,
         tabBarLabelStyle: { fontSize: 13, fontWeight: '600' },
       }}

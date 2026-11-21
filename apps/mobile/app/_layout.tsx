@@ -20,7 +20,7 @@ export default function RootLayout() {
         <RoleProvider>
           <StatusBar style="light" />
           <Stack screenOptions={{ headerStyle: { backgroundColor: colors.brown }, headerTintColor: '#fff', headerTitleStyle: { fontWeight: '700' } }}>
-            <Stack.Screen name="index" options={{ title: 'Falcon Travel' }} />
+            <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(staff)" options={{ headerShown: false }} />
             <Stack.Screen name="(athlete)" options={{ headerShown: false }} />
             <Stack.Screen name="dev/stream" options={{ title: 'Streaming test' }} />

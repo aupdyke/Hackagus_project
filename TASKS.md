@@ -52,7 +52,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 ## Track C: Athlete app + publishing + ship (`track-c`)
 | ✓ | ID | Task | Lvl | Est | Depends on |
 |---|---|---|---|---|---|
-| - [ ] | ⭐ [C-01](tasks/C-01.md) | Role switch + athlete picker | L1 | 45m | — |
+| - [x] | ⭐ [C-01](tasks/C-01.md) | Role switch + athlete picker | L1 | 45m | — |
 | - [ ] | ⭐ [C-02](tasks/C-02.md) | EAS + expo-updates + **first TestFlight build** | L1 | 60m | — |
 | - [ ] | ⭐ [C-03](tasks/C-03.md) | Deploy backend (Render) + tunnel fallback | L1 | 45m | — |
 | - [ ] | ⭐ [C-04](tasks/C-04.md) | 🔀 **CHECKPOINT 1**: L1 end to end on a phone | L1 | 60m | A-01…A-06, B-01…B-07, C-01…C-03 |
