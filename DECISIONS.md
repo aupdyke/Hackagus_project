@@ -53,3 +53,8 @@ parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is
 ## D-13 Two extra routes beyond the spec list
 `POST /season/savings/apply` (applies chosen savings candidates; code does the switching and recompute) and
 `POST /dev/reset` (re-seed for demo rehearsals).
+
+## D-14 Cost engine edge cases (A-01)
+`buses = max(1, ceil(travelers / seats))`: a trip always books at least one bus. Rounding happens once per output: unrounded
+math inside each primitive, then `round2`. `computeTotals` sums the already-rounded parts, so the parts on screen add up to the
+subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to ≥ 0, and never mutates its input arrays.

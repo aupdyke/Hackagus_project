@@ -10,7 +10,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 ## Track A: Engine & AI (`track-a`)
 | ✓ | ID | Task | Lvl | Est | Depends on |
 |---|---|---|---|---|---|
-| - [ ] | ⭐ [A-01](tasks/A-01.md) | Cost engine primitives + traveler selection | L1 | 60m | — |
+| - [x] | ⭐ [A-01](tasks/A-01.md) | Cost engine primitives + traveler selection | L1 | 60m | — |
 | - [ ] | ⭐ [A-02](tasks/A-02.md) | Departure planning + itinerary builder | L1 | 90m | — |
 | - [ ] | ⭐ [A-03](tasks/A-03.md) | Meal plan + package builder (A/B/C) | L1 | 90m | A-01, A-02 |
 | - [ ] | ⭐ [A-04](tasks/A-04.md) | Fact guard | L1 | 75m | — |
