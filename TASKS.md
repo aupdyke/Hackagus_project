@@ -44,7 +44,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
 | - [x] | ⭐ [B-11](tasks/B-11.md) | Step 6 Approve & Publish + packet PDF/share | L3/EXT | 60m | B-02 |
 | - [x] | [B-12](tasks/B-12.md) | Step 7 Actuals + budget vs actual | L3 | 60m | B-02 |
-| - [ ] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
+| - [x] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
 | - [ ] | ⭐ [B-14](tasks/B-14.md) | Get back under budget (savings) | EXT | 60m | B-13 |
 | - [ ] | ⭐ [B-15](tasks/B-15.md) | AI Usage & Accuracy screen | EXT | 45m | B-01 |
 | - [ ] | [B-16](tasks/B-16.md) | Staff polish + AI-down audit | EXT | 45m | B-03…B-15 |
