@@ -59,7 +59,7 @@ export default function Season() {
       {s.over_budget && (
         <Button
           title="Get back under budget"
-          onPress={() => router.push('/(staff)/savings')}
+          onPress={() => router.push('/savings')}
           accessibilityHint="Finds savings across upcoming trips"
         />
       )}
