@@ -58,3 +58,19 @@ parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is
 `buses = max(1, ceil(travelers / seats))`: a trip always books at least one bus. Rounding happens once per output: unrounded
 math inside each primitive, then `round2`. `computeTotals` sums the already-rounded parts, so the parts on screen add up to the
 subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to ≥ 0, and never mutates its input arrays.
+
+## D-15 Itinerary rules not pinned down by the spec (A-02)
+- **En-route stop** starts at `ceil5(drive/2)` after departure, which keeps times on a 5-minute grid. A rest stop's location is
+  the route-stop city, or "En route" when there is none.
+- **Same-day departure** also subtracts the en-route stop minutes, so the arrival lands exactly `min_hours_arrival_before_kickoff`
+  before kickoff. Same-day arrive_stadium is the real arrival time (it includes the buffer).
+- **Walkthrough** starts 30 min after check-in ends.
+- **Team dinner** starts at the latest of 18:30, check-in end + 30, and walkthrough end + 30, so it never overlaps the
+  walkthrough. It is skipped when it would start after 21:00 (A-09 flags the late arrival).
+- **Position meetings** (20:00) need both dinner and check-in finished. Otherwise they're skipped, per the spec.
+- **Arrivals on game day:** the evening block (walkthrough, dinner, meetings, curfew) only happens when the team arrives
+  before game day. Game-day items that would start before check-in ends are dropped.
+- **Return leg** has no stop: drive + buffer only.
+- **`homeCity`** is passed as "Bowling Green, OH" and becomes "BGSU Football Complex, Bowling Green, OH".
+- **Meal kinds** for A-03 come from `mealKindOf(item)`, which reads fixed labels (`MEAL_LABELS`); depart_return carries the
+  boxed meal.
