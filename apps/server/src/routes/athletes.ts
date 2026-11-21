@@ -3,8 +3,9 @@
  * their own slice. NOT authentication (see README): the role switch is a demo picker.
  */
 import { Router } from 'express';
-import { diffAthleteViews, fixtures, selectTravelingPlayers, NotImplementedError, type Trip } from '@falcon/shared';
-import { badRequest, conflict, isStub, notFound, selfOnly } from '../http';
+import { fixtures, selectTravelingPlayers, NotImplementedError, type Trip } from '@falcon/shared';
+import { badRequest, conflict, notFound, selfOnly } from '../http';
+import { myPublishedView } from '../features/publish';
 import { pack, playerById, playerName } from '../data';
 import { repo } from '../repo';
 import { on } from './_define';
@@ -35,16 +36,15 @@ on(athletesRouter, 'listAthletes', () =>
   pack.roster.map(({ id, first_name, last_name, jersey, position, position_group, class_year }) => ({ id, first_name, last_name, jersey, position, position_group, class_year })),
 );
 
-// TODO(A-13): real AthleteTripView from the latest published version (buildAthleteView).
-on(athletesRouter, 'myTrip', ({ params, res }) => {
+/** A-13: the athlete's slice of their published trip (from the published snapshot) + open roommate requests. */
+on(athletesRouter, 'myTrip', ({ params }) => {
   const p = requireAthlete(params.id!);
   const open = repo.trips.list()
     .filter((t) => (t.status === 'draft' || t.status === 'approved') && t.roommate_deadline_local && travelRosterIds(t).includes(p.id))
     .map((t) => ({ trip_id: t.trip_id, opponent: requireGame(t.game_id).opponent, deadline_local: t.roommate_deadline_local }));
-  res.setHeader('X-Fixture', 'A-13');
   return {
     athlete: { id: p.id, name: `${p.first_name} ${p.last_name}`, jersey: p.jersey, position: p.position },
-    trip: { ...fixtures.FIXTURE_ATHLETE_VIEW, athlete_id: p.id },
+    trip: myPublishedView(p.id),
     open_roommate_requests: open,
   };
 });
@@ -87,14 +87,9 @@ on(athletesRouter, 'assistant', ({ params, res }) => {
   return fixtures.FIXTURE_ASSISTANT;
 });
 
-on(athletesRouter, 'notifications', ({ params, res }) => {
+on(athletesRouter, 'notifications', ({ params }) => {
   requireAthlete(params.id!);
-  const stored = repo.notifications.listFor(params.id!);
-  if (!stored.length && isStubDiff()) {
-    res.setHeader('X-Fixture', 'A-13');
-    return fixtures.FIXTURE_NOTIFICATIONS.map((n) => ({ ...n, athlete_id: params.id! }));
-  }
-  return stored;
+  return repo.notifications.listFor(params.id!);
 });
 
 on(athletesRouter, 'markNotificationsRead', ({ params, body }) => {
@@ -102,8 +97,3 @@ on(athletesRouter, 'markNotificationsRead', ({ params, body }) => {
   repo.notifications.markRead(params.id!, body.ids);
   return { ok: true as const };
 });
-
-/** While A-13 is unimplemented, the inbox shows fixture notifications so Track C can build the UI. */
-function isStubDiff() {
-  return isStub(() => diffAthleteViews(null, fixtures.FIXTURE_ATHLETE_VIEW));
-}

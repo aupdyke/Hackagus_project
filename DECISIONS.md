@@ -204,3 +204,22 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
   selected. The routes turn a missing selection into a 409 before calling it.
 - **POST /actuals:** the entry is validated (no negative numbers; trip published or completed) *before* anything is
   saved. A completed trip can be corrected by posting again; the newest entry replaces the old one.
+
+## D-26 Publish versions and athlete notifications (A-13)
+- **Stale rooming:** publish regenerates rooming when it is missing *or stale*: the traveling roster or staff no longer
+  matches the request, or the bus count no longer matches the package. Otherwise staff swaps are kept. Without this, a
+  what-if "leave 3 players home" would publish a manifest with athletes who aren't going.
+- **Itinerary matching:** itinerary items are matched across versions by `kind + label` + occurrence, because ids shift.
+  A departure change usually cascades (lunch, arrival, check-inâ€¦). Every shifted item is listed, with the departure
+  first, because each of those times changed for the athlete.
+- **Meal changes:** a `meal` change is reported only for a vendor change. A meal's time change is already reported by its
+  itinerary item, so it isn't listed twice.
+- **`describeChanges` signature:** it takes an optional `view` so the first-publish body can summarise departure, bus,
+  room and hotel. The title gets "(+N more)" when there are several changes.
+- **`buildAthleteView` hotel:** it accepts `hotel: Hotel | null` (same-day trips); a null hotel gives empty strings.
+- **Roster drops:** athletes dropped from the roster get a notification with a `removed` change (`item_id: 'roster'`).
+  Re-publishing with no athlete-visible change sends nothing.
+- **my-trip:** it reads the published *snapshot* (`repo.versions`), not the live trip, so staff edits stay invisible until
+  they are re-published. It picks the earliest upcoming published or completed trip, else the most recent one.
+- **Code moves:** `shareUrl` and the rooming generator moved to `features/publish.ts`; `routes/tripsPublish.ts` re-exports
+  `shareUrl`. Fixture fallbacks for my-trip and notifications are gone.

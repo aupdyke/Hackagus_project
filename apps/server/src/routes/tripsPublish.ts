@@ -1,12 +1,11 @@
 /** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11, own router), actuals (A-12). */
-import { randomBytes } from 'node:crypto';
 import { Router } from 'express';
-import { ACTUAL_CATEGORIES, assignBuses, assignRooms, budgetVsActual, requestStats, selectTravelingPlayers, selectTravelingStaff, validateRooming, type Room } from '@falcon/shared';
-import { env } from '../env';
+import { ACTUAL_CATEGORIES, budgetVsActual, requestStats, validateRooming, type Room } from '@falcon/shared';
 import { HttpError, badRequest, conflict, notFound, roleOf, staffOnly } from '../http';
 import { renderPacketHtml } from '../features/packet';
+import { publishTrip, shareUrl, withRooming } from '../features/publish';
 import { travelRosterIds } from './athletes';
-import { pack, staffById } from '../data';
+import { staffById } from '../data';
 import { repo } from '../repo';
 import { on } from './_define';
 import { requireGame, requireTrip, selectedPackage } from './helpers';
@@ -39,29 +38,14 @@ on(packetRouter, 'getPacket', ({ params, query, req }) => {
   };
 });
 
-export const shareUrl = (tripId: string, token: string) => `${env.PUBLIC_BASE_URL}/share/${tripId}/${token}`;
+export { shareUrl };
 
 on(tripsPublishRouter, 'getRooming', ({ params }) => requireTrip(params.id!).rooming);
 
 /** A-10: rooming from roommate requests (code), bus manifest, traveling roster. */
 on(tripsPublishRouter, 'generateRooming', ({ params }) => {
-  const trip = requireTrip(params.id!);
-  if (!trip.request) throw conflict('Submit a trip request first');
-  const pkg = selectedPackage(trip);
-  if (!pkg) throw conflict('Select a package before generating rooming');
-  const players = selectTravelingPlayers(pack.roster, trip.request.players);
-  const staff = selectTravelingStaff(pack.staff, trip.request.coaches, trip.request.support_staff);
-  const rooming = assignRooms({
-    tripId: trip.trip_id, players, staff, requests: repo.roommateRequests.listForTrip(trip.trip_id),
-    settings: repo.settings.get(), driverRooms: pkg.counts.rooms_drivers, now: new Date().toISOString(),
-  });
-  const buses = assignBuses(players, staff, pkg.counts.buses, pkg.counts.seats_per_bus);
-  repo.trips.save({
-    ...trip, rooming, buses,
-    traveling_player_ids: players.map((p) => p.id),
-    traveling_staff_ids: staff.map((s) => s.id),
-  });
-  return rooming;
+  const trip = repo.trips.save(withRooming(requireTrip(params.id!)));
+  return trip.rooming!;
 });
 
 /** Staff edits (swaps): validated by code; honored-request count recomputed. */
@@ -83,19 +67,10 @@ on(tripsPublishRouter, 'updateRooming', ({ params, body }) => {
   return rooming;
 });
 
-// TODO(A-13): traveling roster + buses, version snapshot diff → per-athlete notifications.
+/** A-13: new version snapshot + per-athlete change notifications (code-generated). Generates rooming if missing/stale. */
 on(tripsPublishRouter, 'publishTrip', ({ params }) => {
-  const trip = requireTrip(params.id!);
-  if (trip.status !== 'approved' && trip.status !== 'published') throw conflict('Approve the trip before publishing');
-  const published = {
-    ...trip,
-    status: 'published' as const,
-    published_version: trip.published_version + 1,
-    published_at: new Date().toISOString(),
-    share_token: trip.share_token || randomBytes(18).toString('base64url'),
-  };
-  repo.versions.save(published);
-  return { trip: repo.trips.save(published), game: requireGame(trip.game_id) };
+  const { trip } = publishTrip(requireTrip(params.id!));
+  return { trip, game: requireGame(trip.game_id) };
 });
 
 /** A-12: hand-entered actuals after the trip → budget vs actual (planned from the selected package). */
