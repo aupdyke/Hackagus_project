@@ -74,3 +74,16 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **`homeCity`** is passed as "Bowling Green, OH" and becomes "BGSU Football Complex, Bowling Green, OH".
 - **Meal kinds** for A-03 come from `mealKindOf(item)`, which reads fixed labels (`MEAL_LABELS`); depart_return carries the
   boxed meal.
+
+## D-16 Package builder choices (A-03)
+- **Balanced hotel value:** `VALUE_PER_MILE = $8`. Score = `nightly_rate × (1+tax) + 8 × miles_to_stadium`; lowest wins.
+  For G10 this picks H-ATH-2 over the cheap-but-far H-ATH-1. (The stub's doc comment had a different formula; the task file's
+  formula wins.)
+- **Tie-breaks:** every pick (hotel, restaurant) breaks ties by id, so output is deterministic.
+- **All city hotels excluded:** the package is `feasible: false` ("No hotel available in <city> (all excluded)"), with
+  `hotel_id: ''` and hotel cost 0. Ignoring the exclusion would surprise staff.
+- **No restaurant in the data for a meal:** the line is budgeted at `meal_allowance_per_meal` with vendor
+  "Meal allowance (no vendor listed)". This doesn't happen with the current data pack.
+- **En-route meals** use route-stop restaurants and never the hotel. The boxed post-game meal is a city restaurant; its
+  itinerary item (depart_return) keeps the stadium as its location.
+- **Same-day packages:** no same-day Economy option is offered (the task file's tier table always departs the day before).

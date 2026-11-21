@@ -162,7 +162,11 @@ export function mealKindOf(item: Pick<ItineraryItem, 'kind' | 'label' | 'meal_id
   return MEAL_LABELS[item.label] ?? null;
 }
 
-type Draft = { kind: ItineraryKind; label: string; start: string; end: string; location: string; meal: boolean };
+/** Meals eaten at the mid-drive stop (vendor comes from the route-stop city). */
+export const isEnRouteMeal = (item: Pick<ItineraryItem, 'kind' | 'label'>) =>
+  item.kind === 'meal' && (item.label === 'En-route lunch' || item.label === 'Team dinner (en route)');
+
+type Draft ={ kind: ItineraryKind; label: string; start: string; end: string; location: string; meal: boolean };
 
 export function buildItinerary({ game, settings, plan, hotel, homeCity }: ItineraryInput): ItineraryItem[] {
   const home = homeCity ? `${HOME_LOCATION_PREFIX}, ${homeCity}` : HOME_LOCATION_PREFIX;
