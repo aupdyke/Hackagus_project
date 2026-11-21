@@ -46,7 +46,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | [B-12](tasks/B-12.md) | Step 7 Actuals + budget vs actual | L3 | 60m | B-02 |
 | - [x] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
 | - [x] | ⭐ [B-14](tasks/B-14.md) | Get back under budget (savings) | EXT | 60m | B-13 |
-| - [ ] | ⭐ [B-15](tasks/B-15.md) | AI Usage & Accuracy screen | EXT | 45m | B-01 |
+| - [x] | ⭐ [B-15](tasks/B-15.md) | AI Usage & Accuracy screen | EXT | 45m | B-01 |
 | - [ ] | [B-16](tasks/B-16.md) | Staff polish + AI-down audit | EXT | 45m | B-03…B-15 |
 
 ## Track C: Athlete app + publishing + ship (`track-c`)
@@ -108,3 +108,4 @@ B-16 / C-12 polish → A-18 (run the demo manually instead).
 
 ## Integration notes
 _(Add issues found during checkpoints here: `- [ ] <owner> <description>`.)_
+- [ ] B B-16: staff screens built with polish (keyboard avoidance, step hints, loading/empty/error states, Estimate labels) but the on-device walk-through with AI disabled is not done yet — B-16 stays unticked until then.

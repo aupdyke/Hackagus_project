@@ -53,3 +53,14 @@ parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is
 ## D-13 Two extra routes beyond the spec list
 `POST /season/savings/apply` (applies chosen savings candidates; code does the switching and recompute) and
 `POST /dev/reset` (re-seed for demo rehearsals).
+
+## D-14 Staff UI kit additions are additive
+Track B added generic primitives to `components/ui.tsx` (Caption, Row, Banner, SelectChip, Segmented, Field, NumberStepper,
+ToggleRow) and optional props only (`Screen` refreshing/onRefresh/keyboard/footer, `Empty` action). Existing call sites are unchanged.
+
+## D-15 Combined commits where step files depend on each other
+B-03/B-04 share `RequestStep.tsx` and B-05/B-06 share `PackagesStep.tsx`, so each pair landed in one commit. Step components
+are one file each (`components/staff/steps/*`), so later tasks don't conflict.
+
+## D-16 RN 0.88 ScrollView refs
+`ScrollView` is a function component in RN 0.88; refs are typed `useRef<ScrollViewInstance>(null)` (exported by react-native).
