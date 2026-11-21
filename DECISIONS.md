@@ -320,3 +320,14 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
   | Step 10, after SAV-1 | $167,706.97 (about $2,300 under) |
 
   D-28's 4.9% / $168,000 figures are superseded.
+
+## D-32 Staff UI kit additions are additive
+Track B added generic primitives to `components/ui.tsx` (Caption, Row, Banner, SelectChip, Segmented, Field, NumberStepper,
+ToggleRow) and optional props only (`Screen` refreshing/onRefresh/keyboard/footer, `Empty` action). Existing call sites are unchanged.
+
+## D-33 Combined commits where step files depend on each other
+B-03/B-04 share `RequestStep.tsx` and B-05/B-06 share `PackagesStep.tsx`, so each pair landed in one commit. Step components
+are one file each (`components/staff/steps/*`), so later tasks don't conflict.
+
+## D-34 RN 0.88 ScrollView refs
+`ScrollView` is a function component in RN 0.88; refs are typed `useRef<ScrollViewInstance>(null)` (exported by react-native).

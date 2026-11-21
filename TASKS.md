@@ -32,21 +32,21 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 ## Track B: Staff app (`track-b`)
 | ✓ | ID | Task | Lvl | Est | Depends on |
 |---|---|---|---|---|---|
-| - [ ] | ⭐ [B-01](tasks/B-01.md) | Staff data hooks + money/cost/risk components | L1 | 45m | — |
-| - [ ] | ⭐ [B-02](tasks/B-02.md) | Trips list + 7-step stepper | L1 | 60m | B-01 |
-| - [ ] | ⭐ [B-03](tasks/B-03.md) | Step 1 Request: form mode | L1 | 75m | B-02 |
-| - [ ] | ⭐ [B-04](tasks/B-04.md) | Step 1 Request: free text → parse → human review | L1 | 75m | B-03 |
-| - [ ] | ⭐ [B-05](tasks/B-05.md) | Step 2 Packages: side-by-side cards | L1 | 75m | B-02 |
-| - [ ] | ⭐ [B-06](tasks/B-06.md) | AI recommendation badge + tradeoffs | L1 | 45m | B-05 |
-| - [ ] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
-| - [ ] | ⭐ [B-08](tasks/B-08.md) | Step 3 What-if chat + diff | L2 | 75m | B-05 |
-| - [ ] | ⭐ [B-09](tasks/B-09.md) | Step 4 Memo streaming | L2 | 60m | B-05 |
-| - [ ] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
-| - [ ] | ⭐ [B-11](tasks/B-11.md) | Step 6 Approve & Publish + packet PDF/share | L3/EXT | 60m | B-02 |
-| - [ ] | [B-12](tasks/B-12.md) | Step 7 Actuals + budget vs actual | L3 | 60m | B-02 |
-| - [ ] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
-| - [ ] | ⭐ [B-14](tasks/B-14.md) | Get back under budget (savings) | EXT | 60m | B-13 |
-| - [ ] | ⭐ [B-15](tasks/B-15.md) | AI Usage & Accuracy screen | EXT | 45m | B-01 |
+| - [x] | ⭐ [B-01](tasks/B-01.md) | Staff data hooks + money/cost/risk components | L1 | 45m | — |
+| - [x] | ⭐ [B-02](tasks/B-02.md) | Trips list + 7-step stepper | L1 | 60m | B-01 |
+| - [x] | ⭐ [B-03](tasks/B-03.md) | Step 1 Request: form mode | L1 | 75m | B-02 |
+| - [x] | ⭐ [B-04](tasks/B-04.md) | Step 1 Request: free text → parse → human review | L1 | 75m | B-03 |
+| - [x] | ⭐ [B-05](tasks/B-05.md) | Step 2 Packages: side-by-side cards | L1 | 75m | B-02 |
+| - [x] | ⭐ [B-06](tasks/B-06.md) | AI recommendation badge + tradeoffs | L1 | 45m | B-05 |
+| - [x] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
+| - [x] | ⭐ [B-08](tasks/B-08.md) | Step 3 What-if chat + diff | L2 | 75m | B-05 |
+| - [x] | ⭐ [B-09](tasks/B-09.md) | Step 4 Memo streaming | L2 | 60m | B-05 |
+| - [x] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
+| - [x] | ⭐ [B-11](tasks/B-11.md) | Step 6 Approve & Publish + packet PDF/share | L3/EXT | 60m | B-02 |
+| - [x] | [B-12](tasks/B-12.md) | Step 7 Actuals + budget vs actual | L3 | 60m | B-02 |
+| - [x] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
+| - [x] | ⭐ [B-14](tasks/B-14.md) | Get back under budget (savings) | EXT | 60m | B-13 |
+| - [x] | ⭐ [B-15](tasks/B-15.md) | AI Usage & Accuracy screen | EXT | 45m | B-01 |
 | - [ ] | [B-16](tasks/B-16.md) | Staff polish + AI-down audit | EXT | 45m | B-03…B-15 |
 
 ## Track C: Athlete app + publishing + ship (`track-c`)
@@ -111,3 +111,4 @@ _(Add issues found during checkpoints here: `- [ ] <owner> <description>`.)_
 - [ ] All tracks (A-15/A-18): `season_travel_budget` is now $170,000 and the season counts unplanned trips at an estimate.
   Existing local DBs keep old settings — run `POST /dev/reset` (or "Reset demo") before rehearsing. Demo step 10 relies
   on doing step 3 ("leave three players home") and the AI picking SAV-1 (Buffalo → Economy); see DECISIONS D-31.
+- [ ] B B-16: staff screens built with polish (keyboard avoidance, step hints, loading/empty/error states, Estimate labels) but the on-device walk-through with AI disabled is not done yet — B-16 stays unticked until then.
