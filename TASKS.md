@@ -14,7 +14,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [A-02](tasks/A-02.md) | Departure planning + itinerary builder | L1 | 90m | — |
 | - [x] | ⭐ [A-03](tasks/A-03.md) | Meal plan + package builder (A/B/C) | L1 | 90m | A-01, A-02 |
 | - [x] | ⭐ [A-04](tasks/A-04.md) | Fact guard | L1 | 75m | — |
-| - [ ] | ⭐ [A-05](tasks/A-05.md) | AI recommendation (structured, ID check, fact guard) | L1 | 75m | A-04 (A-03) |
+| - [x] | ⭐ [A-05](tasks/A-05.md) | AI recommendation (structured, ID check, fact guard) | L1 | 75m | A-04 (A-03) |
 | - [ ] | ⭐ [A-06](tasks/A-06.md) | Reliability: hardening, AI fallbacks, L1 server tests | L1 | 60m | A-03 |
 | - [ ] | ⭐ [A-07](tasks/A-07.md) | What-if chat: structured patch → recompute → diff | L2 | 90m | A-03, A-04 |
 | - [ ] | ⭐ [A-08](tasks/A-08.md) | Memo facts + fact-guard flags for streaming | L2 | 45m | A-03, A-04 |

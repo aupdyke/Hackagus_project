@@ -102,3 +102,17 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
 - **`factsFromPackages` scope:** it allows one-way and round-trip miles, staff as support-only and as coaches + support, and
   every itinerary/meal time and date. Ids are limited to options, hotels and meal vendors. Callers merge in anything else
   they put in FACTS (e.g. settings values) with `mergeFacts`.
+
+## D-18 Recommendation validation and fallback (A-05)
+- **Signatures:** `recommendFacts` takes an extra `hotels` parameter (inside Track A). `templateRecommendation` takes
+  `opts.hotels` (for distance and meeting-room pros/cons) and `opts.pick` (to keep a valid AI pick while replacing its prose).
+  `opts.pick` makes the template explanation name the same option the AI picked.
+- **Failure source:** if the AI's id was valid but its prose failed twice, the result keeps the AI id with `source: 'ai'` and
+  `fact_guard.replaced: true`. If the id was invalid, the pick comes from code and `source` is `'template'`.
+- **Ranking:** a valid AI ranking is normalised: the pick goes first and any options the model left out are appended in
+  code-rank order. Duplicate or unknown ids count as a failure.
+- **Infeasible picks:** an infeasible pick is a failure only while some option is feasible. When none are, the
+  least-bad option may be recommended, and the template says to adjust the constraint.
+- **AI error on retry:** if the retry itself throws `AiError`, the first (failing) answer is finalised, i.e. template prose.
+- **Fact guard scope:** the fact guard checks the explanation and every pro/con in a single call. Allowed facts are
+  `factsFromPackages` plus hotel miles, game date and kickoff, request counts and caps.

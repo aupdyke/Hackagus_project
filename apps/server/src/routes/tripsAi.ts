@@ -1,22 +1,21 @@
 /** AI-assisted trip features: recommendation (A-05), what-if chat (A-07), streamed memo (A-08). */
 import { Router } from 'express';
-import { MemoStreamRequest, fixtures, routes, templateRecommendation } from '@falcon/shared';
-import { conflict, orFixture, parse, staffOnly } from '../http';
+import { MemoStreamRequest, routes } from '@falcon/shared';
+import { conflict, parse, staffOnly } from '../http';
 import { repo } from '../repo';
 import { streamMemo } from '../features/memo';
+import { recommendTrip } from '../features/recommend';
 import { on } from './_define';
 import { requireGame, requireTrip, selectedPackage } from './helpers';
 
 export const tripsAiRouter = Router();
 tripsAiRouter.use('/trips', staffOnly);
 
-// TODO(A-05): real Aivana structured recommendation + ID check + fact guard; template fallback on AI error.
-on(tripsAiRouter, 'recommend', ({ params, res }) => {
+/** A-05: Aivana structured recommendation + ID check + fact guard; template fallback on AI error. */
+on(tripsAiRouter, 'recommend', async ({ params }) => {
   const trip = requireTrip(params.id!);
   if (!trip.packages.length) throw conflict('Compute packages first');
-  const rec = orFixture(res, () => templateRecommendation(trip.packages, new Date().toISOString()), () =>
-    JSON.parse(JSON.stringify(fixtures.FIXTURE_RECOMMENDATION).replaceAll('G10', trip.game_id)),
-  );
+  const rec = await recommendTrip(trip, requireGame(trip.game_id));
   repo.trips.save({ ...trip, recommendation: rec });
   return rec;
 });
