@@ -27,7 +27,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [A-15](tasks/A-15.md) | Season roll-up + savings candidates + budget tuning | EXT | 75m | A-03, A-12 |
 | - [x] | ⭐ [A-16](tasks/A-16.md) | AI savings selection + apply | EXT | 60m | A-15, A-04 |
 | - [x] | ⭐ [A-17](tasks/A-17.md) | AI accuracy harness | EXT | 75m | A-06 (A-05) |
-| - [ ] | [A-18](tasks/A-18.md) | Full demo-flow server test + fixes | EXT | 60m | A-05, A-07, A-10, A-11, A-13, A-14, A-16 |
+| - [x] | [A-18](tasks/A-18.md) | Full demo-flow server test + fixes | EXT | 60m | A-05, A-07, A-10, A-11, A-13, A-14, A-16 |
 
 ## Track B: Staff app (`track-b`)
 | ✓ | ID | Task | Lvl | Est | Depends on |
@@ -108,3 +108,6 @@ B-16 / C-12 polish → A-18 (run the demo manually instead).
 
 ## Integration notes
 _(Add issues found during checkpoints here: `- [ ] <owner> <description>`.)_
+- [ ] All tracks (A-15/A-18): `season_travel_budget` is now $170,000 and the season counts unplanned trips at an estimate.
+  Existing local DBs keep old settings — run `POST /dev/reset` (or "Reset demo") before rehearsing. Demo step 10 relies
+  on doing step 3 ("leave three players home") and the AI picking SAV-1 (Buffalo → Economy); see DECISIONS D-31.

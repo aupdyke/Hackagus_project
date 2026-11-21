@@ -263,8 +263,8 @@ const settings: Settings = {
   min_hours_meal_before_kickoff: 3,
   latest_hotel_arrival: '23:00',
   contingency_pct: 8,
-  // A-15 demo tuning (DECISIONS D-28): seeded projected ≈ 4.9% over; savings after planning G10 bring it back under
-  season_travel_budget: 168000,
+  // A-15/A-18 demo tuning (DECISIONS D-28, D-31): seeded projected ≈ 3.7% over; step-10 savings bring it back under
+  season_travel_budget: 170000,
   default_bus_company_id: 'BUS-1',
   roommate_request_deadline_days_before: 3,
   packing_list: ['Travel polo + game-day suit', 'Student ID', 'Phone + charger', 'Course materials for study hall', 'Medications (tell athletic training first)', 'Toiletries', 'Sleepwear', 'Headphones', 'Cleats & personal gear go on the equipment truck by Thursday 6 PM'],

@@ -49,13 +49,13 @@ describe('POST /season/savings', () => {
     const { rollup, candidates } = currentSeason();
     expect(rollup.over_budget).toBe(true);
     expect(r.source).toBe('template');
-    expect(r.selected_candidate_ids).toEqual(['SAV-1']); // G12 → Economy alone gets under $168,000
+    expect(r.selected_candidate_ids).toEqual(['SAV-1']); // G12 → Economy alone gets under $170,000
     expect(candidates[0]!.description).toBe('Buffalo: switch Game-Ready → Economy');
     expect(r.projected_before).toBe(rollup.projected);
     expect(r.total_savings).toBe(candidates[0]!.savings);
     expect(r.projected_after).toBe(Math.round((rollup.projected - candidates[0]!.savings) * 100) / 100);
     expect(r.back_under_budget).toBe(true);
-    expect(r.explanation).toMatch(/^Selected SAV-1 \(Buffalo: switch Game-Ready → Economy\): together about \$[\d,]+ in estimated savings, bringing the projection to \$[\d,]+, under the \$168,000 budget\.$/);
+    expect(r.explanation).toMatch(/^Selected SAV-1 \(Buffalo: switch Game-Ready → Economy\): together about \$[\d,]+ in estimated savings, bringing the projection to \$[\d,]+, under the \$170,000 budget\.$/);
   });
 
   it('mock AI: ids verified — a second package change on the same trip is dropped', async () => {
@@ -71,7 +71,7 @@ describe('POST /season/savings', () => {
     expect(r.explanation).not.toMatch(/SAV-2|SAV-3/);
     expect(r.back_under_budget).toBe(true);
     const opts = gen.mock.calls[0]![2];
-    expect(opts.prompt).toMatch(/^FACTS: \{"budget":168000,"projected":/);
+    expect(opts.prompt).toMatch(/^FACTS: \{"budget":170000,"projected":/);
     expect(opts.prompt).toContain('"trip":"Buffalo"');
     expect(SAVINGS_SYSTEM.split(/\s+/).length).toBeLessThan(150);
   });

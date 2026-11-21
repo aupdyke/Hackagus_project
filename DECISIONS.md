@@ -303,3 +303,20 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
 - **Recommendation checks:** they run on TRIP-G12, and on TRIP-G10 only if it has packages (it doesn't in the seed).
 - **Run files:** `results/run-*.json` are gitignored; only `latest.json` is committed. `tests/` isn't part of
   `npm run typecheck`; the harness was typechecked separately with the base compiler options.
+
+## D-31 Demo flow test and budget retune to $170,000 (A-18)
+- **`apps/server/src/demo.test.ts`** walks the 10 demo steps against the real app in mock mode, from a clean DB, in about
+  3 s with no network. Every step passed on the first run; no backend fixes were needed.
+- **Why the budget moved:** the A-15 tuning assumed G10 would still be a draft at step 10. In the demo flow it is
+  *published* by step 5, so only Buffalo has savings candidates. With $168,000 the season ended $293 under budget after
+  SAV-1 (Buffalo â†’ Economy), too fragile for a live run.
+- **New numbers:**
+
+  | | Amount |
+  |---|---|
+  | Budget | **$170,000** |
+  | Seeded projected | $176,240.78 (3.7% over) |
+  | Step 10, before savings (G10 Balanced at 65 players, published) | $176,346.19 |
+  | Step 10, after SAV-1 | $167,706.97 (about $2,300 under) |
+
+  D-28's 4.9% / $168,000 figures are superseded.
