@@ -1,0 +1,367 @@
+{
+  "note": "Synthetic trip requests with hand-checked correct parses (A-17). Schedule: G02 Kent State 2026-10-03, G04 Western Michigan 2026-10-17, G06 Ball State 2026-10-31, G08 Miami (OH) 2026-11-14, G10 Ohio 2026-11-28, G12 Buffalo 2026-12-12 (all Saturdays). Home games resolve to game_id null.",
+  "cases": [
+    {
+      "id": "c01",
+      "text": "Ohio trip: 68 players, 12 coaches, 11 support staff, bring the equipment truck, can't leave before 2 PM Friday",
+      "expected": {
+        "game_id": "G10",
+        "players": 68,
+        "coaches": 12,
+        "support_staff": 11,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-11-27T14:00",
+        "include_equipment_truck": true
+      },
+      "note": "starter / demo sentence"
+    },
+    {
+      "id": "c02",
+      "text": "Buffalo — seventy players, 12 coaches, 12 staff. No equipment truck.",
+      "expected": {
+        "game_id": "G12",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": false
+      },
+      "note": "word number"
+    },
+    {
+      "id": "c03",
+      "text": "WMU game, 64 athletes and 11 coaches",
+      "expected": {
+        "game_id": "G04",
+        "players": 64,
+        "coaches": 11,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "alias + missing counts"
+    },
+    {
+      "id": "c04",
+      "text": "Toledo trip for 70 players",
+      "expected": {
+        "game_id": null,
+        "players": 70,
+        "coaches": null,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "home game"
+    },
+    {
+      "id": "c05",
+      "text": "Kent State: 66 players, 10 coaches, 9 support staff, equipment truck yes.",
+      "expected": {
+        "game_id": "G02",
+        "players": 66,
+        "coaches": 10,
+        "support_staff": 9,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": true
+      }
+    },
+    {
+      "id": "c06",
+      "text": "Bobcats game — 70 players, 12 coaches, 12 support staff, truck needed, must leave by 9am the day before",
+      "expected": {
+        "game_id": "G10",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_after",
+        "departure_datetime": "2026-11-27T09:00",
+        "include_equipment_truck": true
+      },
+      "note": "mascot alias + relative day"
+    },
+    {
+      "id": "c07",
+      "text": "Miami Ohio: 72 players, 12 coaches, 10 support, no truck",
+      "expected": {
+        "game_id": "G08",
+        "players": 72,
+        "coaches": 12,
+        "support_staff": 10,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": false
+      },
+      "note": "alias"
+    },
+    {
+      "id": "c08",
+      "text": "UB trip, 70 players, 12 coaches, 12 support staff, bring the truck, can't leave before 1 PM Friday",
+      "expected": {
+        "game_id": "G12",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-12-11T13:00",
+        "include_equipment_truck": true
+      },
+      "note": "abbreviation"
+    },
+    {
+      "id": "c09",
+      "text": "Buffallo trip: 65 players 11 coaches 10 staff",
+      "expected": {
+        "game_id": "G12",
+        "players": 65,
+        "coaches": 11,
+        "support_staff": 10,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "typo"
+    },
+    {
+      "id": "c10",
+      "text": "Ball State away game. sixty-eight players, twelve coaches, eleven support staff. Equipment truck please.",
+      "expected": {
+        "game_id": "G06",
+        "players": 68,
+        "coaches": 12,
+        "support_staff": 11,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": true
+      },
+      "note": "word numbers"
+    },
+    {
+      "id": "c11",
+      "text": "- Opponent: Western Michigan\n- Players: 70\n- Coaches: 12\n- Support: 12\n- Truck: no\n- Depart: not before 10 AM Friday",
+      "expected": {
+        "game_id": "G04",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-10-16T10:00",
+        "include_equipment_truck": false
+      },
+      "note": "bullet list"
+    },
+    {
+      "id": "c12",
+      "text": "Hey team, quick one before practice — for the Ohio game we're taking 66 players and 12 coaches plus 11 support. Weather looks fine. Truck yes.",
+      "expected": {
+        "game_id": "G10",
+        "players": 66,
+        "coaches": 12,
+        "support_staff": 11,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": true
+      },
+      "note": "noise"
+    },
+    {
+      "id": "c13",
+      "text": "Trip to Notre Dame with 70 players",
+      "expected": {
+        "game_id": null,
+        "players": 70,
+        "coaches": null,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "unknown opponent"
+    },
+    {
+      "id": "c14",
+      "text": "Akron game, 70 players, 12 coaches",
+      "expected": {
+        "game_id": null,
+        "players": 70,
+        "coaches": 12,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "home game"
+    },
+    {
+      "id": "c15",
+      "text": "Kent trip — 70 players, 12 coaches, 12 support staff, no truck, can't leave before 3:30 PM Friday",
+      "expected": {
+        "game_id": "G02",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-10-02T15:30",
+        "include_equipment_truck": false
+      },
+      "note": "minutes"
+    },
+    {
+      "id": "c16",
+      "text": "Redhawks: 69 players, 12 coaches",
+      "expected": {
+        "game_id": "G08",
+        "players": 69,
+        "coaches": 12,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "mascot alias"
+    },
+    {
+      "id": "c17",
+      "text": "Ohio U, 70 players, 11 coaches, 12 support staff, leave no earlier than noon Friday, bring truck",
+      "expected": {
+        "game_id": "G10",
+        "players": 70,
+        "coaches": 11,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-11-27T12:00",
+        "include_equipment_truck": true
+      },
+      "note": "noon"
+    },
+    {
+      "id": "c18",
+      "text": "Buffalo game. We need 60 players, 10 coaches and 8 support staff. Must depart by 8 AM Friday. No equipment truck.",
+      "expected": {
+        "game_id": "G12",
+        "players": 60,
+        "coaches": 10,
+        "support_staff": 8,
+        "departure_kind": "not_after",
+        "departure_datetime": "2026-12-11T08:00",
+        "include_equipment_truck": false
+      }
+    },
+    {
+      "id": "c19",
+      "text": "Western Michigan: players TBD, 12 coaches, 12 support staff, truck yes",
+      "expected": {
+        "game_id": "G04",
+        "players": null,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": true
+      },
+      "note": "explicitly unknown count"
+    },
+    {
+      "id": "c20",
+      "text": "Muncie trip, 67 players, 12 coaches, 11 support, truck",
+      "expected": {
+        "game_id": "G06",
+        "players": 67,
+        "coaches": 12,
+        "support_staff": 11,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": true
+      },
+      "note": "city alias"
+    },
+    {
+      "id": "c21",
+      "text": "Kalamazoo — 70 athletes, a dozen coaches, 12 support staff",
+      "expected": {
+        "game_id": "G04",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "a dozen"
+    },
+    {
+      "id": "c22",
+      "text": "Central Michigan trip 70 players 12 coaches",
+      "expected": {
+        "game_id": null,
+        "players": 70,
+        "coaches": 12,
+        "support_staff": null,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": null
+      },
+      "note": "home game"
+    },
+    {
+      "id": "c23",
+      "text": "Ohio: 70 players, 12 coaches, 12 support. Can't leave until after 1 PM Friday. No truck needed.",
+      "expected": {
+        "game_id": "G10",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-11-27T13:00",
+        "include_equipment_truck": false
+      },
+      "note": "until after"
+    },
+    {
+      "id": "c24",
+      "text": "Buffalo: 70 players, 12 coaches, 12 support staff, bring the equipment truck, leave by 10 AM Thursday",
+      "expected": {
+        "game_id": "G12",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_after",
+        "departure_datetime": "2026-12-10T10:00",
+        "include_equipment_truck": true
+      },
+      "note": "two days before"
+    },
+    {
+      "id": "c25",
+      "text": "Miami (OH) away trip: seventy-two players, eleven coaches, ten support staff, no truck",
+      "expected": {
+        "game_id": "G08",
+        "players": 72,
+        "coaches": 11,
+        "support_staff": 10,
+        "departure_kind": "none",
+        "departure_datetime": "",
+        "include_equipment_truck": false
+      },
+      "note": "hyphenated word numbers"
+    },
+    {
+      "id": "c26",
+      "text": "Ball State – 66 plyrs, 12 coaches, 12 staff, truck: yes, depart not before 11:00 on Friday",
+      "expected": {
+        "game_id": "G06",
+        "players": 66,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_kind": "not_before",
+        "departure_datetime": "2026-10-30T11:00",
+        "include_equipment_truck": true
+      },
+      "note": "abbreviation + 24h time"
+    }
+  ]
+}

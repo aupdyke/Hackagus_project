@@ -1,35 +1,32 @@
 /** AI-assisted trip features: recommendation (A-05), what-if chat (A-07), streamed memo (A-08). */
 import { Router } from 'express';
-import { MemoStreamRequest, fixtures, routes, templateRecommendation } from '@falcon/shared';
-import { conflict, orFixture, parse, staffOnly } from '../http';
+import { MemoStreamRequest, routes } from '@falcon/shared';
+import { conflict, parse, staffOnly } from '../http';
 import { repo } from '../repo';
 import { streamMemo } from '../features/memo';
+import { recommendTrip } from '../features/recommend';
+import { runWhatIf } from '../features/whatif';
 import { on } from './_define';
 import { requireGame, requireTrip, selectedPackage } from './helpers';
 
 export const tripsAiRouter = Router();
 tripsAiRouter.use('/trips', staffOnly);
 
-// TODO(A-05): real Aivana structured recommendation + ID check + fact guard; template fallback on AI error.
-on(tripsAiRouter, 'recommend', ({ params, res }) => {
+/** A-05: Aivana structured recommendation + ID check + fact guard; template fallback on AI error. */
+on(tripsAiRouter, 'recommend', async ({ params }) => {
   const trip = requireTrip(params.id!);
   if (!trip.packages.length) throw conflict('Compute packages first');
-  const rec = orFixture(res, () => templateRecommendation(trip.packages, new Date().toISOString()), () =>
-    JSON.parse(JSON.stringify(fixtures.FIXTURE_RECOMMENDATION).replaceAll('G10', trip.game_id)),
-  );
+  const rec = await recommendTrip(trip, requireGame(trip.game_id));
   repo.trips.save({ ...trip, recommendation: rec });
   return rec;
 });
 
-// TODO(A-07): multi-turn structured patch → validate → apply → recompute → diff.
-on(tripsAiRouter, 'whatIf', ({ params, body, res }) => {
+/** A-07: multi-turn structured patch → validate → apply → recompute → diff. */
+on(tripsAiRouter, 'whatIf', async ({ params, body }) => {
   const trip = requireTrip(params.id!);
-  res.setHeader('X-Fixture', 'A-07');
-  return {
-    reply: `What-if is not wired yet (task A-07). You said: "${body.message.slice(0, 80)}"`,
-    needs_clarification: false, clarifying_question: '', patch_ops: [], rejected_ops: [], applied: false, diff: [],
-    trip, source: 'fallback' as const,
-  };
+  if (trip.status === 'completed') throw conflict('This trip is completed and can no longer be changed');
+  if (!trip.request) throw conflict('Submit a trip request first');
+  return runWhatIf(trip, requireGame(trip.game_id), body.message);
 });
 
 /** SSE relay: { type: delta | done | error } events (see shared StreamEvent). */

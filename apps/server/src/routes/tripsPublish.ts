@@ -1,71 +1,93 @@
-/** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11), actuals (A-12). */
-import { randomBytes } from 'node:crypto';
+/** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11, own router), actuals (A-12). */
 import { Router } from 'express';
-import { budgetVsActual, fixtures } from '@falcon/shared';
-import { env } from '../env';
-import { conflict, orFixture, staffOnly } from '../http';
+import { ACTUAL_CATEGORIES, budgetVsActual, requestStats, validateRooming, type Room } from '@falcon/shared';
+import { HttpError, badRequest, conflict, notFound, roleOf, staffOnly } from '../http';
+import { renderPacketHtml } from '../features/packet';
+import { publishTrip, shareUrl, withRooming } from '../features/publish';
+import { travelRosterIds } from './athletes';
+import { staffById } from '../data';
 import { repo } from '../repo';
 import { on } from './_define';
-import { requireGame, requireTrip } from './helpers';
+import { requireGame, requireTrip, selectedPackage } from './helpers';
 
 export const tripsPublishRouter = Router();
 tripsPublishRouter.use('/trips', staffOnly);
 
-export const shareUrl = (tripId: string, token: string) => `${env.PUBLIC_BASE_URL}/share/${tripId}/${token}`;
+/**
+ * A-11: GET /trips/:id/packet lives on its own router, mounted BEFORE the staff-only routers (app.ts), because
+ * athletes may fetch their own packet: role athlete → audience must be 'athlete' and athleteId must equal X-Athlete-Id.
+ */
+export const packetRouter = Router();
+on(packetRouter, 'getPacket', ({ params, query, req }) => {
+  const { role, athleteId: callerId } = roleOf(req);
+  if (role === 'athlete' && (query.audience !== 'athlete' || !query.athleteId || query.athleteId !== callerId)) {
+    throw new HttpError(403, 'forbidden', 'Athletes can only open their own athlete packet');
+  }
+  const trip = requireTrip(params.id!);
+  const game = requireGame(trip.game_id);
+  const pkg = selectedPackage(trip);
+  if (!pkg) throw conflict('Select a package before creating packets');
+  if (query.audience === 'athlete') {
+    if (!query.athleteId) throw badRequest('athleteId is required for the athlete packet');
+    if (!travelRosterIds(trip).includes(query.athleteId)) throw notFound(`athlete ${query.athleteId} on this trip's travel roster`);
+  }
+  const { title, html } = renderPacketHtml({ trip, game, pkg, audience: query.audience, athleteId: query.athleteId });
+  return {
+    trip_id: trip.trip_id, audience: query.audience, title, html,
+    share_url: trip.share_token && trip.status === 'published' ? shareUrl(trip.trip_id, trip.share_token) : '',
+  };
+});
+
+export { shareUrl };
 
 on(tripsPublishRouter, 'getRooming', ({ params }) => requireTrip(params.id!).rooming);
 
-// TODO(A-10): assignRooms with roommate requests + validateRooming on PUT.
-on(tripsPublishRouter, 'generateRooming', ({ params, res }) => {
-  const trip = requireTrip(params.id!);
-  res.setHeader('X-Fixture', 'A-10');
-  const rooming = { ...fixtures.FIXTURE_ROOMING, trip_id: trip.trip_id, generated_at: new Date().toISOString() };
-  repo.trips.save({ ...trip, rooming });
-  return rooming;
+/** A-10: rooming from roommate requests (code), bus manifest, traveling roster. */
+on(tripsPublishRouter, 'generateRooming', ({ params }) => {
+  const trip = repo.trips.save(withRooming(requireTrip(params.id!)));
+  return trip.rooming!;
 });
+
+/** Staff edits (swaps): validated by code; honored-request count recomputed. */
 on(tripsPublishRouter, 'updateRooming', ({ params, body }) => {
   const trip = requireTrip(params.id!);
   if (!trip.rooming) throw conflict('Generate rooming first');
-  const rooming = { ...trip.rooming, rooms: body.rooms, edited: true };
+  const travelerIds = [...trip.traveling_player_ids, ...trip.traveling_staff_ids];
+  const kinds: Record<string, Room['kind']> = {};
+  for (const id of trip.traveling_player_ids) kinds[id] = 'player';
+  for (const id of trip.traveling_staff_ids) kinds[id] = staffById(id)?.category === 'support' ? 'support' : 'coach';
+  const errors = validateRooming({ rooms: body.rooms }, travelerIds, repo.settings.get(), kinds);
+  if (errors.length) throw badRequest(`Rooming has ${errors.length} problem${errors.length === 1 ? '' : 's'}: ${errors.slice(0, 3).join('; ')}${errors.length > 3 ? '…' : ''}`, errors);
+  const rooms = body.rooms.filter((r) => r.occupant_ids.length > 0);
+  const rooming = {
+    ...trip.rooming, rooms, edited: true,
+    ...requestStats(rooms, repo.roommateRequests.listForTrip(trip.trip_id), trip.traveling_player_ids),
+  };
   repo.trips.save({ ...trip, rooming });
   return rooming;
 });
 
-// TODO(A-13): traveling roster + buses, version snapshot diff → per-athlete notifications.
+/** A-13: new version snapshot + per-athlete change notifications (code-generated). Generates rooming if missing/stale. */
 on(tripsPublishRouter, 'publishTrip', ({ params }) => {
-  const trip = requireTrip(params.id!);
-  if (trip.status !== 'approved' && trip.status !== 'published') throw conflict('Approve the trip before publishing');
-  const published = {
-    ...trip,
-    status: 'published' as const,
-    published_version: trip.published_version + 1,
-    published_at: new Date().toISOString(),
-    share_token: trip.share_token || randomBytes(18).toString('base64url'),
-  };
-  repo.versions.save(published);
-  return { trip: repo.trips.save(published), game: requireGame(trip.game_id) };
+  const { trip } = publishTrip(requireTrip(params.id!));
+  return { trip, game: requireGame(trip.game_id) };
 });
 
-// TODO(A-11): full staff/athlete packet HTML (itinerary, manifest, rooming, meals, contacts, costs for staff).
-on(tripsPublishRouter, 'getPacket', ({ params, query, res }) => {
+/** A-12: hand-entered actuals after the trip → budget vs actual (planned from the selected package). */
+on(tripsPublishRouter, 'postActuals', ({ params, body }) => {
   const trip = requireTrip(params.id!);
-  const game = requireGame(trip.game_id);
-  res.setHeader('X-Fixture', 'A-11');
-  const title = `${query.audience === 'staff' ? 'Staff' : 'Athlete'} travel packet — at ${game.opponent}`;
-  return {
-    trip_id: trip.trip_id, audience: query.audience, title,
-    html: `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head><body style="font-family:-apple-system,Helvetica,Arial"><h1 style="color:#4F2C1D">${title}</h1><p>Packet rendering arrives in task A-11.</p><p><em>Synthetic data. Costs are estimates.</em></p></body></html>`,
-    share_url: trip.share_token ? shareUrl(trip.trip_id, trip.share_token) : '',
-  };
-});
-
-on(tripsPublishRouter, 'postActuals', ({ params, body, res }) => {
-  const trip = requireTrip(params.id!);
+  if (!selectedPackage(trip)) throw conflict('Select a package before entering actuals');
+  if (trip.status !== 'published' && trip.status !== 'completed') throw conflict(`Actuals can only be entered for published or completed trips (this one is ${trip.status})`);
+  const negative = ACTUAL_CATEGORIES.filter((k) => body[k] < 0);
+  if (negative.length) throw badRequest(`Actual costs can't be negative: ${negative.join(', ')}`, negative.map((k) => ({ path: k, message: 'must be 0 or more' })));
   const entry = { ...body, trip_id: trip.trip_id, entered_at: new Date().toISOString() };
+  const report = budgetVsActual(trip, entry);
   repo.actuals.save(entry);
-  return orFixture(res, () => budgetVsActual(trip, entry), () => ({ ...fixtures.FIXTURE_BUDGET_VS_ACTUAL, trip_id: trip.trip_id }));
+  if (trip.status === 'published') repo.trips.save({ ...trip, status: 'completed' });
+  return report;
 });
-on(tripsPublishRouter, 'budgetVsActual', ({ params, res }) => {
+on(tripsPublishRouter, 'budgetVsActual', ({ params }) => {
   const trip = requireTrip(params.id!);
-  return orFixture(res, () => budgetVsActual(trip, repo.actuals.get(trip.trip_id)), () => ({ ...fixtures.FIXTURE_BUDGET_VS_ACTUAL, trip_id: trip.trip_id }));
+  if (!selectedPackage(trip)) throw conflict('Select a package before comparing budget vs actual');
+  return budgetVsActual(trip, repo.actuals.get(trip.trip_id));
 });
