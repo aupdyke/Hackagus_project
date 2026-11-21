@@ -1,4 +1,4 @@
-{
+﻿{
   "expo": {
     "name": "Falcon Travel",
     "slug": "falcon-travel",
@@ -32,11 +32,21 @@
     "updates": {
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/3eb978c3-6967-430a-aebd-c3f79230db96"
     },
     "extra": {
-      "router": {}
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "apiUrl": "https://falcon-travel-api.onrender.com",
+      "eas": {
+        "projectId": "3eb978c3-6967-430a-aebd-c3f79230db96"
+      }
     },
-    "icon": "./assets/icon.png"
+    "icon": "./assets/icon.png",
+    "owner": "carter5556"
   }
 }

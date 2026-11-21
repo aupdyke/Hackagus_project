@@ -1,4 +1,4 @@
-# Decisions log
+﻿# Decisions log
 
 Short records of judgment calls. Add yours at the bottom: `## D-NN title` + what/why.
 
@@ -22,7 +22,7 @@ Node-only helpers live behind the `@falcon/shared/node` subpath (`loadDataPack`)
 (e.g. a host without build tools), `db.ts` falls back to a JSON file automatically. Documents are validated with Zod on read.
 
 ## D-06 Synthetic season shifted later
-The demo is Sat Nov 21 2026, so the synthetic schedule runs Sep 26 – Dec 12, 2026. That way, at demo time,
+The demo is Sat Nov 21 2026, so the synthetic schedule runs Sep 26 â€“ Dec 12, 2026. That way, at demo time,
 four away trips are completed (two have actuals) and two are still upcoming (G10 at Ohio on Nov 28, G12 at Buffalo on Dec 12). Real MAC opponents and cities; synthetic dates,
 stadium names and approximate distances.
 
@@ -43,11 +43,11 @@ The parse schema asks for opponent text, counts (-1 = unknown) and a departure *
 opponent to the schedule (aliases such as "WMU" and "Bobcats", plus city names) and resolves the day relative to the game date. The model never computes dates.
 
 ## D-11 Windows Vitest drive-letter fix
-VS Code on Windows opens `c:\…` in lowercase, which made Vitest load twice ("failed to find the current suite").
+VS Code on Windows opens `c:\â€¦` in lowercase, which made Vitest load twice ("failed to find the current suite").
 `npm test` runs `scripts/vitest.mjs`, which normalizes the drive letter first.
 
 ## D-12 Streaming relay format
-Server → app SSE uses one `data:` line per event, carrying JSON `{type: delta|done|error}` (shared `StreamEvent`). This keeps the RN
+Server â†’ app SSE uses one `data:` line per event, carrying JSON `{type: delta|done|error}` (shared `StreamEvent`). This keeps the RN
 parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is `react-native-sse` (not installed unless needed).
 
 ## D-13 Two extra routes beyond the spec list
@@ -57,7 +57,7 @@ parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is
 ## D-14 Cost engine edge cases (A-01)
 `buses = max(1, ceil(travelers / seats))`: a trip always books at least one bus. Rounding happens once per output: unrounded
 math inside each primitive, then `round2`. `computeTotals` sums the already-rounded parts, so the parts on screen add up to the
-subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to ≥ 0, and never mutates its input arrays.
+subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰¥ 0, and never mutates its input arrays.
 
 ## D-15 Itinerary rules not pinned down by the spec (A-02)
 - **En-route stop** starts at `ceil5(drive/2)` after departure, which keeps times on a 5-minute grid. A rest stop's location is
@@ -76,7 +76,7 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   boxed meal.
 
 ## D-16 Package builder choices (A-03)
-- **Balanced hotel value:** `VALUE_PER_MILE = $8`. Score = `nightly_rate × (1+tax) + 8 × miles_to_stadium`; lowest wins.
+- **Balanced hotel value:** `VALUE_PER_MILE = $8`. Score = `nightly_rate Ã— (1+tax) + 8 Ã— miles_to_stadium`; lowest wins.
   For G10 this picks H-ATH-2 over the cheap-but-far H-ATH-1. (The stub's doc comment had a different formula; the task file's
   formula wins.)
 - **Tie-breaks:** every pick (hotel, restaurant) breaks ties by id, so output is deterministic.
@@ -89,12 +89,12 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **Same-day packages:** no same-day Economy option is offered (the task file's tier table always departs the day before).
 
 ## D-17 Fact guard matching details (A-04)
-- **Extraction order:** ids → money → dates → times → quantities → weekdays. Each match is masked before the next pattern
+- **Extraction order:** ids â†’ money â†’ dates â†’ times â†’ quantities â†’ weekdays. Each match is masked before the next pattern
   runs, so "IT-3" or "Nov 28" never also counts as a bare quantity.
 - **Case sensitivity:** month and weekday names must be capitalised ("Nov 28", "Friday"). That keeps "may", "sat" and
   "sun" in ordinary prose from tripping the guard. Time words are case-insensitive. "noon" matches only as a whole word
   ("afternoon" is ignored).
-- **Money sign:** money is compared by magnitude, so "saves $500" matches a −500 difference.
+- **Money sign:** money is compared by magnitude, so "saves $500" matches a âˆ’500 difference.
   `factsFromPackages` stores pairwise total differences as absolute values.
 - **Hyphenated units:** "3-hour", "two-night" count as quantities. A number followed by a word that isn't a unit is a bare
   number and is ignored.
@@ -137,9 +137,9 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **Hotel exclusion:** excluding a hotel that's already excluded, or the last remaining hotel in the city, is rejected.
   The planner never silently ends up with no hotel.
 - **Nothing applied:** when every op is rejected (or there are none), the reply is code-written ("I couldn't apply that:
-  …"). The trip is unchanged and only the conversation is stored.
+  â€¦"). The trip is unchanged and only the conversation is stored.
 - **Reply fact guard:** allowed facts are the recomputed packages plus old/new counts, op deltas/values and caps. On
-  failure, the reply becomes `Applied: <describeOp…>. Recomputed all packages.` Rejected-op reasons are always appended.
+  failure, the reply becomes `Applied: <describeOpâ€¦>. Recomputed all packages.` Rejected-op reasons are always appended.
 - **Package diff lines:** rooms, buses and total are always listed; other lines only when they changed.
 - **Clarifying questions** are fact-guarded too, with a generic code question as the fallback.
 - **AI down:** `AiError` returns a fallback with nothing stored.
@@ -173,13 +173,13 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **requests_total / honored:** counted per (requester, requested) pair among traveling players. Self-requests and
   non-travelers are ignored.
 - **Room id width:** room ids are zero-padded to at least 2 digits (RM-01); they grow to 3 if a trip ever has 100+ rooms.
-- **validateRooming kinds:** takes an optional id → kind map (the server passes it from the traveling roster) for exact
+- **validateRooming kinds:** takes an optional id â†’ kind map (the server passes it from the traveling roster) for exact
   room-kind checks. Without it, it falls back to id prefixes (`P-` player, `DRIVER-n` driver).
 - **PUT /rooming:** drops empty rooms after a valid edit. A 400 lists up to 3 problems in the message and all of them
   in `details`.
 - **Bus manifest:** specialists (ST) and support staff go to the bus with the most free seats. A coach whose bus is full
   goes to the next one. `assignBuses` throws if travelers can't fit; that can't happen with buses sized by A-01.
-- **Roommate deadline:** set once on submit, if empty: package A departure date − `roommate_request_deadline_days_before`
+- **Roommate deadline:** set once on submit, if empty: package A departure date âˆ’ `roommate_request_deadline_days_before`
   days, at 23:59. Later resubmits keep it.
 
 ## D-24 Packets and share page (A-11)
@@ -197,7 +197,7 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   trip somehow has none.
 
 ## D-25 Budget vs actual (A-12)
-- **Variance:** variance = actual − planned per line, rounded to cents; positive means over plan. The contingency line has
+- **Variance:** variance = actual âˆ’ planned per line, rounded to cents; positive means over plan. The contingency line has
   a planned value and a null actual. `actual_total` covers bus + equipment + hotel + meals + other, so an unspent
   contingency shows up as a negative `variance_total`.
 - **Wrong trip's actuals:** `budgetVsActual` throws if handed another trip's entry, as well as when no package is
@@ -210,7 +210,7 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   matches the request, or the bus count no longer matches the package. Otherwise staff swaps are kept. Without this, a
   what-if "leave 3 players home" would publish a manifest with athletes who aren't going.
 - **Itinerary matching:** itinerary items are matched across versions by `kind + label` + occurrence, because ids shift.
-  A departure change usually cascades (lunch, arrival, check-in…). Every shifted item is listed, with the departure
+  A departure change usually cascades (lunch, arrival, check-inâ€¦). Every shifted item is listed, with the departure
   first, because each of those times changed for the athlete.
 - **Meal changes:** a `meal` change is reported only for a vendor change. A meal's time change is already reported by its
   itinerary item, so it isn't listed twice.
@@ -232,17 +232,17 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   packing list says "Thursday 6 PM"), and numbers taken from the fact texts (`factsFromText`). So any fact can be quoted
   verbatim.
 - **Unknown citations:** an unknown cited id is dropped and recorded in `fact_guard.issues` (`passed: false`), but the
-  answer is kept when other citations remain. The answer is *replaced* (→ "ask a coach", `needs_staff: true`) when the
+  answer is kept when other citations remain. The answer is *replaced* (â†’ "ask a coach", `needs_staff: true`) when the
   guard fails, or when there are no citations and `needs_staff` is false.
 - **No published trip:** the assistant answers "ask a coach" with no AI call.
-- **AI down:** a keyword → fact fallback (leave/depart, room, bus, hotel, dinner/lunch/breakfast/eat, kickoff). The "next
+- **AI down:** a keyword â†’ fact fallback (leave/depart, room, bus, hotel, dinner/lunch/breakfast/eat, kickoff). The "next
   meal" is the first meal at or after now, else the first meal.
 - **Fact guard fix:** in "3:15 AM." at a sentence end, the full stop is no longer part of the reported time.
 
 ## D-28 Season roll-up: unplanned trips are estimated; budget $168,000 (A-15)
 - **Why the rule changed:** the task's rules ("not_started contributes 0") and its demo targets conflicted. The seeded
   season projected $149,891 with G10 unplanned. Planning G10 as Balanced raised it to $176,723, and every savings
-  candidate combined only cut $17,699 (to $159,024). A budget that is 3–6% under the seeded projection can never be
+  candidate combined only cut $17,699 (to $159,024). A budget that is 3â€“6% under the seeded projection can never be
   beaten after G10 is planned. **The team chose to estimate unplanned trips.**
 - **New rule:** `rollupSeason(..., data)` counts a not_started trip toward `projected` at the cheapest feasible package for
   the default request (`defaultTripRequest`: default-travel players, travels-by-default staff, truck, no constraint). Its
@@ -257,11 +257,11 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   | Budget (`season_travel_budget`) | **$168,000** |
   | Seeded over budget by | 4.9% |
   | After planning G10 as Balanced (68/12/11, not before Fri 2 PM) | $176,722.94 |
-  | G12 → Economy saves | $8,639.22 |
-  | G10 → Economy saves | $3,410.27 |
+  | G12 â†’ Economy saves | $8,639.22 |
+  | G10 â†’ Economy saves | $3,410.27 |
   | After both switches | $164,673 (under) |
   | All candidates together | about $159,000 |
-- **Budget change ripples:** `seasonShare` (budget ÷ 6 = $28,000) feeds `over_season_share` risk flags, so those flags
+- **Budget change ripples:** `seasonShare` (budget Ã· 6 = $28,000) feeds `over_season_share` risk flags, so those flags
   shift slightly. Existing local DBs keep the old settings until `POST /dev/reset` (seeding only runs on an empty DB).
   `FIXTURE_SEASON` (contract fixture) is unchanged.
 - **Savings candidates:** switch_package compares against the selected package, or the cheapest feasible one for
@@ -279,23 +279,23 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **Explanation replaced when ids are dropped:** if code drops any of the AI's ids (unknown, or a second package change
   for a trip), the AI's explanation is replaced with the code template (`replaced: true`). The prose described a
   different selection than the one applied. A clean answer is used as-is.
-- **Unusable AI picks:** no valid ids after checking → greedy template selection (`source: 'template'`, `replaced: true`).
+- **Unusable AI picks:** no valid ids after checking â†’ greedy template selection (`source: 'template'`, `replaced: true`).
   The retry also happens when the fact guard fails, and the retry's selection is used if it has valid ids.
 - **Template explanation:** written by code with code numbers (savings, projection, budget) and the candidate
   descriptions. It also says when the selection is still over budget.
-- **Apply:** recomputes candidates *now* (stale ids → 400, nothing changes). Per trip it applies reduce_travelers, then
+- **Apply:** recomputes candidates *now* (stale ids â†’ 400, nothing changes). Per trip it applies reduce_travelers, then
   cheaper_hotel, then switch_package, keeping the current tier selected after each rebuild. Changed approved trips go
   back to draft, and their recommendation is cleared.
 
 ## D-30 AI accuracy harness (A-17)
-- **Rate scale:** accuracy and rates in `AccuracyReport` are fractions 0–1, rounded to 4 decimals. The app formats them
+- **Rate scale:** accuracy and rates in `AccuracyReport` are fractions 0â€“1, rounded to 4 decimals. The app formats them
   as percentages.
 - **Expected values:** the 26 cases in `tests/accuracy/cases.json` hold the *correct* parse, not what the mock produces.
   The committed mock run (`mock: true`) therefore scores 87.4% field accuracy / 53.8% exact. The regex mock misses
   mascots, "UB", word numbers and bullet lists, which a real model should handle. Track C replaces `latest.json` with a
   live run at checkpoint 3.
 - **Parse fallbacks:** `POST /trips/parse` never returns AI errors over HTTP; it answers 200 with a fallback draft and a
-  friendly notice. The harness reads the notice: "busy" → back off and retry (max 3); "credits empty" / "spend limit" →
+  friendly notice. The harness reads the notice: "busy" â†’ back off and retry (max 3); "credits empty" / "spend limit" â†’
   stop the run; other fallbacks are scored as-is (that's what staff would see). HTTP 429 / `ai_busy` on other routes
   is retried the same way.
 - **fact_guard_pass_rate** counts only AI-written recommendations. A template recommendation (AI down) is excluded
@@ -309,7 +309,7 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   3 s with no network. Every step passed on the first run; no backend fixes were needed.
 - **Why the budget moved:** the A-15 tuning assumed G10 would still be a draft at step 10. In the demo flow it is
   *published* by step 5, so only Buffalo has savings candidates. With $168,000 the season ended $293 under budget after
-  SAV-1 (Buffalo → Economy), too fragile for a live run.
+  SAV-1 (Buffalo â†’ Economy), too fragile for a live run.
 - **New numbers:**
 
   | | Amount |
@@ -341,3 +341,9 @@ Metro compares paths case-sensitively, so it treated the junction target as outs
 `lib/notifications.ts` owns the `['notifications', athleteId]` query (45 s poll + refetch on app foreground). The tab badge,
 inbox and local notifications all read from it. Local notifications only fire for items that arrive after the first fetch (no
 backlog spam), and only if permission is granted. No remote push.
+
+## D-37 Release server URL in app.json, not eas.json env
+`eas.json` build env applies only to cloud builds. `eas update` bundles on the laptop with whatever
+`EXPO_PUBLIC_API_URL` is in the local shell or `.env`, so one OTA push could repoint the TestFlight app at a LAN IP or localhost.
+Release builds now read `expo.extra.apiUrl` via `expo-constants` (it ships in each update's manifest). Dev keeps
+`EXPO_PUBLIC_API_URL` â†’ localhost. `scripts/check-release.mjs` blocks placeholder/http URLs before `ios:build` / `ios:update`.

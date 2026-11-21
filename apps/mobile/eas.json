@@ -7,18 +7,18 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development",
-      "env": { "EXPO_PUBLIC_API_URL": "http://localhost:3000" }
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview",
-      "env": { "EXPO_PUBLIC_API_URL": "https://falcon-travel-api.onrender.com" }
+      "channel": "preview"
     },
     "production": {
       "channel": "production",
       "autoIncrement": true,
-      "env": { "EXPO_PUBLIC_API_URL": "https://falcon-travel-api.onrender.com" }
+      "ios": {
+        "resourceClass": "m-medium"
+      }
     }
   },
   "submit": {
