@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '../components/ui';
 import { AthletePicker } from '../components/athlete/AthletePicker';
@@ -10,6 +10,8 @@ import { api, errorMessage } from '../lib/api';
 import { API_URL } from '../lib/config';
 import { useSession } from '../lib/role';
 import { colors, font, radius, space } from '../lib/theme';
+
+const logo = require('../assets/icon.png');
 
 function ServerPill() {
   const health = useQuery({ queryKey: ['health'], queryFn: () => api.health(), retry: 0 });
@@ -46,9 +48,12 @@ export default function RoleSelect() {
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1, backgroundColor: colors.bg }}>
       <View style={s.hero}>
-        <Text style={s.kicker}>BGSU FALCONS FOOTBALL</Text>
-        <Text style={s.title}>Falcon Travel</Text>
-        <Text style={s.sub}>Away-game & season travel planner</Text>
+        <Image source={logo} style={s.logo} accessibilityIgnoresInvertColors accessible={false} />
+        <View style={{ flex: 1 }}>
+          <Text style={s.kicker}>BGSU FALCONS FOOTBALL</Text>
+          <Text style={s.title} adjustsFontSizeToFit numberOfLines={1}>Falcon Travel</Text>
+          <Text style={s.sub}>Away-game & season travel planner</Text>
+        </View>
       </View>
       <View style={{ flex: 1, padding: space.lg, gap: space.md }}>
         <ServerPill />
@@ -93,7 +98,8 @@ export default function RoleSelect() {
 }
 
 const s = StyleSheet.create({
-  hero: { backgroundColor: colors.brown, paddingHorizontal: space.lg, paddingTop: space.lg, paddingBottom: space.xl, borderBottomWidth: 6, borderBottomColor: colors.orange },
+  hero: { flexDirection: 'row', alignItems: 'center', gap: space.md, backgroundColor: colors.brown, paddingHorizontal: space.lg, paddingTop: space.lg, paddingBottom: space.xl, borderBottomWidth: 6, borderBottomColor: colors.orange },
+  logo: { width: 84, height: 84, borderRadius: 20, borderWidth: 2, borderColor: 'rgba(255,255,255,0.25)' },
   kicker: { color: colors.orangeSoft, fontWeight: '800', letterSpacing: 1.5, fontSize: font.sm },
   title: { color: '#fff', fontSize: 36, fontWeight: '900', marginTop: 4 },
   sub: { color: '#F3E9E4', fontSize: font.lg, marginTop: 2 },

@@ -1,4 +1,4 @@
-﻿# Decisions log
+# Decisions log
 
 Short records of judgment calls. Add yours at the bottom: `## D-NN title` + what/why.
 

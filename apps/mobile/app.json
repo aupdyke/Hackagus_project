@@ -1,4 +1,4 @@
-﻿{
+{
   "expo": {
     "name": "Falcon Travel",
     "slug": "falcon-travel",
@@ -23,6 +23,15 @@
         "expo-notifications",
         {
           "color": "#FE5000"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#501D08"
         }
       ]
     ],
