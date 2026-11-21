@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { formatCountdown, localDate } from '../../lib/athlete/time';
-import { colors, font } from '../../lib/theme';
+import { font } from '../../lib/theme';
 
 /** Ticks every 30 s. Not a live region (VoiceOver would announce every tick). */
 export function Countdown({ departure, returnAt }: { departure: string; returnAt?: string }) {
@@ -31,4 +31,3 @@ export function Countdown({ departure, returnAt }: { departure: string; returnAt
     </View>
   );
 }
-export const countdownColors = { bg: colors.brown };

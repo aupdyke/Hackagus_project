@@ -94,7 +94,7 @@ export default function Roommates() {
       <Card>
         <H2>Roommates · at {active.opponent}</H2>
         <Body>{locked ? 'Requests are closed.' : `Pick up to ${MAX} by ${formatDayTime(active.deadline_local)}`}</Body>
-        {!locked && <Chip label={`Closes in ${formatCountdown(localDate(active.deadline_local).getTime() - Date.now())}`} tone="brand" />}
+        {!locked && <Chip label={`Closes in ${formatCountdown(localDate(active.deadline_local).getTime() - Date.now())}`} tone="neutral" />}
         <Body muted>Mutual requests are matched first. Staff make the final call.</Body>
         <View style={{ flexDirection: 'row', gap: space.sm, flexWrap: 'wrap' }}>
           {picks.length === 0 && <Body muted>No one picked yet.</Body>}

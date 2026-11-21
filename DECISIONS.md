@@ -53,3 +53,13 @@ parser trivial. The app reads it with `fetch` from `expo/fetch`; the fallback is
 ## D-13 Two extra routes beyond the spec list
 `POST /season/savings/apply` (applies chosen savings candidates; code does the switching and recompute) and
 `POST /dev/reset` (re-seed for demo rehearsals).
+
+## D-14 Metro resolves @falcon/shared by path (Windows drive-letter case)
+npm creates `node_modules/@falcon/*` junctions using the drive-letter case the install ran under (VS Code: lowercase `c:`).
+Metro compares paths case-sensitively, so it treated the junction target as outside the project and failed with "Unable to resolve
+@falcon/shared". `apps/mobile/metro.config.js` maps the package to `packages/shared/src/index.ts` by path. Verified bundling from both `c:\` and `C:\`.
+
+## D-15 Athlete inbox + badge share one polled query
+`lib/notifications.ts` owns the `['notifications', athleteId]` query (45 s poll + refetch on app foreground). The tab badge,
+inbox and local notifications all read from it. Local notifications only fire for items that arrive after the first fetch (no
+backlog spam), and only if permission is granted. No remote push.
