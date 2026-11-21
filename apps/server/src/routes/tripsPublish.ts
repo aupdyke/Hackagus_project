@@ -1,9 +1,9 @@
 /** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11, own router), actuals (A-12). */
 import { randomBytes } from 'node:crypto';
 import { Router } from 'express';
-import { assignBuses, assignRooms, budgetVsActual, fixtures, requestStats, selectTravelingPlayers, selectTravelingStaff, validateRooming, type Room } from '@falcon/shared';
+import { ACTUAL_CATEGORIES, assignBuses, assignRooms, budgetVsActual, requestStats, selectTravelingPlayers, selectTravelingStaff, validateRooming, type Room } from '@falcon/shared';
 import { env } from '../env';
-import { HttpError, badRequest, conflict, notFound, orFixture, roleOf, staffOnly } from '../http';
+import { HttpError, badRequest, conflict, notFound, roleOf, staffOnly } from '../http';
 import { renderPacketHtml } from '../features/packet';
 import { travelRosterIds } from './athletes';
 import { pack, staffById } from '../data';
@@ -98,13 +98,21 @@ on(tripsPublishRouter, 'publishTrip', ({ params }) => {
   return { trip: repo.trips.save(published), game: requireGame(trip.game_id) };
 });
 
-on(tripsPublishRouter, 'postActuals', ({ params, body, res }) => {
+/** A-12: hand-entered actuals after the trip → budget vs actual (planned from the selected package). */
+on(tripsPublishRouter, 'postActuals', ({ params, body }) => {
   const trip = requireTrip(params.id!);
+  if (!selectedPackage(trip)) throw conflict('Select a package before entering actuals');
+  if (trip.status !== 'published' && trip.status !== 'completed') throw conflict(`Actuals can only be entered for published or completed trips (this one is ${trip.status})`);
+  const negative = ACTUAL_CATEGORIES.filter((k) => body[k] < 0);
+  if (negative.length) throw badRequest(`Actual costs can't be negative: ${negative.join(', ')}`, negative.map((k) => ({ path: k, message: 'must be 0 or more' })));
   const entry = { ...body, trip_id: trip.trip_id, entered_at: new Date().toISOString() };
+  const report = budgetVsActual(trip, entry);
   repo.actuals.save(entry);
-  return orFixture(res, () => budgetVsActual(trip, entry), () => ({ ...fixtures.FIXTURE_BUDGET_VS_ACTUAL, trip_id: trip.trip_id }));
+  if (trip.status === 'published') repo.trips.save({ ...trip, status: 'completed' });
+  return report;
 });
-on(tripsPublishRouter, 'budgetVsActual', ({ params, res }) => {
+on(tripsPublishRouter, 'budgetVsActual', ({ params }) => {
   const trip = requireTrip(params.id!);
-  return orFixture(res, () => budgetVsActual(trip, repo.actuals.get(trip.trip_id)), () => ({ ...fixtures.FIXTURE_BUDGET_VS_ACTUAL, trip_id: trip.trip_id }));
+  if (!selectedPackage(trip)) throw conflict('Select a package before comparing budget vs actual');
+  return budgetVsActual(trip, repo.actuals.get(trip.trip_id));
 });

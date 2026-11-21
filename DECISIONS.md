@@ -195,3 +195,12 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
   sections say "Not generated yet" instead of failing.
 - **Selection required:** packets need a selected package (409 otherwise). The share page answers 404 if the published
   trip somehow has none.
+
+## D-25 Budget vs actual (A-12)
+- **Variance:** variance = actual âˆ’ planned per line, rounded to cents; positive means over plan. The contingency line has
+  a planned value and a null actual. `actual_total` covers bus + equipment + hotel + meals + other, so an unspent
+  contingency shows up as a negative `variance_total`.
+- **Wrong trip's actuals:** `budgetVsActual` throws if handed another trip's entry, as well as when no package is
+  selected. The routes turn a missing selection into a 409 before calling it.
+- **POST /actuals:** the entry is validated (no negative numbers; trip published or completed) *before* anything is
+  saved. A completed trip can be corrected by posting again; the newest entry replaces the old one.
