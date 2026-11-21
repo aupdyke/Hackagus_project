@@ -87,3 +87,18 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **En-route meals** use route-stop restaurants and never the hotel. The boxed post-game meal is a city restaurant; its
   itinerary item (depart_return) keeps the stadium as its location.
 - **Same-day packages:** no same-day Economy option is offered (the task file's tier table always departs the day before).
+
+## D-17 Fact guard matching details (A-04)
+- **Extraction order:** ids → money → dates → times → quantities → weekdays. Each match is masked before the next pattern
+  runs, so "IT-3" or "Nov 28" never also counts as a bare quantity.
+- **Case sensitivity:** month and weekday names must be capitalised ("Nov 28", "Friday"). That keeps "may", "sat" and
+  "sun" in ordinary prose from tripping the guard. Time words are case-insensitive. "noon" matches only as a whole word
+  ("afternoon" is ignored).
+- **Money sign:** money is compared by magnitude, so "saves $500" matches a −500 difference.
+  `factsFromPackages` stores pairwise total differences as absolute values.
+- **Hyphenated units:** "3-hour", "two-night" count as quantities. A number followed by a word that isn't a unit is a bare
+  number and is ignored.
+- **Allowed quantities:** keys may be plural or singular ("miles" or "mile"); both are normalised before matching.
+- **`factsFromPackages` scope:** it allows one-way and round-trip miles, staff as support-only and as coaches + support, and
+  every itinerary/meal time and date. Ids are limited to options, hotels and meal vendors. Callers merge in anything else
+  they put in FACTS (e.g. settings values) with `mergeFacts`.
