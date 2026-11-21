@@ -26,7 +26,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [A-14](tasks/A-14.md) | Athlete assistant (cited, needs_staff) | EXT | 60m | A-13 |
 | - [x] | ⭐ [A-15](tasks/A-15.md) | Season roll-up + savings candidates + budget tuning | EXT | 75m | A-03, A-12 |
 | - [x] | ⭐ [A-16](tasks/A-16.md) | AI savings selection + apply | EXT | 60m | A-15, A-04 |
-| - [ ] | ⭐ [A-17](tasks/A-17.md) | AI accuracy harness | EXT | 75m | A-06 (A-05) |
+| - [x] | ⭐ [A-17](tasks/A-17.md) | AI accuracy harness | EXT | 75m | A-06 (A-05) |
 | - [ ] | [A-18](tasks/A-18.md) | Full demo-flow server test + fixes | EXT | 60m | A-05, A-07, A-10, A-11, A-13, A-14, A-16 |
 
 ## Track B: Staff app (`track-b`)

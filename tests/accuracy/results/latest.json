@@ -1,0 +1,193 @@
+{
+  "run_at": "2026-11-21T03:14:08.154Z",
+  "mock": true,
+  "cases_run": 26,
+  "per_field": [
+    {
+      "field": "game_id",
+      "correct": 20,
+      "total": 26,
+      "accuracy": 0.7692
+    },
+    {
+      "field": "players",
+      "correct": 21,
+      "total": 26,
+      "accuracy": 0.8077
+    },
+    {
+      "field": "coaches",
+      "correct": 22,
+      "total": 26,
+      "accuracy": 0.8462
+    },
+    {
+      "field": "support_staff",
+      "correct": 24,
+      "total": 26,
+      "accuracy": 0.9231
+    },
+    {
+      "field": "departure_kind",
+      "correct": 24,
+      "total": 26,
+      "accuracy": 0.9231
+    },
+    {
+      "field": "departure_datetime",
+      "correct": 23,
+      "total": 26,
+      "accuracy": 0.8846
+    },
+    {
+      "field": "include_equipment_truck",
+      "correct": 25,
+      "total": 26,
+      "accuracy": 0.9615
+    }
+  ],
+  "overall_accuracy": 0.8736,
+  "exact_match_rate": 0.5385,
+  "recommendation_valid_id_rate": 1,
+  "fact_guard_pass_rate": 1,
+  "failures": [
+    {
+      "case_id": "c02",
+      "field": "players",
+      "expected": "70",
+      "got": "null"
+    },
+    {
+      "case_id": "c06",
+      "field": "game_id",
+      "expected": "G10",
+      "got": "null"
+    },
+    {
+      "case_id": "c06",
+      "field": "departure_kind",
+      "expected": "not_after",
+      "got": "none"
+    },
+    {
+      "case_id": "c06",
+      "field": "departure_datetime",
+      "expected": "2026-11-27T09:00",
+      "got": "''"
+    },
+    {
+      "case_id": "c08",
+      "field": "game_id",
+      "expected": "G12",
+      "got": "null"
+    },
+    {
+      "case_id": "c08",
+      "field": "departure_datetime",
+      "expected": "2026-12-11T13:00",
+      "got": "''"
+    },
+    {
+      "case_id": "c09",
+      "field": "game_id",
+      "expected": "G12",
+      "got": "null"
+    },
+    {
+      "case_id": "c10",
+      "field": "players",
+      "expected": "68",
+      "got": "8"
+    },
+    {
+      "case_id": "c10",
+      "field": "coaches",
+      "expected": "12",
+      "got": "null"
+    },
+    {
+      "case_id": "c10",
+      "field": "support_staff",
+      "expected": "11",
+      "got": "null"
+    },
+    {
+      "case_id": "c11",
+      "field": "players",
+      "expected": "70",
+      "got": "null"
+    },
+    {
+      "case_id": "c11",
+      "field": "coaches",
+      "expected": "12",
+      "got": "null"
+    },
+    {
+      "case_id": "c11",
+      "field": "support_staff",
+      "expected": "12",
+      "got": "null"
+    },
+    {
+      "case_id": "c11",
+      "field": "include_equipment_truck",
+      "expected": "false",
+      "got": "true"
+    },
+    {
+      "case_id": "c16",
+      "field": "game_id",
+      "expected": "G08",
+      "got": "null"
+    },
+    {
+      "case_id": "c17",
+      "field": "departure_kind",
+      "expected": "not_before",
+      "got": "none"
+    },
+    {
+      "case_id": "c17",
+      "field": "departure_datetime",
+      "expected": "2026-11-27T12:00",
+      "got": "''"
+    },
+    {
+      "case_id": "c20",
+      "field": "game_id",
+      "expected": "G06",
+      "got": "null"
+    },
+    {
+      "case_id": "c21",
+      "field": "game_id",
+      "expected": "G04",
+      "got": "null"
+    },
+    {
+      "case_id": "c21",
+      "field": "coaches",
+      "expected": "12",
+      "got": "null"
+    },
+    {
+      "case_id": "c25",
+      "field": "players",
+      "expected": "72",
+      "got": "2"
+    },
+    {
+      "case_id": "c25",
+      "field": "coaches",
+      "expected": "11",
+      "got": "null"
+    },
+    {
+      "case_id": "c26",
+      "field": "players",
+      "expected": "66",
+      "got": "null"
+    }
+  ]
+}

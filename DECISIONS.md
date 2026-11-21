@@ -286,3 +286,20 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **Apply:** recomputes candidates *now* (stale ids → 400, nothing changes). Per trip it applies reduce_travelers, then
   cheaper_hotel, then switch_package, keeping the current tier selected after each rebuild. Changed approved trips go
   back to draft, and their recommendation is cleared.
+
+## D-30 AI accuracy harness (A-17)
+- **Rate scale:** accuracy and rates in `AccuracyReport` are fractions 0–1, rounded to 4 decimals. The app formats them
+  as percentages.
+- **Expected values:** the 26 cases in `tests/accuracy/cases.json` hold the *correct* parse, not what the mock produces.
+  The committed mock run (`mock: true`) therefore scores 87.4% field accuracy / 53.8% exact. The regex mock misses
+  mascots, "UB", word numbers and bullet lists, which a real model should handle. Track C replaces `latest.json` with a
+  live run at checkpoint 3.
+- **Parse fallbacks:** `POST /trips/parse` never returns AI errors over HTTP; it answers 200 with a fallback draft and a
+  friendly notice. The harness reads the notice: "busy" → back off and retry (max 3); "credits empty" / "spend limit" →
+  stop the run; other fallbacks are scored as-is (that's what staff would see). HTTP 429 / `ai_busy` on other routes
+  is retried the same way.
+- **fact_guard_pass_rate** counts only AI-written recommendations. A template recommendation (AI down) is excluded
+  rather than counted as a pass. `recommendation_valid_id_rate` counts every call.
+- **Recommendation checks:** they run on TRIP-G12, and on TRIP-G10 only if it has packages (it doesn't in the seed).
+- **Run files:** `results/run-*.json` are gitignored; only `latest.json` is committed. `tests/` isn't part of
+  `npm run typecheck`; the harness was typechecked separately with the base compiler options.
