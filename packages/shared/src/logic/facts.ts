@@ -126,11 +126,41 @@ export function templateRecommendation(pkgs: TravelPackage[], now: string, opts:
   };
 }
 
-// ---------- A-08 / A-16 (not yet implemented) ----------
+// ---------- A-08 memo ----------
 
-export function memoFacts(_game: Game, _req: TripRequest, _pkg: TravelPackage): { facts: unknown; allowed: AllowedFacts } {
-  throw new NotImplementedError('A-08');
+/** Compact memo FACTS for one package (no roster) + the AllowedFacts the streamed memo is checked against. */
+export function memoFacts(game: Game, _req: TripRequest, pkg: TravelPackage): { facts: unknown; allowed: AllowedFacts } {
+  const kickoff = `${game.date}T${game.kickoff_local}`;
+  const facts = {
+    opponent: game.opponent,
+    city: `${game.city}, ${game.state}`,
+    stadium: game.stadium_name,
+    kickoff: formatDayTime(kickoff),
+    option_id: pkg.option_id,
+    label: pkg.label,
+    hotel: pkg.hotel_name,
+    travelers: pkg.counts.travelers,
+    buses: pkg.counts.buses,
+    rooms: pkg.counts.rooms_total,
+    nights: pkg.nights,
+    estimated_total: pkg.costs.total,
+    itinerary: pkg.itinerary.map((i) => ({ id: i.id, time: formatDayTime(i.start_local), what: i.label, where: i.location })),
+    meals: pkg.meals.map((m) => ({ time: formatDayTime(m.time_local), vendor: m.vendor_name, headcount: m.headcount })),
+    risks: pkg.risk_flags.map((f) => f.message),
+  };
+  const extra = emptyFacts();
+  extra.dates.push(game.date);
+  extra.times.push(game.kickoff_local);
+  for (const i of pkg.itinerary) {
+    extra.times.push(i.start_local.slice(11, 16));
+    extra.dates.push(i.start_local.slice(0, 10));
+  }
+  extra.quantities.meal = [pkg.meals.length];
+  return { facts, allowed: mergeFacts(factsFromPackages([pkg]), extra) };
 }
+
+// ---------- A-16 (not yet implemented) ----------
+
 export function savingsFacts(_candidates: SavingsCandidate[], _overBy: number): { facts: unknown; allowed: AllowedFacts } {
   throw new NotImplementedError('A-16');
 }

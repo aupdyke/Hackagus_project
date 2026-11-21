@@ -143,3 +143,11 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
 - **Package diff lines:** rooms, buses and total are always listed; other lines only when they changed.
 - **Clarifying questions** are fact-guarded too, with a generic code question as the fallback.
 - **AI down:** `AiError` returns a fallback with nothing stored.
+
+## D-21 Memo facts (A-08)
+- **Facts sent:** memo FACTS use `formatDayTime` strings ("Fri Dec 11, 12:00 PM"), so the model copies human-readable times.
+- **Allowed facts:** `factsFromPackages([pkg])` + game date/kickoff + itinerary start dates/times + the meal count.
+- **Fallback removed:** the Phase-0 `basicFacts` fallback is gone. The memo now always runs the fact guard, and the `done`
+  event and the saved `trip.memo` use the same `unverified_sentences` list.
+- **Flag, don't replace:** a streamed memo isn't regenerated. Unverified sentences are flagged for the app to highlight,
+  per the task; unlike recommend and what-if, its prose is never replaced.

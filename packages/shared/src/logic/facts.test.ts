@@ -3,8 +3,9 @@ import { loadDataPack, planningData } from '../testing/loadData';
 import { Recommendation, type TravelPackage, type TripRequest } from '../domain';
 import * as fx from '../fixtures';
 import { factGuard } from './factGuard';
-import { rankPackages, recommendFacts, templateRecommendation } from './facts';
+import { memoFacts, rankPackages, recommendFacts, templateRecommendation } from './facts';
 import { buildPackages } from './packages';
+import { formatDayTime } from './time';
 
 const pack = loadDataPack();
 const data = planningData(pack);
@@ -89,5 +90,41 @@ describe('templateRecommendation', () => {
 
   it('works on fixture packages without hotel data', () => {
     Recommendation.parse(templateRecommendation(fx.FIXTURE_PACKAGES, NOW));
+  });
+});
+
+describe('memoFacts', () => {
+  const pkg = pkgs[1]!;
+  const { facts, allowed } = memoFacts(g10, REQ, pkg);
+
+  it('builds compact facts with formatted times, no roster', () => {
+    const f = facts as { opponent: string; stadium: string; kickoff: string; option_id: string; estimated_total: number; itinerary: { id: string; time: string }[]; meals: { vendor: string; headcount: number }[]; risks: string[] };
+    expect(f).toMatchObject({ opponent: 'Ohio', stadium: g10.stadium_name, kickoff: 'Sat Nov 28, 12:00 PM', option_id: 'PKG-G10-B', estimated_total: pkg.costs.total });
+    expect(f.itinerary).toHaveLength(pkg.itinerary.length);
+    expect(f.itinerary[0]).toEqual({ id: 'IT-1', time: formatDayTime(pkg.itinerary[0]!.start_local), what: 'Buses depart', where: pkg.itinerary[0]!.location });
+    expect(f.meals.every((m) => m.headcount === 94)).toBe(true);
+    expect(JSON.stringify(facts)).not.toMatch(/first_name|last_name|P-0/);
+  });
+
+  it('allowed.times includes every itinerary start time; dates include the game date', () => {
+    for (const i of pkg.itinerary) expect(allowed.times).toContain(i.start_local.slice(11, 16));
+    expect(allowed.times).toContain('12:00');
+    expect(allowed.dates).toEqual(expect.arrayContaining(['2026-11-27', '2026-11-28']));
+    expect(allowed.money).toContain(pkg.costs.total);
+    expect(allowed.ids).toContain('PKG-G10-B');
+  });
+
+  it('fact guard flags a memo sentence with a time not in the facts', () => {
+    const depart = formatDayTime(pkg.departure_local);
+    const memo = `## Memo\nBuses depart ${depart}. The team will be up at 3:15 AM for a walk. Estimated total is in the app.`;
+    const r = factGuard(memo, allowed);
+    expect(r.bad_sentences).toEqual(['The team will be up at 3:15 AM for a walk.']);
+    expect(r.issues).toEqual(['3:15 AM is not in the facts']);
+  });
+
+  it('a memo built only from FACTS passes', () => {
+    const f = facts as { kickoff: string; itinerary: { time: string; what: string }[] };
+    const memo = [`Kickoff ${f.kickoff}.`, ...f.itinerary.map((i) => `- ${i.time}: ${i.what}`)].join('\n');
+    expect(factGuard(memo, allowed).issues).toEqual([]);
   });
 });
