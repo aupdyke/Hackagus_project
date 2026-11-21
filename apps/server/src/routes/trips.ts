@@ -1,14 +1,43 @@
 /** Core trip workflow (Level 1): list, detail, request (form / parse), packages, select, approve. */
 import { Router } from 'express';
-import type { Trip } from '@falcon/shared';
+import { addDays, combine, formatDayTime, isBefore, type Game, type Trip, type TripRequest } from '@falcon/shared';
 import { badRequest, conflict, staffOnly } from '../http';
 import { emptyTrip, repo } from '../repo';
+import { pack } from '../data';
 import { computeTripPackages } from '../features/planner';
 import { parseTripText } from '../features/parse';
 import { on } from './_define';
 import { requireGame, requireTrip, toSummary } from './helpers';
 
 export const tripsRouter = Router();
+
+/** How far before the game a departure constraint may point (days). */
+export const CONSTRAINT_WINDOW_DAYS = 3;
+
+/**
+ * Checks Zod can't do (they need the data pack): eligible-player count, constraint window, excluded hotel ids.
+ * Throws 400 with a human-readable message.
+ */
+export function validateRequestAgainstData(body: TripRequest, game: Game): void {
+  const eligible = pack.roster.filter((p) => p.travel_eligible).length;
+  if (body.players > eligible) throw badRequest(`Only ${eligible} players are travel-eligible (requested ${body.players})`);
+
+  const c = body.departure_constraint;
+  if (c.kind !== 'none') {
+    if (!c.datetime_local) throw badRequest('Departure constraint needs a day and time (or set it to none)');
+    const earliest = combine(addDays(game.date, -CONSTRAINT_WINDOW_DAYS), '00:00');
+    const kickoff = combine(game.date, game.kickoff_local);
+    if (isBefore(c.datetime_local, earliest) || isBefore(kickoff, c.datetime_local)) {
+      throw badRequest(
+        `Departure constraint must be between ${formatDayTime(earliest)} and kickoff (${formatDayTime(kickoff)})`,
+      );
+    }
+  }
+
+  const cityHotels = new Set(pack.hotels.filter((h) => h.city === game.city).map((h) => h.hotel_id));
+  const unknown = body.excluded_hotel_ids.filter((id) => !cityHotels.has(id));
+  if (unknown.length) throw badRequest(`Unknown hotel(s) for ${game.city}: ${unknown.join(', ')}`);
+}
 tripsRouter.use('/trips', staffOnly);
 
 on(tripsRouter, 'listTrips', () =>
@@ -28,8 +57,7 @@ on(tripsRouter, 'submitRequest', ({ params, body }) => {
   const game = requireGame(params.gameId!);
   if (game.home_away !== 'away') throw badRequest(`${game.opponent} is a home game — no travel plan needed`);
   if (body.game_id !== game.game_id) throw badRequest('game_id in body does not match the URL');
-  if (body.departure_constraint.kind !== 'none' && !body.departure_constraint.datetime_local)
-    throw badRequest('Departure constraint needs a day and time (or set it to none)');
+  validateRequestAgainstData(body, game);
   const existing = repo.trips.get(`TRIP-${game.game_id}`) ?? emptyTrip(game.game_id);
   if (existing.status === 'completed') throw conflict('This trip is completed and can no longer be edited');
   let trip: Trip = { ...existing, request: body, recommendation: null };

@@ -116,3 +116,15 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
 - **AI error on retry:** if the retry itself throws `AiError`, the first (failing) answer is finalised, i.e. template prose.
 - **Fact guard scope:** the fact guard checks the explanation and every pro/con in a single call. Allowed facts are
   `factsFromPackages` plus hotel miles, game date and kickoff, request counts and caps.
+
+## D-19 Request hardening and AI error shape (A-06)
+- **Constraint window:** a departure constraint must fall between 00:00 three days before game day and kickoff,
+  inclusive (`CONSTRAINT_WINDOW_DAYS = 3`).
+- **Eligible players:** the players cap is the count of `travel_eligible` players in the data pack (96).
+- **Excluded hotels:** each excluded hotel id must belong to the game city. Unknown ids are listed in the 400 message.
+- **`request_id`:** an `AiError` reaching the error middleware always carries one. It is Aivana's id when we have it,
+  otherwise `local-<uuid>`, which is also logged with the error.
+- **Retryable and status:** `ai_busy` is always `retryable: true`. `ai_spend_limit` now maps to HTTP 429 (it was 503) to
+  match Aivana's `spend_limit_reached`. It stays non-retryable.
+- **Test server:** `startTestServer()` (`apps/server/src/test/server.ts`) refuses to run outside Vitest because it wipes
+  the DB.

@@ -1,4 +1,5 @@
 /** HTTP helpers: errors, validation, response contract checks, role scoping, SSE. */
+import { randomUUID } from 'node:crypto';
 import type { NextFunction, Request, Response } from 'express';
 import type { z } from 'zod';
 import { FRIENDLY_ERROR, NotImplementedError, type ErrorCode, type StreamEvent } from '@falcon/shared';
@@ -80,8 +81,11 @@ export function errorMiddleware(err: unknown, _req: Request, res: Response, _nex
     return;
   }
   if (err instanceof AiError) {
-    const status = err.code === 'ai_busy' ? 429 : err.code === 'ai_credits_empty' ? 402 : 503;
-    res.status(status).json({ error: { code: err.code, message: FRIENDLY_ERROR[err.code], retryable: err.retryable, request_id: err.requestId } });
+    const status = err.code === 'ai_busy' || err.code === 'ai_spend_limit' ? 429 : err.code === 'ai_credits_empty' ? 402 : 503;
+    // Always give the app an id to quote: Aivana's request id, else a local one (logged so it can be traced).
+    const request_id = err.requestId || `local-${randomUUID()}`;
+    if (!err.requestId) console.warn(`[ai] ${err.code} without Aivana request id → ${request_id}: ${err.message}`);
+    res.status(status).json({ error: { code: err.code, message: FRIENDLY_ERROR[err.code], retryable: err.code === 'ai_busy' || err.retryable, request_id } });
     return;
   }
   if (err instanceof NotImplementedError) {
