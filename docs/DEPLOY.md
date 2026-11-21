@@ -5,7 +5,7 @@ Apple processing can take 10–60+ minutes.
 
 ## 1. Backend (preferred: Render)
 1. Push `main` to GitHub.
-2. Render → New → **Web Service** → this repo. Settings:
+2. Render → New → **Blueprint** → this repo (uses `render.yaml`), or **Web Service** with these settings:
    - Root directory: *(repo root)* · Runtime: Node 20+
    - Build command: `npm ci --include-workspace-root -w @falcon/server -w @falcon/shared`
    - Start command: `npm start -w @falcon/server`
@@ -15,6 +15,9 @@ Apple processing can take 10–60+ minutes.
 4. Note: the free tier sleeps. Open `/health` 1–2 min before the demo. The SQLite file resets on redeploy (it re-seeds automatically).
 
 Railway works the same way (same build/start commands and env vars).
+
+> Verified on a clean clone: the build command installs only server + shared deps (~7 s, no Expo/React Native), and
+> `npm start -w @falcon/server` boots, seeds the DB and answers `/health`.
 
 ### Fallback: tunnel from a laptop
 ```bash
@@ -31,6 +34,7 @@ npm i -g eas-cli            # or use npx eas-cli
 eas login
 eas init                    # creates the EAS project; writes extra.eas.projectId into app.json
 eas update:configure        # writes updates.url into app.json (expo-updates)
+# App icon: apps/mobile/assets/icon.png (regenerate with: node scripts/make-icon.mjs)
 # set EXPO_PUBLIC_API_URL for production in eas.json → build.production.env (NOT secret)
 eas build -p ios --profile production
 eas submit -p ios           # uploads to App Store Connect → TestFlight

@@ -1,0 +1,21 @@
+# Render Blueprint — Falcon Travel API (apps/server). See docs/DEPLOY.md.
+# Secrets (AIVANA_API_KEY) are set in the Render dashboard (sync: false) — never in this file.
+services:
+  - type: web
+    name: falcon-travel-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include-workspace-root -w @falcon/server -w @falcon/shared
+    startCommand: npm start -w @falcon/server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: AIVANA_MOCK
+        value: "0"
+      - key: AIVANA_API_KEY
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: DB_PATH
+        value: var/falcon.db
