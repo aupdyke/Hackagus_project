@@ -238,3 +238,34 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **AI down:** a keyword → fact fallback (leave/depart, room, bus, hotel, dinner/lunch/breakfast/eat, kickoff). The "next
   meal" is the first meal at or after now, else the first meal.
 - **Fact guard fix:** in "3:15 AM." at a sentence end, the full stop is no longer part of the reported time.
+
+## D-28 Season roll-up: unplanned trips are estimated; budget $168,000 (A-15)
+- **Why the rule changed:** the task's rules ("not_started contributes 0") and its demo targets conflicted. The seeded
+  season projected $149,891 with G10 unplanned. Planning G10 as Balanced raised it to $176,723, and every savings
+  candidate combined only cut $17,699 (to $159,024). A budget that is 3–6% under the seeded projection can never be
+  beaten after G10 is planned. **The team chose to estimate unplanned trips.**
+- **New rule:** `rollupSeason(..., data)` counts a not_started trip toward `projected` at the cheapest feasible package for
+  the default request (`defaultTripRequest`: default-travel players, travels-by-default staff, truck, no constraint). Its
+  row shows `counts_toward: 'projected'`, `planned_cost` = the estimate and an empty `selected_label`. Without `data`,
+  not_started still adds 0. The server always passes `data`.
+- **Numbers:**
+
+  | | Amount |
+  |---|---|
+  | G10 estimate | $26,349.58 |
+  | Seeded projected | $176,240.78 |
+  | Budget (`season_travel_budget`) | **$168,000** |
+  | Seeded over budget by | 4.9% |
+  | After planning G10 as Balanced (68/12/11, not before Fri 2 PM) | $176,722.94 |
+  | G12 → Economy saves | $8,639.22 |
+  | G10 → Economy saves | $3,410.27 |
+  | After both switches | $164,673 (under) |
+  | All candidates together | about $159,000 |
+- **Budget change ripples:** `seasonShare` (budget ÷ 6 = $28,000) feeds `over_season_share` risk flags, so those flags
+  shift slightly. Existing local DBs keep the old settings until `POST /dev/reset` (seeding only runs on an empty DB).
+  `FIXTURE_SEASON` (contract fixture) is unchanged.
+- **Savings candidates:** switch_package compares against the selected package, or the cheapest feasible one for
+  unselected drafts. reduce_travelers and cheaper_hotel rebuild with `buildPackages` and keep the current tier. Ties are
+  sorted by trip, then kind.
+- **`applySavings`:** one switch_package per trip (the largest). Other savings are additive, an approximation (stacking 5
+  fewer players on a switch saves a bit less than listed). Unknown ids throw.
