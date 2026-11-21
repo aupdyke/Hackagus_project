@@ -13,7 +13,7 @@ const NOW = '2026-11-20T18:00:00.000Z';
 
 export const FIXTURE_GAME: Game = {
   game_id: 'G10', week: 10, opponent: 'Ohio', city: 'Athens', state: 'OH',
-  stadium_name: 'Hocking Valley Stadium (synthetic)', date: '2026-11-28', kickoff_local: '12:00',
+  stadium_name: 'Hocking Valley Stadium', date: '2026-11-28', kickoff_local: '12:00',
   home_away: 'away', road_miles_one_way: 200, drive_hours_one_way: 3.6, route_stop_city: 'Columbus',
 };
 
@@ -31,18 +31,18 @@ const it = (n: number, kind: ItineraryItem['kind'], label: string, start: string
 
 export const FIXTURE_ITINERARY: ItineraryItem[] = [
   it(1, 'depart', 'Buses depart', '2026-11-27T11:00', '', 'BGSU Football Complex, Bowling Green, OH'),
-  it(2, 'meal', 'En-route lunch', '2026-11-27T13:15', '2026-11-27T14:00', 'Two Rivers Deli (synthetic), Columbus', 'ML-1'),
-  it(3, 'arrive_hotel', 'Arrive at hotel', '2026-11-27T15:30', '', 'Quarry Hill Suites Athens (synthetic)'),
-  it(4, 'checkin', 'Hotel check-in', '2026-11-27T15:30', '2026-11-27T16:00', 'Quarry Hill Suites Athens (synthetic)'),
-  it(5, 'walkthrough', 'Stadium walkthrough', '2026-11-27T16:30', '2026-11-27T17:30', 'Hocking Valley Stadium (synthetic)'),
-  it(6, 'meal', 'Team dinner', '2026-11-27T18:30', '2026-11-27T19:30', 'Harvest Table (synthetic), Athens', 'ML-2'),
+  it(2, 'meal', 'En-route lunch', '2026-11-27T13:15', '2026-11-27T14:00', 'Two Rivers Deli, Columbus', 'ML-1'),
+  it(3, 'arrive_hotel', 'Arrive at hotel', '2026-11-27T15:30', '', 'Quarry Hill Suites Athens'),
+  it(4, 'checkin', 'Hotel check-in', '2026-11-27T15:30', '2026-11-27T16:00', 'Quarry Hill Suites Athens'),
+  it(5, 'walkthrough', 'Stadium walkthrough', '2026-11-27T16:30', '2026-11-27T17:30', 'Hocking Valley Stadium'),
+  it(6, 'meal', 'Team dinner', '2026-11-27T18:30', '2026-11-27T19:30', 'Harvest Table, Athens', 'ML-2'),
   it(7, 'meeting', 'Position meetings', '2026-11-27T20:00', '2026-11-27T21:30', 'Hotel'),
   it(8, 'curfew', 'Curfew / lights out', '2026-11-27T22:30', '', 'Hotel'),
-  it(9, 'meal', 'Pre-game meal', '2026-11-28T08:00', '2026-11-28T08:45', 'Harvest Table (synthetic), Athens', 'ML-3'),
-  it(10, 'depart_hotel', 'Buses depart hotel', '2026-11-28T09:15', '', 'Quarry Hill Suites Athens (synthetic)'),
-  it(11, 'arrive_stadium', 'Arrive at stadium', '2026-11-28T09:45', '', 'Hocking Valley Stadium (synthetic)'),
-  it(12, 'kickoff', 'Kickoff vs Ohio', '2026-11-28T12:00', '', 'Hocking Valley Stadium (synthetic)'),
-  it(13, 'depart_return', 'Buses depart for home (boxed meal on bus)', '2026-11-28T16:00', '', 'Hocking Valley Stadium (synthetic)', 'ML-4'),
+  it(9, 'meal', 'Pre-game meal', '2026-11-28T08:00', '2026-11-28T08:45', 'Harvest Table, Athens', 'ML-3'),
+  it(10, 'depart_hotel', 'Buses depart hotel', '2026-11-28T09:15', '', 'Quarry Hill Suites Athens'),
+  it(11, 'arrive_stadium', 'Arrive at stadium', '2026-11-28T09:45', '', 'Hocking Valley Stadium'),
+  it(12, 'kickoff', 'Kickoff vs Ohio', '2026-11-28T12:00', '', 'Hocking Valley Stadium'),
+  it(13, 'depart_return', 'Buses depart for home (boxed meal on bus)', '2026-11-28T16:00', '', 'Hocking Valley Stadium', 'ML-4'),
   it(14, 'arrive_home', 'Arrive home', '2026-11-28T19:45', '', 'BGSU Football Complex, Bowling Green, OH'),
 ];
 
@@ -64,36 +64,36 @@ function pkg(tier: 'A' | 'B' | 'C', label: TravelPackage['label'], hotel_id: str
 }
 
 export const FIXTURE_PACKAGES: TravelPackage[] = [
-  pkg('A', 'Economy', 'H-ATH-1', 'Quarry Hill Suites Athens (synthetic)',
+  pkg('A', 'Economy', 'H-ATH-1', 'Quarry Hill Suites Athens',
     { bus: 8676.63, equipment: 2040, hotel: 7007.13, meals: 6674, subtotal: 24397.76, contingency: 1951.82, total: 26349.58 },
     [
-      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-2', 'Two Rivers Deli (synthetic)', '2026-11-27T13:15', 26),
-      meal(2, 'team_dinner', 'IT-6', 'restaurant', 'R-ATH-5', 'Harvest Table (synthetic)', '2026-11-27T18:30', 15),
-      meal(3, 'pregame_meal', 'IT-9', 'restaurant', 'R-ATH-5', 'Harvest Table (synthetic)', '2026-11-28T08:00', 15),
-      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-5', 'Harvest Table (synthetic)', '2026-11-28T16:00', 15),
+      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-2', 'Two Rivers Deli', '2026-11-27T13:15', 26),
+      meal(2, 'team_dinner', 'IT-6', 'restaurant', 'R-ATH-5', 'Harvest Table', '2026-11-27T18:30', 15),
+      meal(3, 'pregame_meal', 'IT-9', 'restaurant', 'R-ATH-5', 'Harvest Table', '2026-11-28T08:00', 15),
+      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-5', 'Harvest Table', '2026-11-28T16:00', 15),
     ],
     [{ code: 'meal_close_to_kickoff', severity: 'warning', message: 'Pre-game meal ends 3.25 hours before kickoff — close to the 3-hour minimum.', option_id: 'PKG-G10-A', related_item_id: 'IT-9' }],
   ),
-  pkg('B', 'Balanced', 'H-ATH-2', 'Bluestem Lodge Athens (synthetic)',
+  pkg('B', 'Balanced', 'H-ATH-2', 'Bluestem Lodge Athens',
     { bus: 8759.52, equipment: 2040, hotel: 8471.52, meals: 9212, subtotal: 28483.04, contingency: 2278.64, total: 30761.68 },
     [
-      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-1', 'Lakeshore Pizza Co. (synthetic)', '2026-11-27T13:15', 32),
-      meal(2, 'team_dinner', 'IT-6', 'restaurant', 'R-ATH-2', 'Saffron Garden (synthetic)', '2026-11-27T18:30', 21),
-      meal(3, 'pregame_meal', 'IT-9', 'restaurant', 'R-ATH-2', 'Saffron Garden (synthetic)', '2026-11-28T08:00', 21),
-      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-4', 'Lakeshore Pizza Co. (synthetic)', '2026-11-28T16:00', 24, ['vegetarian', 'nut_allergy']),
+      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-1', 'Lakeshore Pizza Co.', '2026-11-27T13:15', 32),
+      meal(2, 'team_dinner', 'IT-6', 'restaurant', 'R-ATH-2', 'Saffron Garden', '2026-11-27T18:30', 21),
+      meal(3, 'pregame_meal', 'IT-9', 'restaurant', 'R-ATH-2', 'Saffron Garden', '2026-11-28T08:00', 21),
+      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-4', 'Lakeshore Pizza Co.', '2026-11-28T16:00', 24, ['vegetarian', 'nut_allergy']),
     ],
     [
       { code: 'meal_over_allowance', severity: 'warning', message: 'En-route lunch is $32 per person, over the $28 meal allowance.', option_id: 'PKG-G10-B', related_item_id: 'IT-2' },
       { code: 'dietary_gap', severity: 'warning', message: 'Post-game boxed meal vendor has no vegetarian or nut-allergy option (4 travelers affected).', option_id: 'PKG-G10-B', related_item_id: 'IT-13' },
     ],
   ),
-  pkg('C', 'Game-Ready', 'H-ATH-3', 'Kestrel Lodge Athens (synthetic)',
+  pkg('C', 'Game-Ready', 'H-ATH-3', 'Kestrel Lodge Athens',
     { bus: 8892.72, equipment: 2040, hotel: 10824.72, meals: 11092, subtotal: 32849.44, contingency: 2627.96, total: 35477.4 },
     [
-      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-1', 'Lakeshore Pizza Co. (synthetic)', '2026-11-27T13:15', 32),
-      meal(2, 'team_dinner', 'IT-6', 'hotel', 'H-ATH-3', 'Kestrel Lodge Athens (synthetic) — team meal', '2026-11-27T18:30', 31),
-      meal(3, 'pregame_meal', 'IT-9', 'hotel', 'H-ATH-3', 'Kestrel Lodge Athens (synthetic) — team meal', '2026-11-28T08:00', 31),
-      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-4', 'Lakeshore Pizza Co. (synthetic)', '2026-11-28T16:00', 24, ['vegetarian', 'nut_allergy']),
+      meal(1, 'en_route_lunch', 'IT-2', 'restaurant', 'R-CMH-1', 'Lakeshore Pizza Co.', '2026-11-27T13:15', 32),
+      meal(2, 'team_dinner', 'IT-6', 'hotel', 'H-ATH-3', 'Kestrel Lodge Athens — team meal', '2026-11-27T18:30', 31),
+      meal(3, 'pregame_meal', 'IT-9', 'hotel', 'H-ATH-3', 'Kestrel Lodge Athens — team meal', '2026-11-28T08:00', 31),
+      meal(4, 'postgame_boxed', 'IT-13', 'restaurant', 'R-ATH-4', 'Lakeshore Pizza Co.', '2026-11-28T16:00', 24, ['vegetarian', 'nut_allergy']),
     ],
     [{ code: 'meal_over_allowance', severity: 'warning', message: '3 meals are over the $28 meal allowance.', option_id: 'PKG-G10-C', related_item_id: 'IT-6' }],
   ),
@@ -196,7 +196,7 @@ export const FIXTURE_PARSE: ParseResult = {
 
 export const FIXTURE_ATHLETE_VIEW: AthleteTripView = {
   trip_id: 'TRIP-G10', version: 1, athlete_id: 'P-004', game: FIXTURE_GAME,
-  hotel: { hotel_id: 'H-ATH-2', name: 'Bluestem Lodge Athens (synthetic)', address: '123 College Ave, Athens, OH', phone: '(419) 555-0150' },
+  hotel: { hotel_id: 'H-ATH-2', name: 'Bluestem Lodge Athens', address: '123 College Ave, Athens, OH', phone: '(419) 555-0150' },
   bus_number: 2, room_id: 'RM-01', roommates: [{ id: 'P-010', name: 'Teammate P-010' }],
   itinerary: FIXTURE_ITINERARY,
   meals: FIXTURE_PACKAGES[1]!.meals.map((m) => ({ meal_id: m.meal_id, kind: m.kind, time_local: m.time_local, vendor_name: m.vendor_name, itinerary_item_id: m.itinerary_item_id })),

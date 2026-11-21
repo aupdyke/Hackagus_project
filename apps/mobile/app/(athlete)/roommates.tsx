@@ -46,10 +46,13 @@ export default function Roommates() {
     },
   });
 
+  // no athlete (e.g. mid "Switch role"): the query is disabled and data is undefined, so don't read it
+  if (!id) return <Loading />;
   if (myTrip.isLoading) return <Loading />;
   if (myTrip.isError) return <View style={{ padding: space.lg }}><ErrorState error={myTrip.error} onRetry={() => myTrip.refetch()} /></View>;
 
-  const published = myTrip.data!.trip;
+  if (!myTrip.data) return <Loading />;
+  const published = myTrip.data.trip;
   const nameOf = (rid: string) => roster.data?.find((r) => r.id === rid)?.name ?? rid;
 
   // nothing open → show final rooming (if published) or an empty state

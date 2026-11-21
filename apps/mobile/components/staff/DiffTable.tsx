@@ -23,7 +23,7 @@ export function DiffTable({ diff, packages }: { diff: PackageDiff[]; packages: T
           style={{ gap: 2 }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, minWidth: 0 }}>
               <Text style={{ fontWeight: '700', color: colors.text }}>{label(d.option_id)}</Text>
               <Text style={{ color: colors.muted, fontSize: font.sm, fontVariant: ['tabular-nums'] }}>
                 {usd(d.before_total)} → {usd(d.after_total)}
@@ -31,7 +31,7 @@ export function DiffTable({ diff, packages }: { diff: PackageDiff[]; packages: T
             </View>
             <MoneyDelta value={d.delta} size="sm" estimate={false} />
           </View>
-          {d.changes.map((c, i) => <Text key={i} style={{ color: colors.text, fontSize: font.sm }}>• {c}</Text>)}
+          {d.changes.map((c, i) => <Text key={i} style={{ color: colors.text, fontSize: font.sm, flexShrink: 1 }}>• {c}</Text>)}
         </View>
       ))}
     </View>

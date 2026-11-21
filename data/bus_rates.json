@@ -4,7 +4,7 @@
   "data": [
     {
       "company_id": "BUS-1",
-      "name": "Maumee Valley Coachlines (synthetic)",
+      "name": "Maumee Valley Coachlines",
       "phone": "(419) 555-0147",
       "seats_per_bus": 56,
       "daily_rate": 1450,
@@ -15,7 +15,7 @@
     },
     {
       "company_id": "BUS-2",
-      "name": "Great Black Swamp Charter (synthetic)",
+      "name": "Great Black Swamp Charter",
       "phone": "(419) 555-0148",
       "seats_per_bus": 56,
       "daily_rate": 1600,
@@ -26,7 +26,7 @@
     },
     {
       "company_id": "BUS-3",
-      "name": "Portage River Motorcoach (synthetic)",
+      "name": "Portage River Motorcoach",
       "phone": "(419) 555-0149",
       "seats_per_bus": 54,
       "daily_rate": 1350,

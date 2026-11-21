@@ -41,12 +41,12 @@ describe('diffAthleteViews', () => {
 
   it('hotel, bus and meal vendor changes', () => {
     const v2 = clone();
-    v2.hotel = { ...v2.hotel, hotel_id: 'H-ATH-3', name: 'Kestrel Lodge Athens (synthetic)' };
+    v2.hotel = { ...v2.hotel, hotel_id: 'H-ATH-3', name: 'Kestrel Lodge Athens' };
     v2.bus_number = 1;
     v2.meals[1] = { ...v2.meals[1]!, vendor_name: 'Hotel team meal' };
     const kinds = diffAthleteViews(v1, v2).map((c) => [c.kind, c.before, c.after]);
     expect(kinds).toEqual([
-      ['hotel', v1.hotel.name, 'Kestrel Lodge Athens (synthetic)'],
+      ['hotel', v1.hotel.name, 'Kestrel Lodge Athens'],
       ['bus', 'Bus 2', 'Bus 1'],
       ['meal', v1.meals[1]!.vendor_name, 'Hotel team meal'],
     ]);
@@ -57,7 +57,7 @@ describe('describeChanges', () => {
   it('no changes → published title with departure, bus and room', () => {
     const d = describeChanges([], 'Ohio', v1);
     expect(d.title).toBe('Your Ohio trip is published');
-    expect(d.body).toBe("Buses depart Fri Nov 27 at 11:00 AM. You're on Bus 2. Room RM-01 with Teammate P-010. Hotel: Bluestem Lodge Athens (synthetic).");
+    expect(d.body).toBe("Buses depart Fri Nov 27 at 11:00 AM. You're on Bus 2. Room RM-01 with Teammate P-010. Hotel: Bluestem Lodge Athens.");
   });
 
   it('departure + roommate sentences in plain words', () => {

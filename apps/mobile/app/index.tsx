@@ -1,9 +1,9 @@
-/** Launch: role switch (Staff / Student-athlete + synthetic player picker). Demo only — no real auth. */
+/** Launch: role switch (Staff / Student-athlete + roster picker). No real auth. */
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '../components/ui';
 import { AthletePicker } from '../components/athlete/AthletePicker';
 import { api, errorMessage } from '../lib/api';
@@ -44,10 +44,12 @@ function ServerPill() {
 export default function RoleSelect() {
   const { setSession } = useSession();
   const [picking, setPicking] = useState(false);
+  // the hero is edge-to-edge brown, so pad it below the status bar / Dynamic Island ourselves
+  const insets = useSafeAreaInsets();
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={{ flex: 1, backgroundColor: colors.bg }}>
-      <View style={s.hero}>
+      <View style={[s.hero, { paddingTop: insets.top + space.md }]}>
         <Image source={logo} style={s.logo} accessibilityIgnoresInvertColors accessible={false} />
         <View style={{ flex: 1 }}>
           <Text style={s.kicker}>BGSU FALCONS FOOTBALL</Text>
@@ -86,12 +88,6 @@ export default function RoleSelect() {
             />
           </View>
         )}
-        <View style={s.footer}>
-          <Text style={s.small}>Synthetic data · demo role switch (no login)</Text>
-          <Pressable accessibilityRole="link" accessibilityLabel="Developer streaming test" onPress={() => router.push('/dev/stream')}>
-            <Text style={[s.small, { textDecorationLine: 'underline' }]}>Dev: streaming test</Text>
-          </Pressable>
-        </View>
       </View>
     </SafeAreaView>
   );
@@ -107,6 +103,5 @@ const s = StyleSheet.create({
   dot: { width: 10, height: 10, borderRadius: 5 },
   h2: { fontSize: font.xl, fontWeight: '800', color: colors.brown },
   back: { minHeight: 44, minWidth: 64, alignItems: 'center', justifyContent: 'center', borderRadius: radius.md, borderWidth: 2, borderColor: colors.brown },
-  footer: { alignItems: 'center', gap: 4, paddingTop: space.sm },
   small: { fontSize: font.sm, color: colors.muted, textAlign: 'center' },
 });

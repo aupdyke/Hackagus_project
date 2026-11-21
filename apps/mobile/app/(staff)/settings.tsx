@@ -109,9 +109,9 @@ export default function SettingsScreen() {
   };
 
   const onReset = () =>
-    Alert.alert('Reset demo data?', 'This wipes every trip, request, rooming list, actual and setting change, and re-seeds the synthetic data.', [
+    Alert.alert('Reset all data?', 'This wipes every trip, request, rooming list, actual and setting change, and restores the starting season data.', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Reset', style: 'destructive', onPress: () => reset.mutate(undefined, { onSuccess: () => setSaved('Demo data reset.') }) },
+      { text: 'Reset', style: 'destructive', onPress: () => reset.mutate(undefined, { onSuccess: () => setSaved('Data reset to the start of the season.') }) },
     ]);
 
   const errorCount = Object.keys(errors).length;
@@ -210,8 +210,8 @@ export default function SettingsScreen() {
       </Card>
 
       <View style={{ marginTop: space.xl, gap: 6 }}>
-        <Caption>Demo rehearsal: wipe the database and re-seed the synthetic data.</Caption>
-        <Button title="Reset demo data" variant="ghost" onPress={onReset} loading={reset.isPending} />
+        <Caption>Start over: wipe every change and restore the starting season data.</Caption>
+        <Button title="Reset all data" variant="ghost" onPress={onReset} loading={reset.isPending} />
       </View>
     </Screen>
   );

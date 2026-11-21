@@ -18,9 +18,17 @@ function bold(text: string, keyBase: string): ReactNode[] {
   );
 }
 
+/**
+ * The fact guard reports sentences from the RAW markdown ("- **Depart:** Fri 2 PM", "## Notes"), but we match
+ * against rendered line content (bullet/heading markers removed), so strip the same markers from the sentence.
+ */
+export function plainSentence(h: string): string {
+  return h.replace(/\*\*/g, '').replace(/^\s*(#{1,6}|[-*•]|\d+[.)])\s+/, '').replace(/\s+/g, ' ').trim();
+}
+
 /** Split a line into normal / highlighted runs, then apply **bold** inside each run. */
 function inline(text: string, highlight: string[], keyBase: string): ReactNode[] {
-  const hs = highlight.map((h) => h.trim()).filter((h) => h.length > 3);
+  const hs = highlight.map(plainSentence).filter((h) => h.length > 3);
   if (!hs.length) return bold(text, keyBase);
   const out: ReactNode[] = [];
   let rest = text;
@@ -29,8 +37,8 @@ function inline(text: string, highlight: string[], keyBase: string): ReactNode[]
     let best: { at: number; len: number } | null = null;
     for (const h of hs) {
       // match ignoring markdown bold markers
-      const at = rest.replace(/\*\*/g, '').indexOf(h.replace(/\*\*/g, ''));
-      if (at >= 0 && (!best || at < best.at)) best = { at, len: h.replace(/\*\*/g, '').length };
+      const at = rest.replace(/\*\*/g, '').indexOf(h);
+      if (at >= 0 && (!best || at < best.at)) best = { at, len: h.length };
     }
     if (!best) {
       out.push(...bold(rest, `${keyBase}-${n++}`));
@@ -40,7 +48,7 @@ function inline(text: string, highlight: string[], keyBase: string): ReactNode[]
     const plain = rest.replace(/\*\*/g, '');
     if (best.at > 0) out.push(...bold(plain.slice(0, best.at), `${keyBase}-${n++}`));
     out.push(
-      <Text key={`${keyBase}-h${n++}`} style={{ backgroundColor: AMBER }} accessibilityLabel={`Unverified: ${plain.slice(best.at, best.at + best.len)}`}>
+      <Text key={`${keyBase}-h${n++}`} style={{ backgroundColor: AMBER, textDecorationLine: 'underline', textDecorationColor: colors.warn }} accessibilityLabel={`Unverified: ${plain.slice(best.at, best.at + best.len)}`}>
         {plain.slice(best.at, best.at + best.len)}
       </Text>,
     );

@@ -10,7 +10,7 @@ import { hotelById, pack, playerName, staffById } from '../data';
 import { repo } from '../repo';
 
 export type PacketAudience = 'staff' | 'athlete' | 'public';
-export const PACKET_FOOTER = 'Synthetic data — 2026 BGSU Hackathon. Costs are estimates.';
+export const PACKET_FOOTER = 'BGSU Football travel · All costs are estimates.';
 
 export const esc = (s: unknown) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);

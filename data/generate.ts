@@ -50,7 +50,7 @@ const team: Team = {
   sport: 'football',
   home_city: 'Bowling Green',
   home_state: 'OH',
-  home_stadium: 'Falcon Home Field (synthetic name)',
+  home_stadium: 'Falcon Home Field',
   colors: { primary: '#FE5000', secondary: '#4F2C1D' },
   season: 2026,
 };
@@ -170,17 +170,17 @@ const away = (opponent: string, city: string, state: string, stadium: string, da
 });
 const schedule: Game[] = [
   home('Robert Morris', '2026-09-26', '18:00'),
-  away('Kent State', 'Kent', 'OH', 'Cuyahoga Valley Field (synthetic)', '2026-10-03', '15:30', 150, 2.6),
+  away('Kent State', 'Kent', 'OH', 'Cuyahoga Valley Field', '2026-10-03', '15:30', 150, 2.6),
   home('Akron', '2026-10-10', '15:30'),
-  away('Western Michigan', 'Kalamazoo', 'MI', 'Kalamazoo River Stadium (synthetic)', '2026-10-17', '12:00', 165, 2.8),
+  away('Western Michigan', 'Kalamazoo', 'MI', 'Kalamazoo River Stadium', '2026-10-17', '12:00', 165, 2.8),
   home('Toledo', '2026-10-24', '19:00'),
-  away('Ball State', 'Muncie', 'IN', 'White River Bowl (synthetic)', '2026-10-31', '14:00', 160, 2.9),
+  away('Ball State', 'Muncie', 'IN', 'White River Bowl', '2026-10-31', '14:00', 160, 2.9),
   home('Central Michigan', '2026-11-07', '15:30'),
-  away('Miami (OH)', 'Oxford', 'OH', 'Talawanda Field (synthetic)', '2026-11-14', '15:30', 175, 3.0),
+  away('Miami (OH)', 'Oxford', 'OH', 'Talawanda Field', '2026-11-14', '15:30', 175, 3.0),
   home('Eastern Michigan', '2026-11-21', '12:00'),
-  away('Ohio', 'Athens', 'OH', 'Hocking Valley Stadium (synthetic)', '2026-11-28', '12:00', 200, 3.6, 'Columbus'),
+  away('Ohio', 'Athens', 'OH', 'Hocking Valley Stadium', '2026-11-28', '12:00', 200, 3.6, 'Columbus'),
   home('Massachusetts', '2026-12-05', '15:30'),
-  away('Buffalo', 'Buffalo', 'NY', 'Niagara Frontier Field (synthetic)', '2026-12-12', '13:00', 295, 4.7, 'Erie'),
+  away('Buffalo', 'Buffalo', 'NY', 'Niagara Frontier Field', '2026-12-12', '13:00', 295, 4.7, 'Erie'),
 ].map((g, i) => ({ game_id: `G${String(i + 1).padStart(2, '0')}`, week: i + 1, ...g }));
 const awayGames = schedule.filter((g) => g.home_away === 'away');
 
@@ -198,7 +198,7 @@ for (const g of awayGames) {
     hotels.push({
       hotel_id: `H-${CITY_CODE[g.city]}-${i + 1}`,
       city: g.city,
-      name: `${words[i]} ${pick(HOTEL_WORDS[1]!)} ${g.city} (synthetic)`,
+      name: `${words[i]} ${pick(HOTEL_WORDS[1]!)} ${g.city}`,
       address: `${int(100, 9800)} ${pick(['Commerce', 'Meridian', 'Founders', 'Lakeview', 'Station', 'College'])} ${pick(['Ave', 'Blvd', 'Dr', 'Pkwy'])}, ${g.city}, ${g.state}`,
       phone: phone(),
       nightly_rate: [money(112, 128), money(139, 159), money(179, 209), money(125, 145)][profile]!,
@@ -230,7 +230,7 @@ for (const { city, stop } of restCities) {
     restaurants.push({
       restaurant_id: `R-${CITY_CODE[city]}-${i + 1}`,
       city,
-      name: `${name} (synthetic)`,
+      name: `${name}`,
       price_per_person: money(12, 34),
       capacity: i === n - 1 ? int(30, 60) : int(80, 160),
       miles_to_hotel: round2(0.3 + rand() * 6),
@@ -245,9 +245,9 @@ for (const { city, stop } of restCities) {
 
 // ---------- bus companies ----------
 const busRates: BusCompany[] = [
-  { company_id: 'BUS-1', name: 'Maumee Valley Coachlines (synthetic)', phone: phone(), seats_per_bus: 56, daily_rate: 1450, per_mile_rate: 3.1, driver_room_required_overnight: true, equipment_truck_daily_rate: 650, equipment_truck_per_mile_rate: 1.85 },
-  { company_id: 'BUS-2', name: 'Great Black Swamp Charter (synthetic)', phone: phone(), seats_per_bus: 56, daily_rate: 1600, per_mile_rate: 2.75, driver_room_required_overnight: true, equipment_truck_daily_rate: 700, equipment_truck_per_mile_rate: 1.7 },
-  { company_id: 'BUS-3', name: 'Portage River Motorcoach (synthetic)', phone: phone(), seats_per_bus: 54, daily_rate: 1350, per_mile_rate: 3.4, driver_room_required_overnight: true, equipment_truck_daily_rate: 600, equipment_truck_per_mile_rate: 2.0 },
+  { company_id: 'BUS-1', name: 'Maumee Valley Coachlines', phone: phone(), seats_per_bus: 56, daily_rate: 1450, per_mile_rate: 3.1, driver_room_required_overnight: true, equipment_truck_daily_rate: 650, equipment_truck_per_mile_rate: 1.85 },
+  { company_id: 'BUS-2', name: 'Great Black Swamp Charter', phone: phone(), seats_per_bus: 56, daily_rate: 1600, per_mile_rate: 2.75, driver_room_required_overnight: true, equipment_truck_daily_rate: 700, equipment_truck_per_mile_rate: 1.7 },
+  { company_id: 'BUS-3', name: 'Portage River Motorcoach', phone: phone(), seats_per_bus: 54, daily_rate: 1350, per_mile_rate: 3.4, driver_room_required_overnight: true, equipment_truck_daily_rate: 600, equipment_truck_per_mile_rate: 2.0 },
 ];
 
 // ---------- settings ----------

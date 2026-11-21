@@ -20,6 +20,8 @@ export function ChatBubble({ role, text, children, label }: {
         accessibilityLabel={`${who}: ${text}`}
         style={{
           maxWidth: '92%',
+          // bubbles with rich content (chips, diff table) take the full max width so their rows can wrap
+          width: children ? '92%' : undefined,
           backgroundColor: mine ? colors.brown : colors.card,
           borderWidth: mine ? 0 : 1,
           borderColor: colors.border,

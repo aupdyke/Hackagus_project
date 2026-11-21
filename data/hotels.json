@@ -5,7 +5,7 @@
     {
       "hotel_id": "H-KEN-1",
       "city": "Kent",
-      "name": "Bluestem Stay Kent (synthetic)",
+      "name": "Bluestem Stay Kent",
       "address": "4495 Station Pkwy, Kent, OH",
       "phone": "(419) 555-0127",
       "nightly_rate": 126,
@@ -20,7 +20,7 @@
     {
       "hotel_id": "H-KEN-2",
       "city": "Kent",
-      "name": "Lantern Suites Kent (synthetic)",
+      "name": "Lantern Suites Kent",
       "address": "6116 College Pkwy, Kent, OH",
       "phone": "(419) 555-0128",
       "nightly_rate": 144,
@@ -35,7 +35,7 @@
     {
       "hotel_id": "H-KEN-3",
       "city": "Kent",
-      "name": "Granite Row Stay Kent (synthetic)",
+      "name": "Granite Row Stay Kent",
       "address": "9428 Station Pkwy, Kent, OH",
       "phone": "(419) 555-0129",
       "nightly_rate": 207,
@@ -50,7 +50,7 @@
     {
       "hotel_id": "H-KAL-1",
       "city": "Kalamazoo",
-      "name": "Harbor Oak Stay Kalamazoo (synthetic)",
+      "name": "Harbor Oak Stay Kalamazoo",
       "address": "183 Lakeview Pkwy, Kalamazoo, MI",
       "phone": "(419) 555-0130",
       "nightly_rate": 128,
@@ -65,7 +65,7 @@
     {
       "hotel_id": "H-KAL-2",
       "city": "Kalamazoo",
-      "name": "Quarry Hill Stay Kalamazoo (synthetic)",
+      "name": "Quarry Hill Stay Kalamazoo",
       "address": "9270 Commerce Dr, Kalamazoo, MI",
       "phone": "(419) 555-0131",
       "nightly_rate": 157,
@@ -80,7 +80,7 @@
     {
       "hotel_id": "H-KAL-3",
       "city": "Kalamazoo",
-      "name": "Lantern Stay Kalamazoo (synthetic)",
+      "name": "Lantern Stay Kalamazoo",
       "address": "2942 Station Pkwy, Kalamazoo, MI",
       "phone": "(419) 555-0132",
       "nightly_rate": 200,
@@ -95,7 +95,7 @@
     {
       "hotel_id": "H-MUN-1",
       "city": "Muncie",
-      "name": "Kestrel Hotel & Conference Center Muncie (synthetic)",
+      "name": "Kestrel Hotel & Conference Center Muncie",
       "address": "4305 Founders Dr, Muncie, IN",
       "phone": "(419) 555-0133",
       "nightly_rate": 125,
@@ -110,7 +110,7 @@
     {
       "hotel_id": "H-MUN-2",
       "city": "Muncie",
-      "name": "Quarry Hill Stay Muncie (synthetic)",
+      "name": "Quarry Hill Stay Muncie",
       "address": "2018 College Pkwy, Muncie, IN",
       "phone": "(419) 555-0134",
       "nightly_rate": 141,
@@ -125,7 +125,7 @@
     {
       "hotel_id": "H-MUN-3",
       "city": "Muncie",
-      "name": "Willowmere Stay Muncie (synthetic)",
+      "name": "Willowmere Stay Muncie",
       "address": "9272 Lakeview Blvd, Muncie, IN",
       "phone": "(419) 555-0135",
       "nightly_rate": 199,
@@ -140,7 +140,7 @@
     {
       "hotel_id": "H-OXF-1",
       "city": "Oxford",
-      "name": "Willowmere Suites Oxford (synthetic)",
+      "name": "Willowmere Suites Oxford",
       "address": "6221 College Ave, Oxford, OH",
       "phone": "(419) 555-0136",
       "nightly_rate": 124,
@@ -155,7 +155,7 @@
     {
       "hotel_id": "H-OXF-2",
       "city": "Oxford",
-      "name": "Harbor Oak Inn Oxford (synthetic)",
+      "name": "Harbor Oak Inn Oxford",
       "address": "9019 Commerce Pkwy, Oxford, OH",
       "phone": "(419) 555-0137",
       "nightly_rate": 157,
@@ -170,7 +170,7 @@
     {
       "hotel_id": "H-OXF-3",
       "city": "Oxford",
-      "name": "Kestrel Lodge Oxford (synthetic)",
+      "name": "Kestrel Lodge Oxford",
       "address": "2482 College Ave, Oxford, OH",
       "phone": "(419) 555-0138",
       "nightly_rate": 179,
@@ -185,7 +185,7 @@
     {
       "hotel_id": "H-ATH-1",
       "city": "Athens",
-      "name": "Quarry Hill Suites Athens (synthetic)",
+      "name": "Quarry Hill Suites Athens",
       "address": "4855 Station Dr, Athens, OH",
       "phone": "(419) 555-0139",
       "nightly_rate": 117,
@@ -200,7 +200,7 @@
     {
       "hotel_id": "H-ATH-2",
       "city": "Athens",
-      "name": "Bluestem Lodge Athens (synthetic)",
+      "name": "Bluestem Lodge Athens",
       "address": "3387 Founders Ave, Athens, OH",
       "phone": "(419) 555-0140",
       "nightly_rate": 144,
@@ -215,7 +215,7 @@
     {
       "hotel_id": "H-ATH-3",
       "city": "Athens",
-      "name": "Kestrel Lodge Athens (synthetic)",
+      "name": "Kestrel Lodge Athens",
       "address": "3202 College Pkwy, Athens, OH",
       "phone": "(419) 555-0141",
       "nightly_rate": 184,
@@ -230,7 +230,7 @@
     {
       "hotel_id": "H-ATH-4",
       "city": "Athens",
-      "name": "Granite Row Hotel & Conference Center Athens (synthetic)",
+      "name": "Granite Row Hotel & Conference Center Athens",
       "address": "1155 Commerce Pkwy, Athens, OH",
       "phone": "(419) 555-0142",
       "nightly_rate": 133,
@@ -245,7 +245,7 @@
     {
       "hotel_id": "H-BUF-1",
       "city": "Buffalo",
-      "name": "Quarry Hill Inn Buffalo (synthetic)",
+      "name": "Quarry Hill Inn Buffalo",
       "address": "3624 Founders Pkwy, Buffalo, NY",
       "phone": "(419) 555-0143",
       "nightly_rate": 128,
@@ -260,7 +260,7 @@
     {
       "hotel_id": "H-BUF-2",
       "city": "Buffalo",
-      "name": "Lantern Suites Buffalo (synthetic)",
+      "name": "Lantern Suites Buffalo",
       "address": "7455 Station Dr, Buffalo, NY",
       "phone": "(419) 555-0144",
       "nightly_rate": 158,
@@ -275,7 +275,7 @@
     {
       "hotel_id": "H-BUF-3",
       "city": "Buffalo",
-      "name": "Bluestem Inn Buffalo (synthetic)",
+      "name": "Bluestem Inn Buffalo",
       "address": "9223 Lakeview Pkwy, Buffalo, NY",
       "phone": "(419) 555-0145",
       "nightly_rate": 197,
@@ -290,7 +290,7 @@
     {
       "hotel_id": "H-BUF-4",
       "city": "Buffalo",
-      "name": "Kestrel Inn Buffalo (synthetic)",
+      "name": "Kestrel Inn Buffalo",
       "address": "1587 College Ave, Buffalo, NY",
       "phone": "(419) 555-0146",
       "nightly_rate": 137,

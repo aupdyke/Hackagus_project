@@ -1,4 +1,4 @@
-/** Searchable list of the synthetic roster (demo role switch — no login). */
+/** Searchable roster list for the role switch (no login). */
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -36,7 +36,7 @@ export function AthletePicker({ onPick }: { onPick: (a: PickedAthlete) => void }
         autoCorrect={false}
         style={s.search}
       />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: space.sm, paddingVertical: 2 }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0, flexShrink: 0 }} contentContainerStyle={{ gap: space.sm, paddingVertical: 2, alignItems: 'center' }}>
         {GROUPS.map((g) => (
           <Pressable
             key={g}
@@ -78,7 +78,7 @@ export function AthletePicker({ onPick }: { onPick: (a: PickedAthlete) => void }
 
 const s = StyleSheet.create({
   search: { minHeight: TAP, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: space.md, fontSize: font.lg, backgroundColor: '#fff', color: colors.text },
-  filter: { minHeight: 40, minWidth: 48, paddingHorizontal: space.md, borderRadius: 999, borderWidth: 1, borderColor: colors.brown, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' },
+  filter: { height: 44, minWidth: 48, paddingHorizontal: space.md, borderRadius: 999, borderWidth: 1, borderColor: colors.brown, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' },
   filterOn: { backgroundColor: colors.brown },
   filterText: { color: colors.brown, fontWeight: '700', fontSize: font.sm },
   row: { minHeight: TAP + 12, flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: space.sm, paddingHorizontal: space.xs, borderBottomWidth: 1, borderBottomColor: colors.border },

@@ -151,7 +151,7 @@ export function RoomingStep({ detail, goTo }: StepProps) {
         <Card>
           <Row wrap={false}>
             <View style={{ flex: 1 }}><Button title="Discard" variant="ghost" onPress={() => { setEdit(null); setPicked(null); update.reset(); }} /></View>
-            <View style={{ flex: 2 }}><Button title="Save changes" onPress={save} disabled={!changed} loading={update.isPending} /></View>
+            <View style={{ flex: 1.6 }}><Button title="Save changes" onPress={save} disabled={!changed} loading={update.isPending} /></View>
           </Row>
         </Card>
       )}

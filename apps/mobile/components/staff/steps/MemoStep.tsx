@@ -9,7 +9,7 @@ import { API_URL } from '../../../lib/config';
 import { streamSse } from '../../../lib/sse';
 import { qk } from '../../../lib/staff/queries';
 import { colors, font } from '../../../lib/theme';
-import { MarkdownLite } from '../MarkdownLite';
+import { MarkdownLite, plainSentence } from '../MarkdownLite';
 import type { StepProps } from './types';
 
 type Status = 'idle' | 'streaming' | 'done' | 'stopped' | 'error';
@@ -152,10 +152,13 @@ export function MemoStep({ detail }: StepProps) {
             <MarkdownLite text={shownText} highlight={streaming ? [] : shownUnverified} />
           </ScrollView>
           {!streaming && shownUnverified.length > 0 && (
-            <View style={{ backgroundColor: '#FFE2A8', borderRadius: 8, padding: 8 }}>
+            <View style={{ backgroundColor: '#FFE2A8', borderRadius: 8, padding: 8, gap: 4 }}>
               <Text style={{ color: colors.brown, fontSize: font.sm, fontWeight: '700' }}>
-                ⚠ Unverified — {shownUnverified.length} highlighted sentence{shownUnverified.length > 1 ? 's contain' : ' contains'} a figure not in our data.
+                ⚠ Check before sharing — {shownUnverified.length} sentence{shownUnverified.length > 1 ? 's' : ''} (highlighted above) mention{shownUnverified.length > 1 ? '' : 's'} a number, time or date that doesn't match the trip plan:
               </Text>
+              {shownUnverified.map((u, i) => (
+                <Text key={i} style={{ color: colors.brown, fontSize: font.sm }}>• {plainSentence(u)}</Text>
+              ))}
             </View>
           )}
         </Card>

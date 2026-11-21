@@ -5,7 +5,7 @@
     {
       "restaurant_id": "R-KEN-1",
       "city": "Kent",
-      "name": "Iron Skillet Diner (synthetic)",
+      "name": "Iron Skillet Diner",
       "price_per_person": 17,
       "capacity": 93,
       "miles_to_hotel": 2.76,
@@ -23,7 +23,7 @@
     {
       "restaurant_id": "R-KEN-2",
       "city": "Kent",
-      "name": "Bright Kettle Kitchen (synthetic)",
+      "name": "Bright Kettle Kitchen",
       "price_per_person": 30,
       "capacity": 95,
       "miles_to_hotel": 5.98,
@@ -41,7 +41,7 @@
     {
       "restaurant_id": "R-KEN-3",
       "city": "Kent",
-      "name": "Copper Pot Pasta (synthetic)",
+      "name": "Copper Pot Pasta",
       "price_per_person": 17,
       "capacity": 132,
       "miles_to_hotel": 5.17,
@@ -57,7 +57,7 @@
     {
       "restaurant_id": "R-KEN-4",
       "city": "Kent",
-      "name": "Ember & Oak Grill (synthetic)",
+      "name": "Ember & Oak Grill",
       "price_per_person": 15,
       "capacity": 84,
       "miles_to_hotel": 1.43,
@@ -74,7 +74,7 @@
     {
       "restaurant_id": "R-KEN-5",
       "city": "Kent",
-      "name": "Harvest Table (synthetic)",
+      "name": "Harvest Table",
       "price_per_person": 22,
       "capacity": 153,
       "miles_to_hotel": 2.01,
@@ -92,7 +92,7 @@
     {
       "restaurant_id": "R-KEN-6",
       "city": "Kent",
-      "name": "Big Field Smokehouse (synthetic)",
+      "name": "Big Field Smokehouse",
       "price_per_person": 17,
       "capacity": 43,
       "miles_to_hotel": 1.71,
@@ -109,7 +109,7 @@
     {
       "restaurant_id": "R-KAL-1",
       "city": "Kalamazoo",
-      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "name": "Hilltop Chicken & Biscuits",
       "price_per_person": 17,
       "capacity": 144,
       "miles_to_hotel": 3.97,
@@ -127,7 +127,7 @@
     {
       "restaurant_id": "R-KAL-2",
       "city": "Kalamazoo",
-      "name": "Iron Skillet Diner (synthetic)",
+      "name": "Iron Skillet Diner",
       "price_per_person": 25,
       "capacity": 107,
       "miles_to_hotel": 1.72,
@@ -143,7 +143,7 @@
     {
       "restaurant_id": "R-KAL-3",
       "city": "Kalamazoo",
-      "name": "Saffron Garden (synthetic)",
+      "name": "Saffron Garden",
       "price_per_person": 26,
       "capacity": 98,
       "miles_to_hotel": 1.37,
@@ -160,7 +160,7 @@
     {
       "restaurant_id": "R-KAL-4",
       "city": "Kalamazoo",
-      "name": "Big Field Smokehouse (synthetic)",
+      "name": "Big Field Smokehouse",
       "price_per_person": 30,
       "capacity": 154,
       "miles_to_hotel": 2.26,
@@ -177,7 +177,7 @@
     {
       "restaurant_id": "R-KAL-5",
       "city": "Kalamazoo",
-      "name": "Bright Kettle Kitchen (synthetic)",
+      "name": "Bright Kettle Kitchen",
       "price_per_person": 31,
       "capacity": 54,
       "miles_to_hotel": 4.28,
@@ -194,7 +194,7 @@
     {
       "restaurant_id": "R-MUN-1",
       "city": "Muncie",
-      "name": "Greenline Bowls (synthetic)",
+      "name": "Greenline Bowls",
       "price_per_person": 22,
       "capacity": 113,
       "miles_to_hotel": 5.11,
@@ -212,7 +212,7 @@
     {
       "restaurant_id": "R-MUN-2",
       "city": "Muncie",
-      "name": "Copper Pot Pasta (synthetic)",
+      "name": "Copper Pot Pasta",
       "price_per_person": 25,
       "capacity": 111,
       "miles_to_hotel": 3.11,
@@ -228,7 +228,7 @@
     {
       "restaurant_id": "R-MUN-3",
       "city": "Muncie",
-      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "name": "Hilltop Chicken & Biscuits",
       "price_per_person": 19,
       "capacity": 124,
       "miles_to_hotel": 2.43,
@@ -245,7 +245,7 @@
     {
       "restaurant_id": "R-MUN-4",
       "city": "Muncie",
-      "name": "Bright Kettle Kitchen (synthetic)",
+      "name": "Bright Kettle Kitchen",
       "price_per_person": 22,
       "capacity": 129,
       "miles_to_hotel": 0.51,
@@ -261,7 +261,7 @@
     {
       "restaurant_id": "R-MUN-5",
       "city": "Muncie",
-      "name": "Ember & Oak Grill (synthetic)",
+      "name": "Ember & Oak Grill",
       "price_per_person": 12,
       "capacity": 129,
       "miles_to_hotel": 1.93,
@@ -277,7 +277,7 @@
     {
       "restaurant_id": "R-MUN-6",
       "city": "Muncie",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 27,
       "capacity": 39,
       "miles_to_hotel": 2.23,
@@ -294,7 +294,7 @@
     {
       "restaurant_id": "R-OXF-1",
       "city": "Oxford",
-      "name": "Harvest Table (synthetic)",
+      "name": "Harvest Table",
       "price_per_person": 29,
       "capacity": 113,
       "miles_to_hotel": 4.55,
@@ -312,7 +312,7 @@
     {
       "restaurant_id": "R-OXF-2",
       "city": "Oxford",
-      "name": "Saffron Garden (synthetic)",
+      "name": "Saffron Garden",
       "price_per_person": 30,
       "capacity": 98,
       "miles_to_hotel": 2.44,
@@ -329,7 +329,7 @@
     {
       "restaurant_id": "R-OXF-3",
       "city": "Oxford",
-      "name": "Iron Skillet Diner (synthetic)",
+      "name": "Iron Skillet Diner",
       "price_per_person": 23,
       "capacity": 146,
       "miles_to_hotel": 5.22,
@@ -345,7 +345,7 @@
     {
       "restaurant_id": "R-OXF-4",
       "city": "Oxford",
-      "name": "Greenline Bowls (synthetic)",
+      "name": "Greenline Bowls",
       "price_per_person": 32,
       "capacity": 105,
       "miles_to_hotel": 4.71,
@@ -362,7 +362,7 @@
     {
       "restaurant_id": "R-OXF-5",
       "city": "Oxford",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 32,
       "capacity": 151,
       "miles_to_hotel": 5,
@@ -379,7 +379,7 @@
     {
       "restaurant_id": "R-OXF-6",
       "city": "Oxford",
-      "name": "Ember & Oak Grill (synthetic)",
+      "name": "Ember & Oak Grill",
       "price_per_person": 18,
       "capacity": 31,
       "miles_to_hotel": 0.87,
@@ -395,7 +395,7 @@
     {
       "restaurant_id": "R-ATH-1",
       "city": "Athens",
-      "name": "Northside Taqueria (synthetic)",
+      "name": "Northside Taqueria",
       "price_per_person": 33,
       "capacity": 104,
       "miles_to_hotel": 0.86,
@@ -413,7 +413,7 @@
     {
       "restaurant_id": "R-ATH-2",
       "city": "Athens",
-      "name": "Saffron Garden (synthetic)",
+      "name": "Saffron Garden",
       "price_per_person": 21,
       "capacity": 95,
       "miles_to_hotel": 0.71,
@@ -431,7 +431,7 @@
     {
       "restaurant_id": "R-ATH-3",
       "city": "Athens",
-      "name": "Iron Skillet Diner (synthetic)",
+      "name": "Iron Skillet Diner",
       "price_per_person": 28,
       "capacity": 109,
       "miles_to_hotel": 5.41,
@@ -448,7 +448,7 @@
     {
       "restaurant_id": "R-ATH-4",
       "city": "Athens",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 24,
       "capacity": 107,
       "miles_to_hotel": 1.43,
@@ -464,7 +464,7 @@
     {
       "restaurant_id": "R-ATH-5",
       "city": "Athens",
-      "name": "Harvest Table (synthetic)",
+      "name": "Harvest Table",
       "price_per_person": 15,
       "capacity": 159,
       "miles_to_hotel": 4.33,
@@ -482,7 +482,7 @@
     {
       "restaurant_id": "R-ATH-6",
       "city": "Athens",
-      "name": "Big Field Smokehouse (synthetic)",
+      "name": "Big Field Smokehouse",
       "price_per_person": 21,
       "capacity": 45,
       "miles_to_hotel": 3.19,
@@ -499,7 +499,7 @@
     {
       "restaurant_id": "R-BUF-1",
       "city": "Buffalo",
-      "name": "Harvest Table (synthetic)",
+      "name": "Harvest Table",
       "price_per_person": 31,
       "capacity": 135,
       "miles_to_hotel": 4.05,
@@ -517,7 +517,7 @@
     {
       "restaurant_id": "R-BUF-2",
       "city": "Buffalo",
-      "name": "Two Rivers Deli (synthetic)",
+      "name": "Two Rivers Deli",
       "price_per_person": 18,
       "capacity": 129,
       "miles_to_hotel": 1.29,
@@ -532,7 +532,7 @@
     {
       "restaurant_id": "R-BUF-3",
       "city": "Buffalo",
-      "name": "Copper Pot Pasta (synthetic)",
+      "name": "Copper Pot Pasta",
       "price_per_person": 27,
       "capacity": 128,
       "miles_to_hotel": 6.05,
@@ -548,7 +548,7 @@
     {
       "restaurant_id": "R-BUF-4",
       "city": "Buffalo",
-      "name": "Northside Taqueria (synthetic)",
+      "name": "Northside Taqueria",
       "price_per_person": 16,
       "capacity": 129,
       "miles_to_hotel": 2.41,
@@ -563,7 +563,7 @@
     {
       "restaurant_id": "R-BUF-5",
       "city": "Buffalo",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 34,
       "capacity": 41,
       "miles_to_hotel": 1.13,
@@ -580,7 +580,7 @@
     {
       "restaurant_id": "R-CMH-1",
       "city": "Columbus",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 32,
       "capacity": 134,
       "miles_to_hotel": 5.37,
@@ -598,7 +598,7 @@
     {
       "restaurant_id": "R-CMH-2",
       "city": "Columbus",
-      "name": "Two Rivers Deli (synthetic)",
+      "name": "Two Rivers Deli",
       "price_per_person": 26,
       "capacity": 137,
       "miles_to_hotel": 3.28,
@@ -616,7 +616,7 @@
     {
       "restaurant_id": "R-CMH-3",
       "city": "Columbus",
-      "name": "Ember & Oak Grill (synthetic)",
+      "name": "Ember & Oak Grill",
       "price_per_person": 30,
       "capacity": 90,
       "miles_to_hotel": 0.83,
@@ -632,7 +632,7 @@
     {
       "restaurant_id": "R-CMH-4",
       "city": "Columbus",
-      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "name": "Hilltop Chicken & Biscuits",
       "price_per_person": 33,
       "capacity": 52,
       "miles_to_hotel": 5.47,
@@ -649,7 +649,7 @@
     {
       "restaurant_id": "R-ERI-1",
       "city": "Erie",
-      "name": "Lakeshore Pizza Co. (synthetic)",
+      "name": "Lakeshore Pizza Co.",
       "price_per_person": 18,
       "capacity": 105,
       "miles_to_hotel": 2.72,
@@ -667,7 +667,7 @@
     {
       "restaurant_id": "R-ERI-2",
       "city": "Erie",
-      "name": "Greenline Bowls (synthetic)",
+      "name": "Greenline Bowls",
       "price_per_person": 19,
       "capacity": 143,
       "miles_to_hotel": 3.91,
@@ -683,7 +683,7 @@
     {
       "restaurant_id": "R-ERI-3",
       "city": "Erie",
-      "name": "Copper Pot Pasta (synthetic)",
+      "name": "Copper Pot Pasta",
       "price_per_person": 31,
       "capacity": 95,
       "miles_to_hotel": 1.07,
@@ -700,7 +700,7 @@
     {
       "restaurant_id": "R-ERI-4",
       "city": "Erie",
-      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "name": "Hilltop Chicken & Biscuits",
       "price_per_person": 21,
       "capacity": 30,
       "miles_to_hotel": 1.27,

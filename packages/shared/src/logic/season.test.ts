@@ -82,7 +82,7 @@ describe('savingsCandidates / applySavings', () => {
     expect(cands[0]!.savings).toBe(round2(total(g12) - g12.packages[0]!.costs.total));
     expect(cands.map((c) => c.kind)).toEqual(expect.arrayContaining(['switch_package', 'reduce_travelers', 'cheaper_hotel']));
     expect(cands.find((c) => c.kind === 'reduce_travelers' && c.trip_id === 'TRIP-G12')!.description).toBe('Buffalo: travel 5 fewer players');
-    expect(cands.find((c) => c.kind === 'cheaper_hotel' && c.trip_id === 'TRIP-G12')!.description).toMatch(/^Buffalo: use .+ instead of Bluestem Inn Buffalo \(synthetic\)$/);
+    expect(cands.find((c) => c.kind === 'cheaper_hotel' && c.trip_id === 'TRIP-G12')!.description).toMatch(/^Buffalo: use .+ instead of Bluestem Inn Buffalo$/);
   });
 
   it('never for completed or published trips', () => {

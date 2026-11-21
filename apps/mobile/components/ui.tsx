@@ -70,7 +70,7 @@ export function Button({ title, onPress, variant = 'primary', disabled, loading,
       onPress={onPress}
       style={({ pressed }) => [s.btn, { backgroundColor: bg, opacity: disabled ? 0.45 : pressed ? 0.8 : 1 }, variant === 'ghost' && { borderWidth: 2, borderColor: colors.brown }]}
     >
-      {loading ? <ActivityIndicator color={fg} /> : <Text style={[s.btnText, { color: fg }]}>{title}</Text>}
+      {loading ? <ActivityIndicator color={fg} /> : <Text style={[s.btnText, { color: fg }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>{title}</Text>}
     </Pressable>
   );
 }
@@ -314,7 +314,7 @@ const s = StyleSheet.create({
   h2: { fontSize: font.xl, fontWeight: '700', color: colors.brown },
   body: { fontSize: font.md, color: colors.text, lineHeight: 22 },
   muted: { fontSize: font.md, color: colors.muted, textAlign: 'center' },
-  btn: { minHeight: TAP + 4, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', paddingHorizontal: space.lg },
+  btn: { minHeight: TAP + 4, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center', paddingHorizontal: space.md },
   btnText: { fontSize: font.lg, fontWeight: '700' },
   chip: { alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
   center: { alignItems: 'center', justifyContent: 'center', padding: space.xl, gap: space.sm },

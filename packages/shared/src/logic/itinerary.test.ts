@@ -114,7 +114,7 @@ describe('buildItinerary', () => {
     expect(one(items, 'curfew').start_local).toBe('2026-11-27T22:30');
     expect(one(items, 'depart_hotel').start_local).toBe('2026-11-28T08:55'); // 09:30 − 25 − 10
     expect(one(items, 'arrive_stadium').start_local).toBe('2026-11-28T09:30');
-    expect(one(items, 'kickoff')).toMatchObject({ label: 'Kickoff vs Ohio', start_local: '2026-11-28T12:00', location: 'Hocking Valley Stadium (synthetic)' });
+    expect(one(items, 'kickoff')).toMatchObject({ label: 'Kickoff vs Ohio', start_local: '2026-11-28T12:00', location: 'Hocking Valley Stadium' });
     expect(one(items, 'depart_return')).toMatchObject({
       label: 'Buses depart for home (boxed meal on bus)', start_local: '2026-11-28T16:00', meal_id: 'ML-4',
     });
