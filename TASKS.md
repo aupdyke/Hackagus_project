@@ -41,7 +41,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
 | - [x] | ⭐ [B-08](tasks/B-08.md) | Step 3 What-if chat + diff | L2 | 75m | B-05 |
 | - [x] | ⭐ [B-09](tasks/B-09.md) | Step 4 Memo streaming | L2 | 60m | B-05 |
-| - [ ] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
+| - [x] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
 | - [ ] | ⭐ [B-11](tasks/B-11.md) | Step 6 Approve & Publish + packet PDF/share | L3/EXT | 60m | B-02 |
 | - [ ] | [B-12](tasks/B-12.md) | Step 7 Actuals + budget vs actual | L3 | 60m | B-02 |
 | - [ ] | ⭐ [B-13](tasks/B-13.md) | Season budget screen | EXT | 75m | B-01 |
