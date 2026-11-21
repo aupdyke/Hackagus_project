@@ -1,9 +1,11 @@
-/** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11), actuals (A-12). */
+/** Rooming (A-10), publish + versions + notifications (A-13), packets (A-11, own router), actuals (A-12). */
 import { randomBytes } from 'node:crypto';
 import { Router } from 'express';
 import { assignBuses, assignRooms, budgetVsActual, fixtures, requestStats, selectTravelingPlayers, selectTravelingStaff, validateRooming, type Room } from '@falcon/shared';
 import { env } from '../env';
-import { badRequest, conflict, orFixture, staffOnly } from '../http';
+import { HttpError, badRequest, conflict, notFound, orFixture, roleOf, staffOnly } from '../http';
+import { renderPacketHtml } from '../features/packet';
+import { travelRosterIds } from './athletes';
 import { pack, staffById } from '../data';
 import { repo } from '../repo';
 import { on } from './_define';
@@ -11,6 +13,31 @@ import { requireGame, requireTrip, selectedPackage } from './helpers';
 
 export const tripsPublishRouter = Router();
 tripsPublishRouter.use('/trips', staffOnly);
+
+/**
+ * A-11: GET /trips/:id/packet lives on its own router, mounted BEFORE the staff-only routers (app.ts), because
+ * athletes may fetch their own packet: role athlete → audience must be 'athlete' and athleteId must equal X-Athlete-Id.
+ */
+export const packetRouter = Router();
+on(packetRouter, 'getPacket', ({ params, query, req }) => {
+  const { role, athleteId: callerId } = roleOf(req);
+  if (role === 'athlete' && (query.audience !== 'athlete' || !query.athleteId || query.athleteId !== callerId)) {
+    throw new HttpError(403, 'forbidden', 'Athletes can only open their own athlete packet');
+  }
+  const trip = requireTrip(params.id!);
+  const game = requireGame(trip.game_id);
+  const pkg = selectedPackage(trip);
+  if (!pkg) throw conflict('Select a package before creating packets');
+  if (query.audience === 'athlete') {
+    if (!query.athleteId) throw badRequest('athleteId is required for the athlete packet');
+    if (!travelRosterIds(trip).includes(query.athleteId)) throw notFound(`athlete ${query.athleteId} on this trip's travel roster`);
+  }
+  const { title, html } = renderPacketHtml({ trip, game, pkg, audience: query.audience, athleteId: query.athleteId });
+  return {
+    trip_id: trip.trip_id, audience: query.audience, title, html,
+    share_url: trip.share_token && trip.status === 'published' ? shareUrl(trip.trip_id, trip.share_token) : '',
+  };
+});
 
 export const shareUrl = (tripId: string, token: string) => `${env.PUBLIC_BASE_URL}/share/${tripId}/${token}`;
 
@@ -69,19 +96,6 @@ on(tripsPublishRouter, 'publishTrip', ({ params }) => {
   };
   repo.versions.save(published);
   return { trip: repo.trips.save(published), game: requireGame(trip.game_id) };
-});
-
-// TODO(A-11): full staff/athlete packet HTML (itinerary, manifest, rooming, meals, contacts, costs for staff).
-on(tripsPublishRouter, 'getPacket', ({ params, query, res }) => {
-  const trip = requireTrip(params.id!);
-  const game = requireGame(trip.game_id);
-  res.setHeader('X-Fixture', 'A-11');
-  const title = `${query.audience === 'staff' ? 'Staff' : 'Athlete'} travel packet — at ${game.opponent}`;
-  return {
-    trip_id: trip.trip_id, audience: query.audience, title,
-    html: `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head><body style="font-family:-apple-system,Helvetica,Arial"><h1 style="color:#4F2C1D">${title}</h1><p>Packet rendering arrives in task A-11.</p><p><em>Synthetic data. Costs are estimates.</em></p></body></html>`,
-    share_url: trip.share_token ? shareUrl(trip.trip_id, trip.share_token) : '',
-  };
 });
 
 on(tripsPublishRouter, 'postActuals', ({ params, body, res }) => {

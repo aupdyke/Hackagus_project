@@ -181,3 +181,17 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
   goes to the next one. `assignBuses` throws if travelers can't fit; that can't happen with buses sized by A-01.
 - **Roommate deadline:** set once on submit, if empty: package A departure date âˆ’ `roommate_request_deadline_days_before`
   days, at 23:59. Later resubmits keep it.
+
+## D-24 Packets and share page (A-11)
+- **Packet routing:** `GET /trips/:id/packet` is on its own `packetRouter`, mounted in `app.ts` *before* the staff-only
+  `/trips` routers. Each of those routers applies `staffOnly` to every `/trips/*` path, so an athlete would otherwise be
+  rejected before reaching the route. The handler checks the role itself: an athlete may only request
+  `audience=athlete&athleteId=<their X-Athlete-Id>`. All other `/trips` routes stay staff-only.
+- **Athlete roster check:** `athleteId` must be on `travelRosterIds(trip)`: the stored roster once rooming is generated,
+  else the projected squad.
+- **Public variant:** the share page shows key contacts by role and phone only (no names). It is sent with
+  `Cache-Control: no-store` and `X-Robots-Tag: noindex`.
+- **Staff packet extras:** it also lists the package's risk flags. Before rooming is generated, the manifest and rooming
+  sections say "Not generated yet" instead of failing.
+- **Selection required:** packets need a selected package (409 otherwise). The share page answers 404 if the published
+  trip somehow has none.
