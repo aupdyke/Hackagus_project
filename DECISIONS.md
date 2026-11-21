@@ -128,3 +128,18 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   match Aivana's `spend_limit_reached`. It stays non-retryable.
 - **Test server:** `startTestServer()` (`apps/server/src/test/server.ts`) refuses to run outside Vitest because it wipes
   the DB.
+
+## D-20 What-if chat details (A-07)
+- **FACTS placement:** FACTS go in the latest user message (`FACTS: {...}\nREQUEST: <text>`). Stored history keeps only the
+  raw text, so earlier FACTS are never re-sent. 8 turns are sent and 20 are kept on the trip.
+- **Shared constraint check:** `constraintIssue` + `CONSTRAINT_WINDOW_DAYS` moved to shared `whatif.ts`.
+  `submitRequest` and what-if now use the same window check.
+- **Hotel exclusion:** excluding a hotel that's already excluded, or the last remaining hotel in the city, is rejected.
+  The planner never silently ends up with no hotel.
+- **Nothing applied:** when every op is rejected (or there are none), the reply is code-written ("I couldn't apply that:
+  …"). The trip is unchanged and only the conversation is stored.
+- **Reply fact guard:** allowed facts are the recomputed packages plus old/new counts, op deltas/values and caps. On
+  failure, the reply becomes `Applied: <describeOp…>. Recomputed all packages.` Rejected-op reasons are always appended.
+- **Package diff lines:** rooms, buses and total are always listed; other lines only when they changed.
+- **Clarifying questions** are fact-guarded too, with a generic code question as the fallback.
+- **AI down:** `AiError` returns a fallback with nothing stored.

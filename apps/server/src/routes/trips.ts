@@ -1,6 +1,6 @@
 /** Core trip workflow (Level 1): list, detail, request (form / parse), packages, select, approve. */
 import { Router } from 'express';
-import { addDays, combine, formatDayTime, isBefore, type Game, type Trip, type TripRequest } from '@falcon/shared';
+import { constraintIssue, eligiblePlayerCount, type Game, type Trip, type TripRequest } from '@falcon/shared';
 import { badRequest, conflict, staffOnly } from '../http';
 import { emptyTrip, repo } from '../repo';
 import { pack } from '../data';
@@ -10,35 +10,22 @@ import { on } from './_define';
 import { requireGame, requireTrip, toSummary } from './helpers';
 
 export const tripsRouter = Router();
-
-/** How far before the game a departure constraint may point (days). */
-export const CONSTRAINT_WINDOW_DAYS = 3;
+tripsRouter.use('/trips', staffOnly);
 
 /**
  * Checks Zod can't do (they need the data pack): eligible-player count, constraint window, excluded hotel ids.
  * Throws 400 with a human-readable message.
  */
 export function validateRequestAgainstData(body: TripRequest, game: Game): void {
-  const eligible = pack.roster.filter((p) => p.travel_eligible).length;
+  const eligible = eligiblePlayerCount(pack);
   if (body.players > eligible) throw badRequest(`Only ${eligible} players are travel-eligible (requested ${body.players})`);
-
-  const c = body.departure_constraint;
-  if (c.kind !== 'none') {
-    if (!c.datetime_local) throw badRequest('Departure constraint needs a day and time (or set it to none)');
-    const earliest = combine(addDays(game.date, -CONSTRAINT_WINDOW_DAYS), '00:00');
-    const kickoff = combine(game.date, game.kickoff_local);
-    if (isBefore(c.datetime_local, earliest) || isBefore(kickoff, c.datetime_local)) {
-      throw badRequest(
-        `Departure constraint must be between ${formatDayTime(earliest)} and kickoff (${formatDayTime(kickoff)})`,
-      );
-    }
-  }
+  const issue = constraintIssue(body.departure_constraint, game);
+  if (issue) throw badRequest(issue);
 
   const cityHotels = new Set(pack.hotels.filter((h) => h.city === game.city).map((h) => h.hotel_id));
   const unknown = body.excluded_hotel_ids.filter((id) => !cityHotels.has(id));
   if (unknown.length) throw badRequest(`Unknown hotel(s) for ${game.city}: ${unknown.join(', ')}`);
 }
-tripsRouter.use('/trips', staffOnly);
 
 on(tripsRouter, 'listTrips', () =>
   repo.trips.list().map(toSummary).sort((a, b) => a.date.localeCompare(b.date)),
