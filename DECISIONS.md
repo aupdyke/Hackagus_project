@@ -165,3 +165,19 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
 - **over_cap for bus:** compares bus + equipment against the bus cap.
 - **`factsFromText(text)`** (shared fact guard): builds allowed facts from trusted code text. `memoFacts` uses it so a
   memo that quotes risk messages verbatim ("3.25 hours") is not flagged. Never call it on model output.
+
+## D-23 Rooming and bus manifest (A-10)
+- **One-way requests:** a requester tries each of their (up to 2) requests in order and takes the first that works
+  (join a room with space, or start a room with an unassigned player). The spec only mentions the first request; trying
+  the second honors more pairs. Mutual matching runs first, so the spec's priority still holds.
+- **requests_total / honored:** counted per (requester, requested) pair among traveling players. Self-requests and
+  non-travelers are ignored.
+- **Room id width:** room ids are zero-padded to at least 2 digits (RM-01); they grow to 3 if a trip ever has 100+ rooms.
+- **validateRooming kinds:** takes an optional id → kind map (the server passes it from the traveling roster) for exact
+  room-kind checks. Without it, it falls back to id prefixes (`P-` player, `DRIVER-n` driver).
+- **PUT /rooming:** drops empty rooms after a valid edit. A 400 lists up to 3 problems in the message and all of them
+  in `details`.
+- **Bus manifest:** specialists (ST) and support staff go to the bus with the most free seats. A coach whose bus is full
+  goes to the next one. `assignBuses` throws if travelers can't fit; that can't happen with buses sized by A-01.
+- **Roommate deadline:** set once on submit, if empty: package A departure date − `roommate_request_deadline_days_before`
+  days, at 23:59. Later resubmits keep it.

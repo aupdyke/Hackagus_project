@@ -1,6 +1,6 @@
 /** Core trip workflow (Level 1): list, detail, request (form / parse), packages, select, approve. */
 import { Router } from 'express';
-import { constraintIssue, eligiblePlayerCount, type Game, type Trip, type TripRequest } from '@falcon/shared';
+import { addDays, combine, constraintIssue, datePart, eligiblePlayerCount, type Game, type Trip, type TripRequest } from '@falcon/shared';
 import { badRequest, conflict, staffOnly } from '../http';
 import { emptyTrip, repo } from '../repo';
 import { pack } from '../data';
@@ -11,6 +11,13 @@ import { requireGame, requireTrip, toSummary } from './helpers';
 
 export const tripsRouter = Router();
 tripsRouter.use('/trips', staffOnly);
+
+/** (Package A departure date, or game date − 1) − roommate_request_deadline_days_before days, at 23:59. */
+export function roommateDeadline(trip: Trip, game: Game): string {
+  const a = trip.packages.find((p) => p.tier === 'A');
+  const base = a ? datePart(a.departure_local) : addDays(game.date, -1);
+  return combine(addDays(base, -repo.settings.get().roommate_request_deadline_days_before), '23:59');
+}
 
 /**
  * Checks Zod can't do (they need the data pack): eligible-player count, constraint window, excluded hotel ids.
@@ -51,6 +58,7 @@ on(tripsRouter, 'submitRequest', ({ params, body }) => {
   if (trip.status === 'not_started') trip.status = 'draft';
   if (trip.status === 'approved') trip.status = 'draft'; // changes need re-approval
   trip = computeTripPackages(trip);
+  if (!trip.roommate_deadline_local) trip.roommate_deadline_local = roommateDeadline(trip, game);
   return { trip: repo.trips.save(trip), game };
 });
 
