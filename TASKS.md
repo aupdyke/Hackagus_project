@@ -52,20 +52,20 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 ## Track C: Athlete app + publishing + ship (`track-c`)
 | ✓ | ID | Task | Lvl | Est | Depends on |
 |---|---|---|---|---|---|
-| - [ ] | ⭐ [C-01](tasks/C-01.md) | Role switch + athlete picker | L1 | 45m | — |
+| - [x] | ⭐ [C-01](tasks/C-01.md) | Role switch + athlete picker | L1 | 45m | — |
 | - [ ] | ⭐ [C-02](tasks/C-02.md) | EAS + expo-updates + **first TestFlight build** | L1 | 60m | — |
 | - [ ] | ⭐ [C-03](tasks/C-03.md) | Deploy backend (Render) + tunnel fallback | L1 | 45m | — |
 | - [ ] | ⭐ [C-04](tasks/C-04.md) | 🔀 **CHECKPOINT 1**: L1 end to end on a phone | L1 | 60m | A-01…A-06, B-01…B-07, C-01…C-03 |
-| - [ ] | ⭐ [C-05](tasks/C-05.md) | My Trip screen | EXT | 90m | C-01 (A-13) |
-| - [ ] | ⭐ [C-06](tasks/C-06.md) | Assistant chat + citation chips | EXT | 75m | C-05 (A-14) |
-| - [ ] | ⭐ [C-07](tasks/C-07.md) | Inbox (before → after) | EXT | 45m | C-01 (A-13) |
-| - [ ] | [C-08](tasks/C-08.md) | Polling + badge + local notifications | EXT | 60m | C-07 |
-| - [ ] | [C-09](tasks/C-09.md) | Roommate requests (≤2, deadline) | EXT | 60m | C-01 (A-10) |
-| - [ ] | ⭐ [C-10](tasks/C-10.md) | Athlete packet PDF + share link | EXT | 45m | C-05, A-11 |
+| - [x] | ⭐ [C-05](tasks/C-05.md) | My Trip screen | EXT | 90m | C-01 (A-13) |
+| - [x] | ⭐ [C-06](tasks/C-06.md) | Assistant chat + citation chips | EXT | 75m | C-05 (A-14) |
+| - [x] | ⭐ [C-07](tasks/C-07.md) | Inbox (before → after) | EXT | 45m | C-01 (A-13) |
+| - [x] | [C-08](tasks/C-08.md) | Polling + badge + local notifications | EXT | 60m | C-07 |
+| - [x] | [C-09](tasks/C-09.md) | Roommate requests (≤2, deadline) | EXT | 60m | C-01 (A-10) |
+| - [x] | ⭐ [C-10](tasks/C-10.md) | Athlete packet PDF + share link | EXT | 45m | C-05, A-11 |
 | - [ ] | ⭐ [C-11](tasks/C-11.md) | 🔀 **CHECKPOINT 2**: L2 complete + TestFlight #2 | L2 | 60m | C-04, A-07, A-08, B-08, B-09 |
-| - [ ] | [C-12](tasks/C-12.md) | Polish & accessibility | EXT | 60m | C-05…C-10 |
-| - [ ] | ⭐ [C-13](tasks/C-13.md) | Final README | EXT | 45m | most features |
-| - [ ] | ⭐ [C-14](tasks/C-14.md) | docs/DEMO.md + rehearsal kit | EXT | 45m | critical path |
+| - [x] | [C-12](tasks/C-12.md) | Polish & accessibility | EXT | 60m | C-05…C-10 |
+| - [x] | ⭐ [C-13](tasks/C-13.md) | Final README | EXT | 45m | most features |
+| - [x] | ⭐ [C-14](tasks/C-14.md) | docs/DEMO.md + rehearsal kit | EXT | 45m | critical path |
 | - [ ] | ⭐ [C-15](tasks/C-15.md) | 🔀 **CHECKPOINT 3**: merged, accuracy run, rehearsed, submitted | EXT | 60–90m | everything |
 
 ## Start here (right now)

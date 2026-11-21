@@ -331,3 +331,13 @@ are one file each (`components/staff/steps/*`), so later tasks don't conflict.
 
 ## D-34 RN 0.88 ScrollView refs
 `ScrollView` is a function component in RN 0.88; refs are typed `useRef<ScrollViewInstance>(null)` (exported by react-native).
+
+## D-35 Metro resolves @falcon/shared by path (Windows drive-letter case)
+npm creates `node_modules/@falcon/*` junctions using the drive-letter case the install ran under (VS Code: lowercase `c:`).
+Metro compares paths case-sensitively, so it treated the junction target as outside the project and failed with "Unable to resolve
+@falcon/shared". `apps/mobile/metro.config.js` maps the package to `packages/shared/src/index.ts` by path. Verified bundling from both `c:\` and `C:\`.
+
+## D-36 Athlete inbox + badge share one polled query
+`lib/notifications.ts` owns the `['notifications', athleteId]` query (45 s poll + refetch on app foreground). The tab badge,
+inbox and local notifications all read from it. Local notifications only fire for items that arrive after the first fetch (no
+backlog spam), and only if permission is granted. No remote push.

@@ -11,7 +11,8 @@
       "bundleIdentifier": "edu.bgsu.hackathon.falcontravel",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "icon": "./assets/icon.png"
     },
     "android": {
       "package": "edu.bgsu.hackathon.falcontravel"
@@ -35,6 +36,7 @@
     },
     "extra": {
       "router": {}
-    }
+    },
+    "icon": "./assets/icon.png"
   }
 }
