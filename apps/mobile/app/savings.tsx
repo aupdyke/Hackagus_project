@@ -1,25 +1,28 @@
 /**
  * "Get back under budget" (B-14). Code lists candidate swaps + savings; AI picks a set by ID and explains.
  * Every number shown comes from code fields. Totals are recomputed by the server when applied.
+ * Lives in the root Stack, not the staff Tabs: expo-router redirects a focused `href: null` tab to the first tab (D-38).
  */
 import { Ionicons } from '@expo/vector-icons';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import { ESTIMATE_NOTE, formatUSD, type SavingsCandidate } from '@falcon/shared';
-import { AiNotice, Banner, Button, Caption, Card, Chip, Empty, ErrorState, Loading, Row, Screen } from '../../components/ui';
-import { Money } from '../../components/staff/Money';
-import { SourceChips } from '../../components/staff/RecommendationPanel';
-import { Section } from '../../components/staff/Section';
-import { errorMessage, isAiError } from '../../lib/api';
-import { useApplySavings, useSavings } from '../../lib/staff/queries';
-import { colors, font, radius, space, TAP } from '../../lib/theme';
+import { AiNotice, Banner, Button, Caption, Card, Chip, Empty, ErrorState, Loading, Row, Screen } from '../components/ui';
+import { Money } from '../components/staff/Money';
+import { SourceChips } from '../components/staff/RecommendationPanel';
+import { Section } from '../components/staff/Section';
+import { errorMessage, isAiError } from '../lib/api';
+import { useApplySavings, useSavings } from '../lib/staff/queries';
+import { colors, font, radius, space, TAP } from '../lib/theme';
 
 const KIND: Record<SavingsCandidate['kind'], { icon: 'swap-horizontal' | 'people' | 'bed'; label: string }> = {
   switch_package: { icon: 'swap-horizontal', label: 'Switch package' },
   reduce_travelers: { icon: 'people', label: 'Fewer travelers' },
   cheaper_hotel: { icon: 'bed', label: 'Cheaper hotel' },
 };
+
+const backToSeason = () => (router.canGoBack() ? router.back() : router.replace('/(staff)/season'));
 
 export default function Savings() {
   const savings = useSavings();
@@ -38,7 +41,7 @@ export default function Savings() {
       <Screen>
         {isAiError(savings.error) ? <AiNotice message={errorMessage(savings.error)} /> : <ErrorState error={savings.error} onRetry={() => savings.mutate()} />}
         <Button title="Try again" variant="ghost" onPress={() => savings.mutate()} />
-        <Button title="Back to Season" variant="ghost" onPress={() => router.navigate('/(staff)/season')} />
+        <Button title="Back to Season" variant="ghost" onPress={backToSeason} />
       </Screen>
     );
   }
@@ -57,7 +60,7 @@ export default function Savings() {
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Apply',
-        onPress: () => apply.mutate([...checked], { onSuccess: () => router.navigate('/(staff)/season') }),
+        onPress: () => apply.mutate([...checked], { onSuccess: backToSeason }),
       },
     ]);
 
@@ -129,7 +132,7 @@ export default function Savings() {
         loading={apply.isPending}
         accessibilityHint="Switches packages / travelers on the chosen trips, then returns to Season"
       />
-      <Button title="Cancel" variant="ghost" onPress={() => router.navigate('/(staff)/season')} />
+      <Button title="Cancel" variant="ghost" onPress={backToSeason} />
       <Caption>{ESTIMATE_NOTE}</Caption>
     </Screen>
   );

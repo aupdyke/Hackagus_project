@@ -23,6 +23,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(staff)" options={{ headerShown: false }} />
             <Stack.Screen name="(athlete)" options={{ headerShown: false }} />
+            <Stack.Screen name="savings" options={{ title: 'Get back under budget', headerBackTitle: 'Season' }} />
             <Stack.Screen name="dev/stream" options={{ title: 'Streaming test' }} />
           </Stack>
         </RoleProvider>

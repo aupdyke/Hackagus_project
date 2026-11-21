@@ -19,7 +19,6 @@ export default function StaffTabs() {
       <Tabs.Screen name="settings" options={{ title: 'Settings', tabBarIcon: tabIcon('options') }} />
       {/* AI usage/accuracy screen is dev-facing, not for coaches: kept as a route, hidden from the tab bar */}
       <Tabs.Screen name="ai" options={{ href: null, title: 'AI usage' }} />
-      <Tabs.Screen name="savings" options={{ href: null, title: 'Get back under budget' }} />
     </Tabs>
   );
 }

@@ -347,3 +347,9 @@ backlog spam), and only if permission is granted. No remote push.
 `EXPO_PUBLIC_API_URL` is in the local shell or `.env`, so one OTA push could repoint the TestFlight app at a LAN IP or localhost.
 Release builds now read `expo.extra.apiUrl` via `expo-constants` (it ships in each update's manifest). Dev keeps
 `EXPO_PUBLIC_API_URL` â†’ localhost. `scripts/check-release.mjs` blocks placeholder/http URLs before `ios:build` / `ios:update`.
+
+## D-38 Savings screen moved out of the staff tabs
+expo-router 58 turns a `Tabs.Screen` with `href: null` into a hidden tab, and when a hidden tab gets focus it `replace`s to the
+first tab (`useVisibleTabsWithRedirect`). So "Get back under budget" opened `/(staff)/savings` and bounced straight back to Season.
+The screen is now `app/savings.tsx` in the root Stack (pushed over the tabs, with a back button). Root `_layout.tsx` gains one
+additive `Stack.Screen` for its title. The hidden `(staff)/ai` tab has the same issue, but nothing links to it.
