@@ -223,3 +223,18 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to �
   they are re-published. It picks the earliest upcoming published or completed trip, else the most recent one.
 - **Code moves:** `shareUrl` and the rooming generator moved to `features/publish.ts`; `routes/tripsPublish.ts` re-exports
   `shareUrl`. Fixture fallbacks for my-trip and notifications are gone.
+
+## D-27 Athlete assistant (A-14)
+- **Fact order:** personal facts come first (F-opponent, F-bus, F-room, F-hotel, then IT-n, F-meal-ML-n, F-packing,
+  F-deadline). Fact texts have quotes and backslashes replaced so the compact JSON stays readable and the mock's fact
+  regex works.
+- **Allowed facts** (`factSheetAllowed`): the fact ids, every date/time in the view, the 6 days before the game (the
+  packing list says "Thursday 6 PM"), and numbers taken from the fact texts (`factsFromText`). So any fact can be quoted
+  verbatim.
+- **Unknown citations:** an unknown cited id is dropped and recorded in `fact_guard.issues` (`passed: false`), but the
+  answer is kept when other citations remain. The answer is *replaced* (→ "ask a coach", `needs_staff: true`) when the
+  guard fails, or when there are no citations and `needs_staff` is false.
+- **No published trip:** the assistant answers "ask a coach" with no AI call.
+- **AI down:** a keyword → fact fallback (leave/depart, room, bus, hotel, dinner/lunch/breakfast/eat, kickoff). The "next
+  meal" is the first meal at or after now, else the first meal.
+- **Fact guard fix:** in "3:15 AM." at a sentence end, the full stop is no longer part of the reported time.

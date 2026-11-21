@@ -147,7 +147,9 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
       let h = Number(m[1]) % 12;
       if (m[3]!.toLowerCase() === 'p') h += 12;
       const hhmm = `${pad2(h)}:${m[2] ?? '00'}`;
-      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${m[0].trim()} is not in the facts`, allow: (f) => void f.times.push(hhmm) };
+      // "3:15 AM." at a sentence end: the full stop belongs to the sentence, not the time ("a.m." keeps its dots)
+      const raw = /[AaPp][Mm]\.$/.test(m[0].trim()) ? m[0].trim().slice(0, -1) : m[0].trim();
+      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${raw} is not in the facts`, allow: (f) => void f.times.push(hhmm) };
     },
   },
   // 24-hour time: 14:30

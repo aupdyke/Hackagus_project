@@ -23,7 +23,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [A-11](tasks/A-11.md) | Travel packet HTML + share page | L3/EXT | 75m | A-10 |
 | - [x] | [A-12](tasks/A-12.md) | Budget vs actual | L3 | 45m | A-03 |
 | - [x] | ⭐ [A-13](tasks/A-13.md) | Publish → versions → athlete view → notifications | EXT | 90m | A-10 |
-| - [ ] | ⭐ [A-14](tasks/A-14.md) | Athlete assistant (cited, needs_staff) | EXT | 60m | A-13 |
+| - [x] | ⭐ [A-14](tasks/A-14.md) | Athlete assistant (cited, needs_staff) | EXT | 60m | A-13 |
 | - [ ] | ⭐ [A-15](tasks/A-15.md) | Season roll-up + savings candidates + budget tuning | EXT | 75m | A-03, A-12 |
 | - [ ] | ⭐ [A-16](tasks/A-16.md) | AI savings selection + apply | EXT | 60m | A-15, A-04 |
 | - [ ] | ⭐ [A-17](tasks/A-17.md) | AI accuracy harness | EXT | 75m | A-06 (A-05) |

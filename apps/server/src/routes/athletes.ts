@@ -3,9 +3,10 @@
  * their own slice. NOT authentication (see README): the role switch is a demo picker.
  */
 import { Router } from 'express';
-import { fixtures, selectTravelingPlayers, NotImplementedError, type Trip } from '@falcon/shared';
+import { selectTravelingPlayers, NotImplementedError, type Trip } from '@falcon/shared';
 import { badRequest, conflict, notFound, selfOnly } from '../http';
 import { myPublishedView } from '../features/publish';
+import { askAssistant } from '../features/assistant';
 import { pack, playerById, playerName } from '../data';
 import { repo } from '../repo';
 import { on } from './_define';
@@ -80,11 +81,10 @@ on(athletesRouter, 'roommateRequest', ({ params, body }) => {
   return r;
 });
 
-// TODO(A-14): fact sheet + multi-turn structured assistant with citations + needs_staff.
-on(athletesRouter, 'assistant', ({ params, res }) => {
+/** A-14: cited, fact-guarded trip assistant over this athlete's own fact sheet (history trimmed to 6 turns). */
+on(athletesRouter, 'assistant', async ({ params, body }) => {
   requireAthlete(params.id!);
-  res.setHeader('X-Fixture', 'A-14');
-  return fixtures.FIXTURE_ASSISTANT;
+  return askAssistant(params.id!, body.message, body.history);
 });
 
 on(athletesRouter, 'notifications', ({ params }) => {

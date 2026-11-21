@@ -82,3 +82,22 @@ describe('describeChanges', () => {
       .toBe('Ohio trip updated: you are no longer on the travel roster');
   });
 });
+
+describe('buildFactSheet / factSheetAllowed', () => {
+  it('unique ids incl. F-room, F-bus, F-hotel, itinerary IT-n and meals; plain text', async () => {
+    const { buildFactSheet, factSheetAllowed } = await import('./athlete');
+    const { factGuard } = await import('./factGuard');
+    const facts = buildFactSheet(v1);
+    const ids = facts.map((f) => f.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids.slice(0, 4)).toEqual(['F-opponent', 'F-bus', 'F-room', 'F-hotel']);
+    expect(ids).toEqual(expect.arrayContaining(['IT-1', `F-meal-${v1.meals[0]!.meal_id}`, 'F-packing', 'F-deadline']));
+    expect(facts.find((f) => f.id === 'F-room')!.text).toBe('Your room RM-01 with Teammate P-010');
+    expect(facts.find((f) => f.id === 'F-bus')!.text).toBe('Your bus: Bus 2');
+    expect(facts.find((f) => f.id === 'IT-1')!.text).toBe('Buses depart — Fri Nov 27, 11:00 AM — BGSU Football Complex, Bowling Green, OH');
+    for (const f of facts) expect(f.text).not.toMatch(/["\\]/);
+    const allowed = factSheetAllowed(v1, facts);
+    for (const f of facts) expect(factGuard(f.text, allowed).issues).toEqual([]); // quoting any fact verbatim is fine
+    expect(factGuard('Buses leave at 3:15 AM on Nov 30.', allowed).passed).toBe(false);
+  });
+});

@@ -68,6 +68,8 @@ describe('factGuard', () => {
     expect(check('Kickoff at noon.').passed).toBe(true);
     expect(check('Curfew at midnight.').passed).toBe(false);
     expect(check('Kickoff at 12 PM.').passed).toBe(true);
+    expect(check('Leave at 3:15 AM.').issues).toEqual(['3:15 AM is not in the facts']);
+    expect(check('Leave at 3:15 a.m. sharp').issues).toEqual(['3:15 a.m. is not in the facts']);
   });
 
   it('dates: month names, numeric, ISO; weekday names', () => {

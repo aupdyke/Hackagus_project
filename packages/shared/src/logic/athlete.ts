@@ -7,8 +7,8 @@
  */
 import type { AthleteTripView, ChangeItem, Fact, Game, Hotel, ItineraryItem, Player, Settings, Trip } from '../domain';
 import type { PlanningData } from './types';
-import { NotImplementedError } from '../errors';
-import { formatDayTime } from './time';
+import { addDays, formatDayTime } from './time';
+import { emptyFacts, factsFromText, mergeFacts, type AllowedFacts } from './factGuard';
 
 const MEAL_NAME: Record<string, string> = {
   en_route_lunch: 'En-route lunch', team_dinner: 'Team dinner', breakfast: 'Breakfast', pregame_meal: 'Pre-game meal', postgame_boxed: 'Post-game boxed meal',
@@ -156,6 +156,48 @@ export function describeChanges(changes: ChangeItem[], opponent: string, view?: 
   return { title: `${opponent} trip updated: ${summary(changes[0]!)}${more}`, body: changes.map(sentence).join(' ') };
 }
 
-export function buildFactSheet(_view: AthleteTripView): Fact[] {
-  throw new NotImplementedError('A-14');
+/** Fact text must stay plain (no quotes/backslashes) so the compact JSON list is easy to read and cite. */
+const plain = (s: string) => s.replace(/["\\]/g, "'");
+
+/**
+ * Compact fact sheet for the athlete assistant (A-14). Only THIS athlete's slice; itinerary ids IT-n reused, F-* for
+ * the rest. Order matters a little (personal facts first): F-opponent, F-bus, F-room, F-hotel, IT-n…, F-meal-ML-n…,
+ * F-packing, F-deadline.
+ */
+export function buildFactSheet(view: AthleteTripView): Fact[] {
+  const g = view.game;
+  const facts: Fact[] = [];
+  const add = (id: string, text: string) => facts.push({ id, text: plain(text) });
+  add('F-opponent', `Game vs ${g.opponent} at ${g.stadium_name}, ${g.city}, ${g.state} — kickoff ${formatDayTime(`${g.date}T${g.kickoff_local}`)}`);
+  add('F-bus', view.bus_number === null ? 'Your bus has not been assigned yet' : `Your bus: Bus ${view.bus_number}`);
+  add('F-room', !view.room_id
+    ? 'Your room has not been assigned yet'
+    : view.roommates.length ? `Your room ${view.room_id} with ${view.roommates.map((r) => r.name).join(' and ')}` : `Your room ${view.room_id} (no roommate listed)`);
+  if (view.hotel.name) add('F-hotel', `Hotel: ${view.hotel.name}, ${view.hotel.address}, phone ${view.hotel.phone}`);
+  for (const i of view.itinerary) add(i.id, `${i.label} — ${formatDayTime(i.start_local)}${i.location ? ` — ${i.location}` : ''}`);
+  for (const m of view.meals) add(`F-meal-${m.meal_id}`, `${MEAL_NAME[m.kind] ?? m.kind} — ${formatDayTime(m.time_local)} — ${m.vendor_name}`);
+  if (view.packing_list.length) add('F-packing', `Packing list: ${view.packing_list.join('; ')}`);
+  if (view.roommate_deadline_local) add('F-deadline', `Roommate request deadline: ${formatDayTime(view.roommate_deadline_local)}`);
+  return facts;
+}
+
+/**
+ * Allowed facts for checking an assistant answer: fact ids, every date/time in the view, the game week (so weekday
+ * words in code-written facts like the packing list are OK), and numbers quoted in the fact texts.
+ */
+export function factSheetAllowed(view: AthleteTripView, facts: Fact[]): AllowedFacts {
+  const f = emptyFacts();
+  f.ids = facts.map((x) => x.id);
+  const stamp = (ldt: string) => {
+    if (!ldt) return;
+    f.dates.push(ldt.slice(0, 10));
+    if (ldt.length >= 16) f.times.push(ldt.slice(11, 16));
+  };
+  stamp(`${view.game.date}T${view.game.kickoff_local}`);
+  for (const i of view.itinerary) { stamp(i.start_local); stamp(i.end_local); }
+  for (const m of view.meals) stamp(m.time_local);
+  stamp(view.departure_local);
+  stamp(view.roommate_deadline_local);
+  for (let d = 1; d <= 6; d++) f.dates.push(addDays(view.game.date, -d));
+  return mergeFacts(f, factsFromText(facts.map((x) => x.text).join('\n')));
 }
