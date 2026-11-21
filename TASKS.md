@@ -38,7 +38,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [B-04](tasks/B-04.md) | Step 1 Request: free text → parse → human review | L1 | 75m | B-03 |
 | - [x] | ⭐ [B-05](tasks/B-05.md) | Step 2 Packages: side-by-side cards | L1 | 75m | B-02 |
 | - [x] | ⭐ [B-06](tasks/B-06.md) | AI recommendation badge + tradeoffs | L1 | 45m | B-05 |
-| - [ ] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
+| - [x] | ⭐ [B-07](tasks/B-07.md) | Settings (all editable) + reset demo | L1 | 60m | B-01 |
 | - [ ] | ⭐ [B-08](tasks/B-08.md) | Step 3 What-if chat + diff | L2 | 75m | B-05 |
 | - [ ] | ⭐ [B-09](tasks/B-09.md) | Step 4 Memo streaming | L2 | 60m | B-05 |
 | - [ ] | [B-10](tasks/B-10.md) | Step 5 Rooming review + swaps | L3 | 75m | B-02 |
