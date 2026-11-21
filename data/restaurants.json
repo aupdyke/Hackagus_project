@@ -1,0 +1,718 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": [
+    {
+      "restaurant_id": "R-KEN-1",
+      "city": "Kent",
+      "name": "Iron Skillet Diner (synthetic)",
+      "price_per_person": 17,
+      "capacity": 93,
+      "miles_to_hotel": 2.76,
+      "miles_to_stadium": 1.39,
+      "cuisine": "Diner",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KEN-2",
+      "city": "Kent",
+      "name": "Bright Kettle Kitchen (synthetic)",
+      "price_per_person": 30,
+      "capacity": 95,
+      "miles_to_hotel": 5.98,
+      "miles_to_stadium": 4.88,
+      "cuisine": "Comfort food",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KEN-3",
+      "city": "Kent",
+      "name": "Copper Pot Pasta (synthetic)",
+      "price_per_person": 17,
+      "capacity": 132,
+      "miles_to_hotel": 5.17,
+      "miles_to_stadium": 6.07,
+      "cuisine": "Italian",
+      "dietary_options": [
+        "none",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KEN-4",
+      "city": "Kent",
+      "name": "Ember & Oak Grill (synthetic)",
+      "price_per_person": 15,
+      "capacity": 84,
+      "miles_to_hotel": 1.43,
+      "miles_to_stadium": 7.77,
+      "cuisine": "American grill",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KEN-5",
+      "city": "Kent",
+      "name": "Harvest Table (synthetic)",
+      "price_per_person": 22,
+      "capacity": 153,
+      "miles_to_hotel": 2.01,
+      "miles_to_stadium": 3.56,
+      "cuisine": "Buffet",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KEN-6",
+      "city": "Kent",
+      "name": "Big Field Smokehouse (synthetic)",
+      "price_per_person": 17,
+      "capacity": 43,
+      "miles_to_hotel": 1.71,
+      "miles_to_stadium": 2.27,
+      "cuisine": "BBQ",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KAL-1",
+      "city": "Kalamazoo",
+      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "price_per_person": 17,
+      "capacity": 144,
+      "miles_to_hotel": 3.97,
+      "miles_to_stadium": 6.62,
+      "cuisine": "Southern",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KAL-2",
+      "city": "Kalamazoo",
+      "name": "Iron Skillet Diner (synthetic)",
+      "price_per_person": 25,
+      "capacity": 107,
+      "miles_to_hotel": 1.72,
+      "miles_to_stadium": 7.23,
+      "cuisine": "Diner",
+      "dietary_options": [
+        "none",
+        "vegetarian"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KAL-3",
+      "city": "Kalamazoo",
+      "name": "Saffron Garden (synthetic)",
+      "price_per_person": 26,
+      "capacity": 98,
+      "miles_to_hotel": 1.37,
+      "miles_to_stadium": 4.25,
+      "cuisine": "Indian",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KAL-4",
+      "city": "Kalamazoo",
+      "name": "Big Field Smokehouse (synthetic)",
+      "price_per_person": 30,
+      "capacity": 154,
+      "miles_to_hotel": 2.26,
+      "miles_to_stadium": 3.21,
+      "cuisine": "BBQ",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-KAL-5",
+      "city": "Kalamazoo",
+      "name": "Bright Kettle Kitchen (synthetic)",
+      "price_per_person": 31,
+      "capacity": 54,
+      "miles_to_hotel": 4.28,
+      "miles_to_stadium": 4,
+      "cuisine": "Comfort food",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-1",
+      "city": "Muncie",
+      "name": "Greenline Bowls (synthetic)",
+      "price_per_person": 22,
+      "capacity": 113,
+      "miles_to_hotel": 5.11,
+      "miles_to_stadium": 2.69,
+      "cuisine": "Grain bowls",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-2",
+      "city": "Muncie",
+      "name": "Copper Pot Pasta (synthetic)",
+      "price_per_person": 25,
+      "capacity": 111,
+      "miles_to_hotel": 3.11,
+      "miles_to_stadium": 6.33,
+      "cuisine": "Italian",
+      "dietary_options": [
+        "none",
+        "gluten_free"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-3",
+      "city": "Muncie",
+      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "price_per_person": 19,
+      "capacity": 124,
+      "miles_to_hotel": 2.43,
+      "miles_to_stadium": 1.81,
+      "cuisine": "Southern",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-4",
+      "city": "Muncie",
+      "name": "Bright Kettle Kitchen (synthetic)",
+      "price_per_person": 22,
+      "capacity": 129,
+      "miles_to_hotel": 0.51,
+      "miles_to_stadium": 4.06,
+      "cuisine": "Comfort food",
+      "dietary_options": [
+        "none",
+        "gluten_free"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-5",
+      "city": "Muncie",
+      "name": "Ember & Oak Grill (synthetic)",
+      "price_per_person": 12,
+      "capacity": 129,
+      "miles_to_hotel": 1.93,
+      "miles_to_stadium": 5.43,
+      "cuisine": "American grill",
+      "dietary_options": [
+        "none",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-MUN-6",
+      "city": "Muncie",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 27,
+      "capacity": 39,
+      "miles_to_hotel": 2.23,
+      "miles_to_stadium": 4.86,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-1",
+      "city": "Oxford",
+      "name": "Harvest Table (synthetic)",
+      "price_per_person": 29,
+      "capacity": 113,
+      "miles_to_hotel": 4.55,
+      "miles_to_stadium": 1.72,
+      "cuisine": "Buffet",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "nut_allergy",
+        "vegetarian"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-2",
+      "city": "Oxford",
+      "name": "Saffron Garden (synthetic)",
+      "price_per_person": 30,
+      "capacity": 98,
+      "miles_to_hotel": 2.44,
+      "miles_to_stadium": 3.29,
+      "cuisine": "Indian",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-3",
+      "city": "Oxford",
+      "name": "Iron Skillet Diner (synthetic)",
+      "price_per_person": 23,
+      "capacity": 146,
+      "miles_to_hotel": 5.22,
+      "miles_to_stadium": 3.82,
+      "cuisine": "Diner",
+      "dietary_options": [
+        "none",
+        "vegetarian"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-4",
+      "city": "Oxford",
+      "name": "Greenline Bowls (synthetic)",
+      "price_per_person": 32,
+      "capacity": 105,
+      "miles_to_hotel": 4.71,
+      "miles_to_stadium": 0.89,
+      "cuisine": "Grain bowls",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-5",
+      "city": "Oxford",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 32,
+      "capacity": 151,
+      "miles_to_hotel": 5,
+      "miles_to_stadium": 7.27,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-OXF-6",
+      "city": "Oxford",
+      "name": "Ember & Oak Grill (synthetic)",
+      "price_per_person": 18,
+      "capacity": 31,
+      "miles_to_hotel": 0.87,
+      "miles_to_stadium": 2.43,
+      "cuisine": "American grill",
+      "dietary_options": [
+        "none",
+        "vegetarian"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-1",
+      "city": "Athens",
+      "name": "Northside Taqueria (synthetic)",
+      "price_per_person": 33,
+      "capacity": 104,
+      "miles_to_hotel": 0.86,
+      "miles_to_stadium": 3.76,
+      "cuisine": "Mexican",
+      "dietary_options": [
+        "none",
+        "nut_allergy",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-2",
+      "city": "Athens",
+      "name": "Saffron Garden (synthetic)",
+      "price_per_person": 21,
+      "capacity": 95,
+      "miles_to_hotel": 0.71,
+      "miles_to_stadium": 1.66,
+      "cuisine": "Indian",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-3",
+      "city": "Athens",
+      "name": "Iron Skillet Diner (synthetic)",
+      "price_per_person": 28,
+      "capacity": 109,
+      "miles_to_hotel": 5.41,
+      "miles_to_stadium": 5.48,
+      "cuisine": "Diner",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-4",
+      "city": "Athens",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 24,
+      "capacity": 107,
+      "miles_to_hotel": 1.43,
+      "miles_to_stadium": 7.6,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "gluten_free"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-5",
+      "city": "Athens",
+      "name": "Harvest Table (synthetic)",
+      "price_per_person": 15,
+      "capacity": 159,
+      "miles_to_hotel": 4.33,
+      "miles_to_stadium": 6.46,
+      "cuisine": "Buffet",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-ATH-6",
+      "city": "Athens",
+      "name": "Big Field Smokehouse (synthetic)",
+      "price_per_person": 21,
+      "capacity": 45,
+      "miles_to_hotel": 3.19,
+      "miles_to_stadium": 3.9,
+      "cuisine": "BBQ",
+      "dietary_options": [
+        "none",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-BUF-1",
+      "city": "Buffalo",
+      "name": "Harvest Table (synthetic)",
+      "price_per_person": 31,
+      "capacity": 135,
+      "miles_to_hotel": 4.05,
+      "miles_to_stadium": 6.12,
+      "cuisine": "Buffet",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-BUF-2",
+      "city": "Buffalo",
+      "name": "Two Rivers Deli (synthetic)",
+      "price_per_person": 18,
+      "capacity": 129,
+      "miles_to_hotel": 1.29,
+      "miles_to_stadium": 1.32,
+      "cuisine": "Deli / boxed meals",
+      "dietary_options": [
+        "none"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-BUF-3",
+      "city": "Buffalo",
+      "name": "Copper Pot Pasta (synthetic)",
+      "price_per_person": 27,
+      "capacity": 128,
+      "miles_to_hotel": 6.05,
+      "miles_to_stadium": 0.86,
+      "cuisine": "Italian",
+      "dietary_options": [
+        "none",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-BUF-4",
+      "city": "Buffalo",
+      "name": "Northside Taqueria (synthetic)",
+      "price_per_person": 16,
+      "capacity": 129,
+      "miles_to_hotel": 2.41,
+      "miles_to_stadium": 5.08,
+      "cuisine": "Mexican",
+      "dietary_options": [
+        "none"
+      ],
+      "group_friendly": true,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-BUF-5",
+      "city": "Buffalo",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 34,
+      "capacity": 41,
+      "miles_to_hotel": 1.13,
+      "miles_to_stadium": 6.92,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": false,
+      "route_stop": false
+    },
+    {
+      "restaurant_id": "R-CMH-1",
+      "city": "Columbus",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 32,
+      "capacity": 134,
+      "miles_to_hotel": 5.37,
+      "miles_to_stadium": 0.71,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-CMH-2",
+      "city": "Columbus",
+      "name": "Two Rivers Deli (synthetic)",
+      "price_per_person": 26,
+      "capacity": 137,
+      "miles_to_hotel": 3.28,
+      "miles_to_stadium": 3.35,
+      "cuisine": "Deli / boxed meals",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": false,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-CMH-3",
+      "city": "Columbus",
+      "name": "Ember & Oak Grill (synthetic)",
+      "price_per_person": 30,
+      "capacity": 90,
+      "miles_to_hotel": 0.83,
+      "miles_to_stadium": 0.64,
+      "cuisine": "American grill",
+      "dietary_options": [
+        "none",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-CMH-4",
+      "city": "Columbus",
+      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "price_per_person": 33,
+      "capacity": 52,
+      "miles_to_hotel": 5.47,
+      "miles_to_stadium": 3.88,
+      "cuisine": "Southern",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-ERI-1",
+      "city": "Erie",
+      "name": "Lakeshore Pizza Co. (synthetic)",
+      "price_per_person": 18,
+      "capacity": 105,
+      "miles_to_hotel": 2.72,
+      "miles_to_stadium": 8.17,
+      "cuisine": "Pizza",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-ERI-2",
+      "city": "Erie",
+      "name": "Greenline Bowls (synthetic)",
+      "price_per_person": 19,
+      "capacity": 143,
+      "miles_to_hotel": 3.91,
+      "miles_to_stadium": 3.35,
+      "cuisine": "Grain bowls",
+      "dietary_options": [
+        "none",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-ERI-3",
+      "city": "Erie",
+      "name": "Copper Pot Pasta (synthetic)",
+      "price_per_person": 31,
+      "capacity": 95,
+      "miles_to_hotel": 1.07,
+      "miles_to_stadium": 1.9,
+      "cuisine": "Italian",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "nut_allergy"
+      ],
+      "group_friendly": true,
+      "route_stop": true
+    },
+    {
+      "restaurant_id": "R-ERI-4",
+      "city": "Erie",
+      "name": "Hilltop Chicken & Biscuits (synthetic)",
+      "price_per_person": 21,
+      "capacity": 30,
+      "miles_to_hotel": 1.27,
+      "miles_to_stadium": 3.73,
+      "cuisine": "Southern",
+      "dietary_options": [
+        "none",
+        "vegetarian",
+        "gluten_free"
+      ],
+      "group_friendly": false,
+      "route_stop": true
+    }
+  ]
+}

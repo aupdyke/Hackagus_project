@@ -1,0 +1,303 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": [
+    {
+      "id": "S-001",
+      "first_name": "Yates",
+      "last_name": "Aldane",
+      "role": "Head Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0100",
+      "travels_by_default": true,
+      "key_contact": true
+    },
+    {
+      "id": "S-002",
+      "first_name": "Quinn",
+      "last_name": "Driftwood",
+      "role": "Offensive Coordinator",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0101",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-003",
+      "first_name": "Koa",
+      "last_name": "Elsworth",
+      "role": "Defensive Coordinator",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0102",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-004",
+      "first_name": "Xavi",
+      "last_name": "Kettering",
+      "role": "Special Teams Coordinator",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0103",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-005",
+      "first_name": "Xavi",
+      "last_name": "Fairbank",
+      "role": "Quarterbacks Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0104",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-006",
+      "first_name": "Amari",
+      "last_name": "Juniper",
+      "role": "Running Backs Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0105",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-007",
+      "first_name": "Dorian",
+      "last_name": "Ironside",
+      "role": "Wide Receivers Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0106",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-008",
+      "first_name": "Casey",
+      "last_name": "Birchfield",
+      "role": "Tight Ends Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0107",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-009",
+      "first_name": "Ulric",
+      "last_name": "Quarry",
+      "role": "Offensive Line Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0108",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-010",
+      "first_name": "Finnick",
+      "last_name": "Redfern",
+      "role": "Defensive Line Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0109",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-011",
+      "first_name": "Reese",
+      "last_name": "Juniper",
+      "role": "Linebackers Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0110",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-012",
+      "first_name": "Cyrus",
+      "last_name": "Ironside",
+      "role": "Defensive Backs Coach",
+      "category": "coach",
+      "department": "Coaching",
+      "phone": "(419) 555-0111",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-013",
+      "first_name": "Hayes",
+      "last_name": "Galloway",
+      "role": "Head Athletic Trainer",
+      "category": "support",
+      "department": "Athletic Training",
+      "phone": "(419) 555-0112",
+      "travels_by_default": true,
+      "key_contact": true
+    },
+    {
+      "id": "S-014",
+      "first_name": "Vance",
+      "last_name": "Quarry",
+      "role": "Assistant Athletic Trainer",
+      "category": "support",
+      "department": "Athletic Training",
+      "phone": "(419) 555-0113",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-015",
+      "first_name": "Dax",
+      "last_name": "Larkspur",
+      "role": "Assistant Athletic Trainer",
+      "category": "support",
+      "department": "Athletic Training",
+      "phone": "(419) 555-0114",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-016",
+      "first_name": "Marek",
+      "last_name": "Brightwater",
+      "role": "Team Physician",
+      "category": "support",
+      "department": "Medical",
+      "phone": "(419) 555-0115",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-017",
+      "first_name": "Idris",
+      "last_name": "Emberly",
+      "role": "Equipment Manager",
+      "category": "support",
+      "department": "Equipment",
+      "phone": "(419) 555-0116",
+      "travels_by_default": true,
+      "key_contact": true
+    },
+    {
+      "id": "S-018",
+      "first_name": "Milo",
+      "last_name": "Larkspur",
+      "role": "Assistant Equipment Manager",
+      "category": "support",
+      "department": "Equipment",
+      "phone": "(419) 555-0117",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-019",
+      "first_name": "Nico",
+      "last_name": "Thistlewood",
+      "role": "Assistant Equipment Manager",
+      "category": "support",
+      "department": "Equipment",
+      "phone": "(419) 555-0118",
+      "travels_by_default": false,
+      "key_contact": false
+    },
+    {
+      "id": "S-020",
+      "first_name": "Lennox",
+      "last_name": "Hartwell",
+      "role": "Director of Football Operations",
+      "category": "support",
+      "department": "Operations",
+      "phone": "(419) 555-0119",
+      "travels_by_default": true,
+      "key_contact": true
+    },
+    {
+      "id": "S-021",
+      "first_name": "Gideon",
+      "last_name": "Yarrow",
+      "role": "Assistant Director of Operations",
+      "category": "support",
+      "department": "Operations",
+      "phone": "(419) 555-0120",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-022",
+      "first_name": "Morgan",
+      "last_name": "Aldane",
+      "role": "Director of Strength & Conditioning",
+      "category": "support",
+      "department": "Strength",
+      "phone": "(419) 555-0121",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-023",
+      "first_name": "Lennox",
+      "last_name": "Birchfield",
+      "role": "Assistant Strength Coach",
+      "category": "support",
+      "department": "Strength",
+      "phone": "(419) 555-0122",
+      "travels_by_default": false,
+      "key_contact": false
+    },
+    {
+      "id": "S-024",
+      "first_name": "Milo",
+      "last_name": "Zephyr",
+      "role": "Football Communications Director",
+      "category": "support",
+      "department": "Communications",
+      "phone": "(419) 555-0123",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-025",
+      "first_name": "Yates",
+      "last_name": "Juniper",
+      "role": "Video Coordinator",
+      "category": "support",
+      "department": "Operations",
+      "phone": "(419) 555-0124",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-026",
+      "first_name": "Cyrus",
+      "last_name": "Birchfield",
+      "role": "Sports Dietitian",
+      "category": "support",
+      "department": "Medical",
+      "phone": "(419) 555-0125",
+      "travels_by_default": true,
+      "key_contact": false
+    },
+    {
+      "id": "S-027",
+      "first_name": "Jory",
+      "last_name": "Driftwood",
+      "role": "Academic Coordinator",
+      "category": "support",
+      "department": "Academics",
+      "phone": "(419) 555-0126",
+      "travels_by_default": false,
+      "key_contact": false
+    }
+  ]
+}

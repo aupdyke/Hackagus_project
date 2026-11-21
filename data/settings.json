@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": {
+    "seats_per_bus_override": null,
+    "player_room_occupancy": 2,
+    "coach_room_occupancy": 1,
+    "support_room_occupancy": 2,
+    "meal_allowance_per_meal": 28,
+    "avg_bus_mph": 55,
+    "departure_buffer_min": 30,
+    "min_hours_arrival_before_kickoff": 3,
+    "min_hours_meal_before_kickoff": 3,
+    "latest_hotel_arrival": "23:00",
+    "contingency_pct": 8,
+    "season_travel_budget": 165000,
+    "default_bus_company_id": "BUS-1",
+    "roommate_request_deadline_days_before": 3,
+    "packing_list": [
+      "Travel polo + game-day suit",
+      "Student ID",
+      "Phone + charger",
+      "Course materials for study hall",
+      "Medications (tell athletic training first)",
+      "Toiletries",
+      "Sleepwear",
+      "Headphones",
+      "Cleats & personal gear go on the equipment truck by Thursday 6 PM"
+    ]
+  }
+}

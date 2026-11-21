@@ -1,0 +1,64 @@
+/**
+ * Streamed trip memo (Level 2, Aivana streaming). Code builds the itinerary + facts; the model writes prose
+ * only from FACTS. We relay deltas to the phone as SSE and run the fact guard after the stream finishes.
+ * Task A-08 replaces `basicFacts` with `memoFacts` (shared) + real fact-guard flagging.
+ */
+import type { Response } from 'express';
+import { FACTS_RULE, FRIENDLY_ERROR, NotImplementedError, factGuard, formatDayTime, memoFacts, type Game, type TravelPackage, type Trip } from '@falcon/shared';
+import { streamText } from '../aivana/client';
+import { AiError } from '../aivana/errors';
+import { sse } from '../http';
+import { repo } from '../repo';
+
+export const MEMO_SYSTEM = `You write a short travel memo in Markdown for football coaches and staff: a 1-line summary, an "Itinerary" list, and "Notes" (max 4 bullets). Under 250 words. Copy times and names exactly from FACTS. ${FACTS_RULE}`;
+
+/** Phase-0 facts (compact). A-08 swaps in shared `memoFacts` which also returns AllowedFacts for the guard. */
+function basicFacts(game: Game, pkg: TravelPackage) {
+  return {
+    opponent: game.opponent,
+    city: `${game.city}, ${game.state}`,
+    kickoff: formatDayTime(`${game.date}T${game.kickoff_local}`),
+    option_id: pkg.option_id,
+    hotel: pkg.hotel_name,
+    travelers: pkg.counts.travelers,
+    buses: pkg.counts.buses,
+    itinerary: pkg.itinerary.map((i) => ({ id: i.id, time: formatDayTime(i.start_local), what: i.label, where: i.location })),
+  };
+}
+
+export async function streamMemo(res: Response, trip: Trip, game: Game, pkg: TravelPackage, signal: AbortSignal) {
+  const out = sse(res);
+  let facts: unknown;
+  let allowed: Parameters<typeof factGuard>[1] | null = null;
+  try {
+    const f = memoFacts(game, trip.request!, pkg);
+    facts = f.facts;
+    allowed = f.allowed;
+  } catch (e) {
+    if (!(e instanceof NotImplementedError)) throw e;
+    facts = basicFacts(game, pkg);
+  }
+  try {
+    const { text, meta } = await streamText(
+      { feature: 'memo', system: MEMO_SYSTEM, prompt: `FACTS: ${JSON.stringify(facts)}`, max_tokens: 700, temperature: 0.3, signal },
+      (delta) => out.send({ type: 'delta', text: delta }),
+    );
+    let unverified: string[] = [];
+    if (allowed) {
+      try {
+        unverified = factGuard(text, allowed).bad_sentences;
+      } catch (e) {
+        if (!(e instanceof NotImplementedError)) throw e;
+      }
+    }
+    const latest = repo.trips.get(trip.trip_id) ?? trip;
+    repo.trips.save({ ...latest, memo: { markdown: text, generated_at: new Date().toISOString(), option_id: pkg.option_id, unverified_sentences: unverified } });
+    out.send({ type: 'done', finish_reason: meta.finish_reason, unverified_sentences: unverified });
+  } catch (e) {
+    if (signal.aborted) return out.end();
+    const code = e instanceof AiError ? e.code : 'internal';
+    const message = e instanceof AiError ? FRIENDLY_ERROR[e.code] : 'Memo failed';
+    out.send({ type: 'error', code, message });
+  }
+  out.end();
+}

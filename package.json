@@ -1,0 +1,33 @@
+{
+  "name": "falcon-travel",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Falcon Travel — BGSU away-game & season travel planner (2026 BGSU Hackathon)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,mobile -c yellow,cyan \"npm run dev -w @falcon/server\" \"npm run start -w @falcon/mobile\"",
+    "dev:mock": "cross-env AIVANA_MOCK=1 npm run dev",
+    "dev:server": "npm run dev -w @falcon/server",
+    "dev:mobile": "npm run start -w @falcon/mobile",
+    "test": "node scripts/vitest.mjs run",
+    "test:watch": "node scripts/vitest.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "data:generate": "tsx data/generate.ts",
+    "accuracy": "tsx tests/accuracy/run.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "concurrently": "^10.0.7",
+    "cross-env": "^10.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module"
+}

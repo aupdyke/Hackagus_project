@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": [
+    {
+      "trip_id": "TRIP-G02",
+      "bus": 9184.5,
+      "equipment": 1205,
+      "hotel": 9031.2,
+      "meals": 6894,
+      "other": 412.75,
+      "notes": "Synthetic actuals. Bus fuel surcharge added.",
+      "entered_at": "2026-10-06T15:20:00.000Z"
+    },
+    {
+      "trip_id": "TRIP-G04",
+      "bus": 9622,
+      "equipment": 1310,
+      "hotel": 10248.9,
+      "meals": 7380.4,
+      "other": 260,
+      "notes": "Synthetic actuals. Extra room for team physician.",
+      "entered_at": "2026-10-20T14:05:00.000Z"
+    }
+  ]
+}
