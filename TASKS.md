@@ -18,7 +18,7 @@ Every track lists its L1 tasks first. ⭐ = on the demo critical path.
 | - [x] | ⭐ [A-06](tasks/A-06.md) | Reliability: hardening, AI fallbacks, L1 server tests | L1 | 60m | A-03 |
 | - [x] | ⭐ [A-07](tasks/A-07.md) | What-if chat: structured patch → recompute → diff | L2 | 90m | A-03, A-04 |
 | - [x] | ⭐ [A-08](tasks/A-08.md) | Memo facts + fact-guard flags for streaming | L2 | 45m | A-03, A-04 |
-| - [ ] | [A-09](tasks/A-09.md) | Risk flags | L3 | 60m | A-02, A-03 |
+| - [x] | [A-09](tasks/A-09.md) | Risk flags | L3 | 60m | A-02, A-03 |
 | - [ ] | ⭐ [A-10](tasks/A-10.md) | Rooming + bus manifest (+ roommate deadline) | L3 | 90m | A-01, A-03 |
 | - [ ] | ⭐ [A-11](tasks/A-11.md) | Travel packet HTML + share page | L3/EXT | 75m | A-10 |
 | - [ ] | [A-12](tasks/A-12.md) | Budget vs actual | L3 | 45m | A-03 |

@@ -74,6 +74,8 @@ interface Mention {
   index: number;
   ok: (a: AllowedFacts) => boolean;
   issue: string;
+  /** adds this mention's value to `f` (used by factsFromText for trusted code text) */
+  allow?: (f: AllowedFacts) => void;
 }
 
 const UNIT_RE = '(%|percent|miles?|minutes?|mins?|mi|hours?|hrs?|h|rooms?|busses|buses|bus|players?|coach(?:es)?|staff|travell?ers?|nights?|meals?)';
@@ -91,7 +93,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
   // IDs
   {
     re: /\b(PKG-[A-Z0-9]+-[A-Z]|SAV-\d+|IT-\d+|ML-\d+|[HR]-[A-Z]{3}-\d+|F-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*)\b/g,
-    make: (m) => ({ kind: 'id', ok: (a) => a.ids.includes(m[1]!), issue: `${m[1]} is not a known id` }),
+    make: (m) => ({ kind: 'id', ok: (a) => a.ids.includes(m[1]!), issue: `${m[1]} is not a known id`, allow: (f) => void f.ids.push(m[1]!) }),
   },
   // Money: $1,234 · $1,234.56 · $9.8k · $12K
   {
@@ -100,7 +102,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
       const base = num(m[1]!) + (m[2] ? Number(m[2]) : 0);
       const k = !!m[3];
       const v = k ? base * 1000 : base;
-      return { kind: 'money', ok: (a) => (k ? a.money.some((x) => Math.abs(v - Math.abs(x)) <= Math.abs(x) * 0.01 + 1e-9) : near(v, a.money, 1)), issue: `${m[0].trim()} is not in the facts` };
+      return { kind: 'money', ok: (a) => (k ? a.money.some((x) => Math.abs(v - Math.abs(x)) <= Math.abs(x) * 0.01 + 1e-9) : near(v, a.money, 1)), issue: `${m[0].trim()} is not in the facts`, allow: (f) => void f.money.push(v) };
     },
   },
   // ISO date (optionally followed by a THH:MM time)
@@ -113,6 +115,10 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
         kind: 'date',
         ok: (a) => a.dates.includes(date) && (time === null || timeOk(a, time)),
         issue: `${m[0]} is not in the facts`,
+        allow: (f) => {
+          f.dates.push(date);
+          if (time) f.times.push(time);
+        },
       };
     },
   },
@@ -123,7 +129,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
       const month = MONTHS[m[1]!.slice(0, 3).toLowerCase()]!;
       const day = Number(m[2]);
       const year = m[3] ? Number(m[3]) : null;
-      return { kind: 'date', ok: (a) => dateOk(a, month, day, year), issue: `${m[0]} is not in the facts` };
+      return { kind: 'date', ok: (a) => dateOk(a, month, day, year), issue: `${m[0]} is not in the facts`, allow: year ? (f) => void f.dates.push(`${year}-${pad2(month)}-${pad2(day)}`) : undefined };
     },
   },
   // Numeric date: 11/28 · 11/28/2026
@@ -131,7 +137,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
     re: /(?<![\d/])(1[0-2]|0?[1-9])\/(3[01]|[12]\d|0?[1-9])(?:\/(\d{4}|\d{2}))?(?![\d/])/g,
     make: (m) => {
       const year = m[3] ? (m[3].length === 2 ? 2000 + Number(m[3]) : Number(m[3])) : null;
-      return { kind: 'date', ok: (a) => dateOk(a, Number(m[1]), Number(m[2]), year), issue: `${m[0]} is not in the facts` };
+      return { kind: 'date', ok: (a) => dateOk(a, Number(m[1]), Number(m[2]), year), issue: `${m[0]} is not in the facts`, allow: year ? (f) => void f.dates.push(`${year}-${pad2(Number(m[1]))}-${pad2(Number(m[2]))}`) : undefined };
     },
   },
   // 12-hour time: 2 PM · 2:30 p.m.
@@ -141,7 +147,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
       let h = Number(m[1]) % 12;
       if (m[3]!.toLowerCase() === 'p') h += 12;
       const hhmm = `${pad2(h)}:${m[2] ?? '00'}`;
-      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${m[0].trim()} is not in the facts` };
+      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${m[0].trim()} is not in the facts`, allow: (f) => void f.times.push(hhmm) };
     },
   },
   // 24-hour time: 14:30
@@ -149,7 +155,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
     re: /(?<![\d:])([01]?\d|2[0-3]):([0-5]\d)(?![\d:])/g,
     make: (m) => {
       const hhmm = `${pad2(Number(m[1]))}:${m[2]}`;
-      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${m[0]} is not in the facts` };
+      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `${m[0]} is not in the facts`, allow: (f) => void f.times.push(hhmm) };
     },
   },
   // noon / midnight
@@ -157,7 +163,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
     re: /\b(noon|midnight)\b/gi,
     make: (m) => {
       const hhmm = m[1]!.toLowerCase() === 'noon' ? '12:00' : '00:00';
-      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `"${m[0]}" (${hhmm}) is not in the facts` };
+      return { kind: 'time', ok: (a) => timeOk(a, hhmm), issue: `"${m[0]}" (${hhmm}) is not in the facts`, allow: (f) => void f.times.push(hhmm) };
     },
   },
   // Quantities: 400 miles · 3.6 hours · three buses · 2-night · 8%
@@ -172,6 +178,7 @@ const EXTRACTORS: { re: RegExp; make: (m: RegExpExecArray) => Omit<Mention, 'raw
         kind: 'quantity',
         ok: (a) => near(v, allowedQuantities(a, unit), tol),
         issue: `${m[0]} is not in the facts`,
+        allow: (f) => void (f.quantities[unit] ??= []).push(v),
       };
     },
   },
@@ -239,6 +246,16 @@ export function factGuard(text: string, allowed: AllowedFacts): FactGuardResult 
 }
 
 // ---------- building allowed facts ----------
+
+/**
+ * Allowed facts taken FROM trusted, code-generated text (e.g. risk-flag messages we put in FACTS), so a model that
+ * quotes them verbatim is not flagged. Never call this on model output.
+ */
+export function factsFromText(text: string): AllowedFacts {
+  const f = emptyFacts();
+  for (const m of extract(text)) m.allow?.(f);
+  return mergeFacts(f);
+}
 
 const uniq = <T>(xs: T[]) => [...new Set(xs)];
 

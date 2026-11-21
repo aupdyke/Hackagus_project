@@ -111,7 +111,7 @@ export function buildPackages(req: TripRequest, game: Game, data: PlanningData, 
 
     let risk_flags: TravelPackage['risk_flags'] = [];
     try {
-      risk_flags = computeRiskFlags(base, { game, hotel, settings, request: req, seasonShare: opts.seasonShare });
+      risk_flags = computeRiskFlags(base, { game, hotel, settings, request: req, seasonShare: opts.seasonShare, travelerDiets });
     } catch (e) {
       if (!(e instanceof NotImplementedError)) throw e;
     }

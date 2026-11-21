@@ -151,3 +151,17 @@ subtotal and total shown. Traveler selection breaks ties by `id`, clamps N to â‰
   event and the saved `trip.memo` use the same `unverified_sentences` list.
 - **Flag, don't replace:** a streamed memo isn't regenerated. Unverified sentences are flagged for the app to highlight,
   per the task; unlike recommend and what-if, its prose is never replaced.
+
+## D-22 Risk flag rules (A-09)
+- **late_hotel_arrival:** compares against `latest_hotel_arrival` on the *departure* date. An after-midnight arrival is
+  flagged with the day shown.
+- **arrival_close_to_kickoff:** the destination is arrive_hotel (overnight), else arrive_stadium (same-day).
+- **meal_close_to_kickoff:** warns under the minimum, and also within +30 min of it (`MEAL_MARGIN_H`). The A-02 itinerary
+  ends the pre-game meal at minimum + 15 min, so every package carries this one warning by design, matching the
+  contract fixture. It doesn't change the ranking between options.
+- **dietary_gap:** "N travelers affected" needs the traveling players' diets. `RiskContext.travelerDiets` was added and
+  `buildPackages` passes it; without it, the message omits the count.
+- **Boxed meal name:** meals riding on depart_return are called "Post-game boxed meal" in messages.
+- **over_cap for bus:** compares bus + equipment against the bus cap.
+- **`factsFromText(text)`** (shared fact guard): builds allowed facts from trusted code text. `memoFacts` uses it so a
+  memo that quotes risk messages verbatim ("3.25 hours") is not flagged. Never call it on model output.

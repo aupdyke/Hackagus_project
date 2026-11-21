@@ -3,7 +3,7 @@
  * A-16 (savings). Keep these small: counts and per-option numbers only, never the roster.
  */
 import type { Game, Hotel, Recommendation, SavingsCandidate, TravelPackage, TripRequest } from '../domain';
-import { emptyFacts, factsFromPackages, mergeFacts, type AllowedFacts } from './factGuard';
+import { emptyFacts, factsFromPackages, factsFromText, mergeFacts, type AllowedFacts } from './factGuard';
 import { NotImplementedError } from '../errors';
 import { formatUSD, round2 } from './money';
 import { formatDayTime } from './time';
@@ -156,7 +156,8 @@ export function memoFacts(game: Game, _req: TripRequest, pkg: TravelPackage): { 
     extra.dates.push(i.start_local.slice(0, 10));
   }
   extra.quantities.meal = [pkg.meals.length];
-  return { facts, allowed: mergeFacts(factsFromPackages([pkg]), extra) };
+  // Risk messages are code text we put in FACTS; let the memo quote their numbers verbatim.
+  return { facts, allowed: mergeFacts(factsFromPackages([pkg]), extra, factsFromText(pkg.risk_flags.map((f) => f.message).join('\n'))) };
 }
 
 // ---------- A-16 (not yet implemented) ----------
