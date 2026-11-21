@@ -1,0 +1,109 @@
+/**
+ * Student-athlete side. Every route is scoped to :id (selfOnly middleware) — an athlete only ever gets
+ * their own slice. NOT authentication (see README): the role switch is a demo picker.
+ */
+import { Router } from 'express';
+import { diffAthleteViews, fixtures, selectTravelingPlayers, NotImplementedError, type Trip } from '@falcon/shared';
+import { badRequest, conflict, isStub, notFound, selfOnly } from '../http';
+import { pack, playerById, playerName } from '../data';
+import { repo } from '../repo';
+import { on } from './_define';
+import { requireGame, requireTrip } from './helpers';
+
+export const athletesRouter = Router();
+athletesRouter.use('/athletes/:id', selfOnly);
+
+const requireAthlete = (id: string) => {
+  const p = playerById(id);
+  if (!p) throw notFound(`athlete ${id}`);
+  return p;
+};
+
+/** Players on a trip's travel roster: stored ids once published, else the projected squad for the request. */
+export function travelRosterIds(trip: Trip): string[] {
+  if (trip.traveling_player_ids.length) return trip.traveling_player_ids;
+  const n = trip.request?.players ?? pack.roster.filter((p) => p.default_travel).length;
+  try {
+    return selectTravelingPlayers(pack.roster, n).map((p) => p.id);
+  } catch (e) {
+    if (!(e instanceof NotImplementedError)) throw e;
+    return pack.roster.filter((p) => p.default_travel).map((p) => p.id); // until A-01
+  }
+}
+
+on(athletesRouter, 'listAthletes', () =>
+  pack.roster.map(({ id, first_name, last_name, jersey, position, position_group, class_year }) => ({ id, first_name, last_name, jersey, position, position_group, class_year })),
+);
+
+// TODO(A-13): real AthleteTripView from the latest published version (buildAthleteView).
+on(athletesRouter, 'myTrip', ({ params, res }) => {
+  const p = requireAthlete(params.id!);
+  const open = repo.trips.list()
+    .filter((t) => (t.status === 'draft' || t.status === 'approved') && t.roommate_deadline_local && travelRosterIds(t).includes(p.id))
+    .map((t) => ({ trip_id: t.trip_id, opponent: requireGame(t.game_id).opponent, deadline_local: t.roommate_deadline_local }));
+  res.setHeader('X-Fixture', 'A-13');
+  return {
+    athlete: { id: p.id, name: `${p.first_name} ${p.last_name}`, jersey: p.jersey, position: p.position },
+    trip: { ...fixtures.FIXTURE_ATHLETE_VIEW, athlete_id: p.id },
+    open_roommate_requests: open,
+  };
+});
+
+on(athletesRouter, 'travelRoster', ({ params }) => {
+  requireAthlete(params.id!);
+  const trip = requireTrip(params.tripId!);
+  const ids = travelRosterIds(trip);
+  if (!ids.includes(params.id!)) throw conflict('You are not on the travel roster for this trip');
+  return ids.filter((x) => x !== params.id).map((x) => {
+    const pl = playerById(x)!;
+    return { id: x, name: playerName(x), position_group: pl.position_group, class_year: pl.class_year };
+  });
+});
+
+on(athletesRouter, 'getRoommateRequest', ({ params }) => repo.roommateRequests.get(params.tripId!, params.id!));
+
+on(athletesRouter, 'roommateRequest', ({ params, body }) => {
+  requireAthlete(params.id!);
+  const trip = requireTrip(body.trip_id);
+  const roster = travelRosterIds(trip);
+  if (!roster.includes(params.id!)) throw conflict('You are not on the travel roster for this trip');
+  if (trip.status === 'published' || trip.status === 'completed') throw conflict('Rooming is final for this trip');
+  // deadline compared as local strings (YYYY-MM-DDTHH:MM sorts chronologically).
+  const nowLocal = new Date().toISOString().slice(0, 16);
+  if (trip.roommate_deadline_local && nowLocal > trip.roommate_deadline_local) throw conflict('The roommate request deadline has passed');
+  const ids = [...new Set(body.requested_ids)];
+  if (ids.includes(params.id!)) throw badRequest('You cannot request yourself');
+  const bad = ids.filter((x) => !roster.includes(x));
+  if (bad.length) throw badRequest(`Not on this trip's travel roster: ${bad.join(', ')}`);
+  const r = { athlete_id: params.id!, trip_id: trip.trip_id, requested_ids: ids, updated_at: new Date().toISOString() };
+  repo.roommateRequests.save(r);
+  return r;
+});
+
+// TODO(A-14): fact sheet + multi-turn structured assistant with citations + needs_staff.
+on(athletesRouter, 'assistant', ({ params, res }) => {
+  requireAthlete(params.id!);
+  res.setHeader('X-Fixture', 'A-14');
+  return fixtures.FIXTURE_ASSISTANT;
+});
+
+on(athletesRouter, 'notifications', ({ params, res }) => {
+  requireAthlete(params.id!);
+  const stored = repo.notifications.listFor(params.id!);
+  if (!stored.length && isStubDiff()) {
+    res.setHeader('X-Fixture', 'A-13');
+    return fixtures.FIXTURE_NOTIFICATIONS.map((n) => ({ ...n, athlete_id: params.id! }));
+  }
+  return stored;
+});
+
+on(athletesRouter, 'markNotificationsRead', ({ params, body }) => {
+  requireAthlete(params.id!);
+  repo.notifications.markRead(params.id!, body.ids);
+  return { ok: true as const };
+});
+
+/** While A-13 is unimplemented, the inbox shows fixture notifications so Track C can build the UI. */
+function isStubDiff() {
+  return isStub(() => diffAthleteViews(null, fixtures.FIXTURE_ATHLETE_VIEW));
+}

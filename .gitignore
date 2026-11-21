@@ -1,0 +1,29 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+build/
+coverage/
+*.log
+
+# server runtime data
+apps/server/var/
+
+# expo
+apps/mobile/.expo/
+apps/mobile/dist/
+apps/mobile/web-build/
+apps/mobile/ios/
+apps/mobile/android/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# accuracy harness raw scratch (results/latest.json IS committed)
+tests/accuracy/results/tmp-*
+
+.DS_Store
+Thumbs.db

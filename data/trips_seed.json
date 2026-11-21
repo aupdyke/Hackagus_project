@@ -1,0 +1,148 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": [
+    {
+      "trip_id": "TRIP-G02",
+      "game_id": "G02",
+      "status": "completed",
+      "request": {
+        "game_id": "G02",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_constraint": {
+          "kind": "none",
+          "datetime_local": "",
+          "raw_text": ""
+        },
+        "include_equipment_truck": true,
+        "caps": {
+          "lodging": null,
+          "meals": null,
+          "bus": null,
+          "total": null
+        },
+        "excluded_hotel_ids": [],
+        "preference": "none",
+        "notes": ""
+      },
+      "selected_tier": "A"
+    },
+    {
+      "trip_id": "TRIP-G04",
+      "game_id": "G04",
+      "status": "completed",
+      "request": {
+        "game_id": "G04",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_constraint": {
+          "kind": "none",
+          "datetime_local": "",
+          "raw_text": ""
+        },
+        "include_equipment_truck": true,
+        "caps": {
+          "lodging": null,
+          "meals": null,
+          "bus": null,
+          "total": null
+        },
+        "excluded_hotel_ids": [],
+        "preference": "none",
+        "notes": ""
+      },
+      "selected_tier": "B"
+    },
+    {
+      "trip_id": "TRIP-G06",
+      "game_id": "G06",
+      "status": "completed",
+      "request": {
+        "game_id": "G06",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_constraint": {
+          "kind": "none",
+          "datetime_local": "",
+          "raw_text": ""
+        },
+        "include_equipment_truck": true,
+        "caps": {
+          "lodging": null,
+          "meals": null,
+          "bus": null,
+          "total": null
+        },
+        "excluded_hotel_ids": [],
+        "preference": "none",
+        "notes": ""
+      },
+      "selected_tier": "A"
+    },
+    {
+      "trip_id": "TRIP-G08",
+      "game_id": "G08",
+      "status": "completed",
+      "request": {
+        "game_id": "G08",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_constraint": {
+          "kind": "none",
+          "datetime_local": "",
+          "raw_text": ""
+        },
+        "include_equipment_truck": true,
+        "caps": {
+          "lodging": null,
+          "meals": null,
+          "bus": null,
+          "total": null
+        },
+        "excluded_hotel_ids": [],
+        "preference": "none",
+        "notes": ""
+      },
+      "selected_tier": "B"
+    },
+    {
+      "trip_id": "TRIP-G10",
+      "game_id": "G10",
+      "status": "not_started",
+      "request": null,
+      "selected_tier": null
+    },
+    {
+      "trip_id": "TRIP-G12",
+      "game_id": "G12",
+      "status": "draft",
+      "request": {
+        "game_id": "G12",
+        "players": 70,
+        "coaches": 12,
+        "support_staff": 12,
+        "departure_constraint": {
+          "kind": "none",
+          "datetime_local": "",
+          "raw_text": ""
+        },
+        "include_equipment_truck": true,
+        "caps": {
+          "lodging": null,
+          "meals": null,
+          "bus": null,
+          "total": null
+        },
+        "excluded_hotel_ids": [],
+        "preference": "none",
+        "notes": "Long trip — consider Game-Ready."
+      },
+      "selected_tier": "C"
+    }
+  ]
+}

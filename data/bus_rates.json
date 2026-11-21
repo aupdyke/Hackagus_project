@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": [
+    {
+      "company_id": "BUS-1",
+      "name": "Maumee Valley Coachlines (synthetic)",
+      "phone": "(419) 555-0147",
+      "seats_per_bus": 56,
+      "daily_rate": 1450,
+      "per_mile_rate": 3.1,
+      "driver_room_required_overnight": true,
+      "equipment_truck_daily_rate": 650,
+      "equipment_truck_per_mile_rate": 1.85
+    },
+    {
+      "company_id": "BUS-2",
+      "name": "Great Black Swamp Charter (synthetic)",
+      "phone": "(419) 555-0148",
+      "seats_per_bus": 56,
+      "daily_rate": 1600,
+      "per_mile_rate": 2.75,
+      "driver_room_required_overnight": true,
+      "equipment_truck_daily_rate": 700,
+      "equipment_truck_per_mile_rate": 1.7
+    },
+    {
+      "company_id": "BUS-3",
+      "name": "Portage River Motorcoach (synthetic)",
+      "phone": "(419) 555-0149",
+      "seats_per_bus": 54,
+      "daily_rate": 1350,
+      "per_mile_rate": 3.4,
+      "driver_room_required_overnight": true,
+      "equipment_truck_daily_rate": 600,
+      "equipment_truck_per_mile_rate": 2
+    }
+  ]
+}

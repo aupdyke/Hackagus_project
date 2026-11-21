@@ -1,0 +1,17 @@
+{
+  "synthetic": true,
+  "note": "SYNTHETIC DATA for the 2026 BGSU Hackathon. All people, businesses, phone numbers and addresses are fictional. Distances and drive times are approximate.",
+  "data": {
+    "school": "Bowling Green State University",
+    "team_name": "BGSU Falcons",
+    "sport": "football",
+    "home_city": "Bowling Green",
+    "home_state": "OH",
+    "home_stadium": "Falcon Home Field (synthetic name)",
+    "colors": {
+      "primary": "#FE5000",
+      "secondary": "#4F2C1D"
+    },
+    "season": 2026
+  }
+}
